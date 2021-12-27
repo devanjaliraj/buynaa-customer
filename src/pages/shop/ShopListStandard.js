@@ -118,12 +118,12 @@ const ShopListStandard = ({ location, products }) => {
 
 ShopListStandard.propTypes = {
   location: PropTypes.object,
-  products: PropTypes.array
+  products: PropTypes.array,
 };
 
 const mapStateToProps = state => {
   return {
-    products: state.productData.products
+    products: state.productData.products,
   };
 };
 

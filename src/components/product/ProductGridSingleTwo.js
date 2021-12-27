@@ -14,6 +14,7 @@ const ProductGridSingleTwo = ({
   addToCompare,
   cartItem,
   wishlistItem,
+  discountedPrice,
   compareItem,
   sliderClassName,
   spaceBottomClass,
@@ -22,23 +23,37 @@ const ProductGridSingleTwo = ({
 }) => {
   const [modalShow, setModalShow] = useState(false);
   const { addToast } = useToasts();
-  const [users, setUsers] = useState([]);
-  const getUsers = async () => {
-    const res = await Axios.get("http://35.154.86.59/api/admin/getproduct")
-      .then(data => {
-        console.log(data);
-        console.log(data.data.data.data);
-        setUsers(data.data.data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-  useEffect(() => {
-    getUsers();
-  }, []);
+  // const [users, setUsers] = useState([]);
+  // const getUsers = async () => {
+  //   const res = await Axios.get("http://35.154.86.59/api/admin/getproduct")
+  //     .then(data => {
+  //       console.log(data);
+  //       console.log(data.data.data.data);
+  //       setUsers(data.data.data);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // };
+  // useEffect(() => {
+  //   getUsers();
+  // }, []);
 
-  const discountedPrice = getDiscountPrice(product.price, product.discount);
+  const [dress, setDress] = useState([]);
+
+  useEffect(() => {
+    getData();
+
+    async function getData() {
+      const response = await fetch("http://35.154.86.59/api/admin/getproduct");
+
+      const data = await response.json();
+
+      setDress(data.data);
+    }
+  }, [setDress]);
+
+  discountedPrice = getDiscountPrice(product.price, product.discount);
   const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
   const finalDiscountedPrice = +(
     discountedPrice * currency.currencyRate
@@ -46,29 +61,32 @@ const ProductGridSingleTwo = ({
 
   return (
     <Fragment>
-      <div
-        className={`col-xl-3 col-md-6 col-lg-4 col-sm-6 ${
-          sliderClassName ? sliderClassName : ""
-        }`}
-      >
-        {users?.map(product => (
+      {dress.map(product => (
+        <div
+          className={`col-xl-3 col-md-6 col-lg-4 col-sm-6 ${
+            sliderClassName ? sliderClassName : ""
+          }`}
+          key={product._id}
+        >
           <div
             className={`product-wrap-2 ${
               spaceBottomClass ? spaceBottomClass : ""
             } ${colorClass ? colorClass : ""} `}
           >
             <div className="product-img">
-              <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
+              <Link to={process.env.PUBLIC_URL + "/product/" + product._id}>
                 <img
                   className="default-img"
                   src={product.product_img[0]}
                   alt=""
+                  style={{ width: "200px", height: "250px" }}
                 />
 
                 <img
                   className="hover-img"
                   src={product.product_img[1]}
                   alt=""
+                  style={{ width: "200px", height: "250px" }}
                 />
               </Link>
               {/* {product.discount || product.new ? (
@@ -149,7 +167,7 @@ const ProductGridSingleTwo = ({
                 }`}
               >
                 <h3>
-                  <Link to={process.env.PUBLIC_URL + "/product/" + product.id}>
+                  <Link to={process.env.PUBLIC_URL + "/product/" + product._id}>
                     {product.product_name}
                   </Link>
                 </h3>
@@ -175,8 +193,8 @@ const ProductGridSingleTwo = ({
               </div>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
       {/* product modal */}
       <ProductModal
         show={modalShow}
