@@ -8,7 +8,7 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
 import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
 import ProductImageDescription from "../../wrappers/product/ProductImageDescription";
-import { useParams } from "react-router-dom";
+
 import axios from "axios";
 
 export class Product extends Component {
@@ -16,7 +16,7 @@ export class Product extends Component {
     super(props);
 
     this.state = {
-      data: {},
+      detail: {},
     };
   }
 
@@ -26,8 +26,7 @@ export class Product extends Component {
       .get(`http://35.154.86.59/api/admin/getoneproduct/${id}`)
       .then(response => {
         console.log(response.data.data);
-        console.log(response.data.data);
-        this.setState({ data: response.data.data });
+        this.setState({ detail: response.data.data });
       })
       .catch(error => {
         console.log(error);
@@ -57,16 +56,17 @@ export class Product extends Component {
           <Breadcrumb />
 
           {/* product description with image */}
+
           <ProductImageDescription
             spaceTopClass="pt-100"
             spaceBottomClass="pb-100"
-            product={this.state.data.product_img}
+            product={0}
           />
 
           {/* product description tab */}
           <ProductDescriptionTab
             spaceBottomClass="pb-90"
-            productFullDesc={this.state.data.short_desc}
+            productFullDesc={this.state.detail?.short_desc}
           />
 
           {/* related product slider */}
@@ -80,18 +80,18 @@ export class Product extends Component {
   }
 }
 
-Product.propTypes = {
-  location: PropTypes.object,
-  product: PropTypes.object,
-};
+// Product.propTypes = {
+//   location: PropTypes.object,
+//   product: PropTypes.object,
+// };
 
-const mapStateToProps = (state, ownProps) => {
-  const itemId = ownProps.match.params.id;
-  return {
-    product: state.productData.products.filter(
-      single => single.id === itemId
-    )[0],
-  };
-};
+// const mapStateToProps = (state, ownProps) => {
+//   const itemId = ownProps.match.params.id;
+//   return {
+//     product: state.productData.products.filter(
+//       single => single.id === itemId
+//     )[0],
+//   };
+// };
 
-export default connect(mapStateToProps)(Product);
+export default Product;
