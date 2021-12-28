@@ -1,41 +1,45 @@
+import Axios from "axios";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { Component } from "react";
 
-const productImageGallerySticky = ({ product }) => {
-  return (
-    <div className="product-large-image-wrapper product-large-image-wrapper--sticky">
-      {product.discount || product.new ? (
-        <div className="product-img-badges">
-          {product.discount ? (
-            <span className="pink">-{product.discount}%</span>
-          ) : (
-            ""
-          )}
-          {product.new ? <span className="purple">New</span> : ""}
+export class ProductImageGallerySticky extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      detail: {},
+    };
+  }
+
+  componentDidMount() {
+    let { id } = this.props.match.params;
+    Axios.get(`http://35.154.86.59/api/admin/getoneproduct/${id}`)
+      .then(response => {
+        console.log(response.data.data);
+        this.setState({ detail: response.data.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+  render() {
+    console.log(this.state.detail.product_img);
+    return (
+      <div className="product-large-image-wrapper product-large-image-wrapper--sticky">
+        <div className="product-sticky-image mb--10">
+          {this.state.detail?.product_img.map(single => (
+            <div className="product-sticky-image__single mb-10">
+              <img src={single} alt="" className="img-fluid" />
+            </div>
+          ))}
         </div>
-      ) : (
-        ""
-      )}
-      <div className="product-sticky-image mb--10">
-        {product.image &&
-          product.image.map((single, key) => {
-            return (
-              <div className="product-sticky-image__single mb-10" key={key}>
-                <img
-                  src={process.env.PUBLIC_URL + single}
-                  alt=""
-                  className="img-fluid"
-                />
-              </div>
-            );
-          })}
       </div>
-    </div>
-  );
+    );
+  }
+}
+
+ProductImageGallerySticky.propTypes = {
+  product: PropTypes.object,
 };
 
-productImageGallerySticky.propTypes = {
-  product: PropTypes.object
-};
-
-export default productImageGallerySticky;
+export default ProductImageGallerySticky;

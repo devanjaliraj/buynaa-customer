@@ -60,7 +60,7 @@ export class Product extends Component {
           <ProductImageDescription
             spaceTopClass="pt-100"
             spaceBottomClass="pb-100"
-            product={0}
+            product={[0]}
           />
 
           {/* product description tab */}

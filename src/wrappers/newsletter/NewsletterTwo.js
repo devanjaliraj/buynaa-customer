@@ -10,7 +10,7 @@ export class NewsletterTwo extends Component {
           style={{
             background: "#1877f2",
             marginTop: "-5rem",
-            marginLeft: "4rem",
+            marginLeft: "9rem",
             padding: "10px",
           }}
         >

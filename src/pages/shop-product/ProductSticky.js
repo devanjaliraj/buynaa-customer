@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, Component } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { connect } from "react-redux";
@@ -8,64 +8,87 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import RelatedProductSlider from "../../wrappers/product/RelatedProductSlider";
 import ProductDescriptionTab from "../../wrappers/product/ProductDescriptionTab";
 import ProductImageDescriptionSticky from "../../wrappers/product/ProductImageDescriptionSticky";
+import Axios from "axios";
 
-const ProductSticky = ({ location, product }) => {
-  const { pathname } = location;
+export class ProductSticky extends Component {
+  constructor(props) {
+    super(props);
 
-  return (
-    <Fragment>
-      <MetaTags>
-        <title>Flone | Product Page</title>
-        <meta
-          name="description"
-          content="Product page of flone react minimalist eCommerce template."
-        />
-      </MetaTags>
+    this.state = {
+      detail: {},
+    };
+  }
 
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Shop Product
-      </BreadcrumbsItem>
+  componentDidMount() {
+    let { id } = this.props.match.params;
+    Axios.get(`http://35.154.86.59/api/admin/getoneproduct/${id}`)
+      .then(response => {
+        console.log(response.data.data);
+        this.setState({ detail: response.data.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
-      <LayoutOne headerTop="visible">
-        {/* breadcrumb */}
-        <Breadcrumb />
+  render() {
+    return (
+      <Fragment>
+        <MetaTags>
+          <title>Flone | Product Page</title>
+          <meta
+            name="description"
+            content="Product page of flone react minimalist eCommerce template."
+          />
+        </MetaTags>
 
-        {/* product description with image */}
-        <ProductImageDescriptionSticky
-          spaceTopClass="mt-100"
-          spaceBottomClass="mb-100"
-          product={product}
-        />
+        <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>
+          Home
+        </BreadcrumbsItem>
+        <BreadcrumbsItem to={process.env.PUBLIC_URL}>
+          Shop Product
+        </BreadcrumbsItem>
 
-        {/* product description tab */}
-        <ProductDescriptionTab
-          spaceBottomClass="pb-90"
-          productFullDesc={product.fullDescription}
-        />
+        <LayoutOne headerTop="visible">
+          {/* breadcrumb */}
+          <Breadcrumb />
 
-        {/* related product slider */}
-        <RelatedProductSlider
-          spaceBottomClass="pb-95"
-          category={product.category[0]}
-        />
-      </LayoutOne>
-    </Fragment>
-  );
-};
+          {/* product description with image */}
+          {/* <ProductImageDescriptionSticky
+            spaceTopClass="mt-100"
+            spaceBottomClass="mb-100"
+            product="fjhfh"
+          /> */}
 
-ProductSticky.propTypes = {
-  location: PropTypes.object,
-  product: PropTypes.object
-};
+          {/* product description tab */}
+          <ProductDescriptionTab
+            spaceBottomClass="pb-90"
+            productFullDesc={this.state.detail?.short_desc}
+          />
 
-const mapStateToProps = (state, ownProps) => {
-  const itemId = ownProps.match.params.id;
-  return {
-    product: state.productData.products.filter(
-      single => single.id === itemId
-    )[0]
-  };
-};
+          {/* related product slider */}
+          {/* <RelatedProductSlider
+            spaceBottomClass="pb-95"
+            category={product.category[0]}
+          /> */}
+        </LayoutOne>
+      </Fragment>
+    );
+  }
+}
 
-export default connect(mapStateToProps)(ProductSticky);
+// ProductSticky.propTypes = {
+//   location: PropTypes.object,
+//   product: PropTypes.object
+// };
+
+// const mapStateToProps = (state, ownProps) => {
+//   const itemId = ownProps.match.params.id;
+//   return {
+//     product: state.productData.products.filter(
+//       single => single.id === itemId
+//     )[0]
+//   };
+// };
+
+export default ProductSticky;

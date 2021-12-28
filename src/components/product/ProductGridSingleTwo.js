@@ -74,7 +74,9 @@ const ProductGridSingleTwo = ({
             } ${colorClass ? colorClass : ""} `}
           >
             <div className="product-img">
-              <Link to={process.env.PUBLIC_URL + "/product/" + product._id}>
+              <Link
+                to={process.env.PUBLIC_URL + "/product-sticky/" + product._id}
+              >
                 <img
                   className="default-img"
                   src={product.product_img[0]}
