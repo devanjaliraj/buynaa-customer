@@ -72,9 +72,10 @@ class ByCategory extends React.Component {
               <Button
                 color="primary"
                 className=""
-                onClick={event =>
-                  (window.location.href = "/shop-grid-two-column")
-                }
+                onClick={event => {
+                  window.location.href = "/shop-grid-two-column";
+                  console.log("ok");
+                }}
               >
                 Explore
               </Button>

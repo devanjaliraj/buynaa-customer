@@ -4,6 +4,14 @@ import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 
 const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
+  const [state, setstate] = React.useState({});
+  const [imgArr, setImgArr] = React.useState([]);
+  React.useEffect(() => {
+    console.log("Product Desc", productFullDesc);
+    var t = JSON.parse(productFullDesc).product_img;
+    if (t !== undefined && t !== null) setImgArr(t);
+    setstate(JSON.parse(productFullDesc));
+  });
   return (
     <div className={`description-review-area ${spaceBottomClass}`}>
       <div className="container">
@@ -22,6 +30,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                 <Nav.Link eventKey="productReviews">Reviews</Nav.Link>
               </Nav.Item>
             </Nav>
+
             <Tab.Content className="description-review-bottom">
               <Tab.Pane eventKey="additionalInfo">
                 <div className="product-anotherinfo-wrapper">
@@ -43,7 +52,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                 </div>
               </Tab.Pane>
               <Tab.Pane eventKey="productDescription">
-                {productFullDesc}
+                {state?.short_desc}
               </Tab.Pane>
               <Tab.Pane eventKey="productReviews">
                 <div className="row">

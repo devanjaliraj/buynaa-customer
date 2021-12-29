@@ -54,16 +54,16 @@ export class ProductSticky extends Component {
           <Breadcrumb />
 
           {/* product description with image */}
-          {/* <ProductImageDescriptionSticky
+          <ProductImageDescriptionSticky
             spaceTopClass="mt-100"
             spaceBottomClass="mb-100"
-            product="fjhfh"
-          /> */}
+            productImage={JSON.stringify(this.state.detail)}
+          />
 
           {/* product description tab */}
           <ProductDescriptionTab
             spaceBottomClass="pb-90"
-            productFullDesc={this.state.detail?.short_desc}
+            productFullDesc={JSON.stringify(this.state.detail)}
           />
 
           {/* related product slider */}

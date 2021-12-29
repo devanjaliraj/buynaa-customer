@@ -12,8 +12,8 @@ export class ProductImageGallerySticky extends Component {
   }
 
   componentDidMount() {
-    let { id } = this.props.match.params;
-    Axios.get(`http://35.154.86.59/api/admin/getoneproduct/${id}`)
+    // let { id } = this.props.match.params;
+    Axios.get(`http://35.154.86.59/api/admin/getoneproduct/34567890`)
       .then(response => {
         console.log(response.data.data);
         this.setState({ detail: response.data.data });

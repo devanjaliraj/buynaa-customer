@@ -42,16 +42,17 @@ const ProductGridSingleTwo = ({
   const [dress, setDress] = useState([]);
 
   useEffect(() => {
-    getData();
-
     async function getData() {
       const response = await fetch("http://35.154.86.59/api/admin/getproduct");
 
       const data = await response.json();
 
       setDress(data.data);
+      console.log(data.data);
     }
-  }, [setDress]);
+    getData();
+    return;
+  }, []);
 
   discountedPrice = getDiscountPrice(product.price, product.discount);
   const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);

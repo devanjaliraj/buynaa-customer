@@ -1,16 +1,15 @@
 import PropTypes from "prop-types";
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-// import { getProductCartQuantity } from "../../helpers/product";
+import { getProductCartQuantity } from "../../helpers/product";
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
 import Rating from "./sub-components/ProductRating";
-import axios from "axios";
+
 const ProductDescriptionInfo = ({
   product,
-  
   discountedPrice,
   currency,
   finalDiscountedPrice,
@@ -21,46 +20,25 @@ const ProductDescriptionInfo = ({
   addToast,
   addToCart,
   addToWishlist,
-  addToCompare
+  addToCompare,
 }) => {
   const [selectedProductColor, setSelectedProductColor] = useState(
-    product.data?.data ? product?.data[0].colour  : ""
+    product.variation ? product.variation[0].color : ""
   );
-  // const [selectedProductSize, setSelectedProductSize] = useState(
-  //   product.data?.data ? product?.data[0].size[0].name : ""
-  // );
+  const [selectedProductSize, setSelectedProductSize] = useState(
+    product.variation ? product.variation[0].size[0].name : ""
+  );
   const [productStock, setProductStock] = useState(
-    product.data?.data ? product?.data[0].size[0].stock : product?.stock
+    product.variation ? product.variation[0].size[0].stock : product.stock
   );
   const [quantityCount, setQuantityCount] = useState(1);
 
-  // const productCartQty = getProductCartQuantity(
-  //   cartItems,
-  //   product,
-  //   selectedProductColor,
-  //   selectedProductSize
-  // );
-  const [users, setUsers] = useState([]);
-  const getUsers = async()=>{
-    const res= await axios.get(`http://35.154.86.59/api/admin/getoneproduct/61b1d6c38bb5a0efd354e782`).then((data)=>{
-      console.log(data)
-      console.log(data.data.data)
-      setUsers(data.data.data)
-
-
-    }).catch((error)=>{
-      console.log(error)      
-    });
-  // console.log(res);
-  //setUsers(await res.json());
-  // console.log(data);
-  }
-  useEffect(() => {
-     getUsers();
-  },[]);
-
-
-
+  const productCartQty = getProductCartQuantity(
+    cartItems,
+    product,
+    selectedProductColor,
+    selectedProductSize
+  );
 
   return (
     <div className="product-details-content ml-70">
@@ -90,27 +68,27 @@ const ProductDescriptionInfo = ({
         <p>{product.shortDescription}</p>
       </div>
 
-      {users.data ? (
+      {product.variation ? (
         <div className="pro-details-size-color">
           <div className="pro-details-color-wrap">
-            <span>Colour</span>
+            <span>Color</span>
             <div className="pro-details-color-content">
-              {users.data.map((single, key) => {
+              {product.variation.map((single, key) => {
                 return (
                   <label
-                    className={`pro-details-color-content--single ${single.colour}`}
+                    className={`pro-details-color-content--single ${single.color}`}
                     key={key}
                   >
                     <input
                       type="radio"
-                      value={single.colour}
+                      value={single.color}
                       name="product-color"
                       checked={
-                        single.colour === selectedProductColor ? "checked" : ""
+                        single.color === selectedProductColor ? "checked" : ""
                       }
                       onChange={() => {
-                        setSelectedProductColor(single.colour);
-                        // setSelectedProductSize(single.size[0].name);
+                        setSelectedProductColor(single.color);
+                        setSelectedProductSize(single.size[0].name);
                         setProductStock(single.size[0].stock);
                         setQuantityCount(1);
                       }}
@@ -124,9 +102,9 @@ const ProductDescriptionInfo = ({
           <div className="pro-details-size">
             <span>Size</span>
             <div className="pro-details-size-content">
-              {users.data &&
-                users.data.map(single => {
-                  return single.colour === selectedProductColor
+              {product.variation &&
+                product.variation.map(single => {
+                  return single.color === selectedProductColor
                     ? single.size.map((singleSize, key) => {
                         return (
                           <label
@@ -136,13 +114,13 @@ const ProductDescriptionInfo = ({
                             <input
                               type="radio"
                               value={singleSize.name}
-                              // checked={
-                              //   singleSize.name === selectedProductSize
-                              //     ? "checked"
-                              //     : ""
-                              // }
+                              checked={
+                                singleSize.name === selectedProductSize
+                                  ? "checked"
+                                  : ""
+                              }
                               onChange={() => {
-                                // setSelectedProductSize(singleSize.name);
+                                setSelectedProductSize(singleSize.name);
                                 setProductStock(singleSize.stock);
                                 setQuantityCount(1);
                               }}
@@ -191,7 +169,9 @@ const ProductDescriptionInfo = ({
             <button
               onClick={() =>
                 setQuantityCount(
-                
+                  quantityCount < productStock - productCartQty
+                    ? quantityCount + 1
+                    : quantityCount
                 )
               }
               className="inc qtybutton"
@@ -208,10 +188,10 @@ const ProductDescriptionInfo = ({
                     addToast,
                     quantityCount,
                     selectedProductColor,
-                    // selectedProductSize
+                    selectedProductSize
                   )
                 }
-              
+                disabled={productCartQty >= productStock}
               >
                 {" "}
                 Add To Cart{" "}
@@ -249,8 +229,7 @@ const ProductDescriptionInfo = ({
             </button>
           </div>
         </div>
-      )
-      }
+      )}
       {product.category ? (
         <div className="pro-details-meta">
           <span>Categories :</span>
@@ -333,7 +312,7 @@ ProductDescriptionInfo.propTypes = {
   finalDiscountedPrice: PropTypes.number,
   finalProductPrice: PropTypes.number,
   product: PropTypes.object,
-  wishlistItem: PropTypes.object
+  wishlistItem: PropTypes.object,
 };
 
 const mapDispatchToProps = dispatch => {
@@ -360,7 +339,7 @@ const mapDispatchToProps = dispatch => {
     },
     addToCompare: (item, addToast) => {
       dispatch(addToCompare(item, addToast));
-    }
+    },
   };
 };
 
