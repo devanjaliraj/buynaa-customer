@@ -7,24 +7,20 @@ import Carousel from "react-bootstrap/Carousel";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-bootstrap-carousel/dist/react-bootstrap-carousel.css";
-import axios from 'axios';
+import axios from "axios";
 
 export class StoreSlider extends Component {
   state = {
-    StoreI: []
-  }
+    StoreI: [],
+  };
   componentDidMount() {
-    axios.get( `http://35.154.86.59/api/admin/getstore/`)
-    .then(res => {
+    axios.get(`http://35.154.86.59/api/admin/getstore/`).then(res => {
       let StoreI = res.data.data;
-      console.log(res)
-      this.setState({StoreI});
-
+      console.log(res);
+      this.setState({ StoreI });
     });
-}
+  }
   render() {
-   
-   
     return (
       <Container className="d-block justify-content-start mt-5">
         <Row className="m-3">
@@ -33,22 +29,21 @@ export class StoreSlider extends Component {
         <Row className="mt-5 mb-3">
           <Col lg="12">
             <div>
-            <Carousel className="">
-              {this.state.StoreI?.storeImg?.map((i) => (
-                <img
-                  src={i}
-                  alt=""
-                  className=""
-                  width="100%"
-                  height="600vh"
-                />
-              ))}
-               
-            </Carousel>
+              <Carousel className="">
+                {this.state.StoreI?.storeImg?.map(i => (
+                  <img
+                    src={i}
+                    alt=""
+                    className=""
+                    width="100%"
+                    height="600vh"
+                  />
+                ))}
+              </Carousel>
             </div>
           </Col>
         </Row>
-        
+
         <Row className="mt-1">
           <Col>
             <h2 className="fw-bold">Raymonds</h2>
@@ -63,45 +58,43 @@ export class StoreSlider extends Component {
           </Col>
         </Row>
         <Col className="m-3">
-           <Row className="m-3">
-             <Col lg="1">
-               <MapPin />
-             </Col>
-             <Col>
+          <Row className="m-3">
+            <Col lg="1">
+              <MapPin />
+            </Col>
+            <Col>
               <h5>145/4 Park Street, Kolkata 700016</h5>
-             </Col>
-           </Row>
-           <Row className="m-3">
-          <Col lg="1">
-            <Globe />
-          </Col>
-          <Col>
-            <h5>www.casualdress.com</h5>
-          </Col>
-       </Row>
-       <Row className="m-3">
-          <Col lg="1">
-            <Mail />
-          </Col>
-          <Col>
-            <h5>casual@infomail.com</h5>
-          </Col>
-      </Row>
-      <Row className="m-3">
-        
-          <Col lg="1">
-            <Clock />
-          </Col>
-          <Col>
-            <h5>Open Mon 10:00am - 8:00pm</h5>
-          </Col>
+            </Col>
           </Row>
-      
+          <Row className="m-3">
+            <Col lg="1">
+              <Globe />
+            </Col>
+            <Col>
+              <h5>www.casualdress.com</h5>
+            </Col>
+          </Row>
+          <Row className="m-3">
+            <Col lg="1">
+              <Mail />
+            </Col>
+            <Col>
+              <h5>casual@infomail.com</h5>
+            </Col>
+          </Row>
+          <Row className="m-3">
+            <Col lg="1">
+              <Clock />
+            </Col>
+            <Col>
+              <h5>Open Mon 10:00am - 8:00pm</h5>
+            </Col>
+          </Row>
+
           <div>
             <h2>Introduction</h2>
           </div>
-       
-      
+
           <div>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer

@@ -73,7 +73,10 @@ const ShopGridTwoColumn = ({ location, products }) => {
         <div className="shop-area pt-95 pb-100">
           <div className="container">
             <div className="row">
-              <div className="col-lg-3">
+              <div
+                className="col-lg-3 pt-2"
+                style={{ backgroundColor: "#E5E8E8" }}
+              >
                 {/* shop sidebar */}
                 <ShopSidebar
                   products={products}
@@ -118,12 +121,12 @@ const ShopGridTwoColumn = ({ location, products }) => {
 
 ShopGridTwoColumn.propTypes = {
   location: PropTypes.object,
-  products: PropTypes.array
+  products: PropTypes.array,
 };
 
 const mapStateToProps = state => {
   return {
-    products: state.productData.products
+    products: state.productData.products,
   };
 };
 

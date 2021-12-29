@@ -14,7 +14,7 @@ const ProductImageDescriptionSticky = ({
   currency,
   cartItems,
   wishlistItems,
-  compareItems
+  compareItems,
 }) => {
   const wishlistItem = wishlistItems.filter(
     wishlistItem => wishlistItem.id === product.id
@@ -74,7 +74,7 @@ ProductImageDescriptionSticky.propTypes = {
   product: PropTypes.object,
   spaceBottomClass: PropTypes.string,
   spaceTopClass: PropTypes.string,
-  wishlistItems: PropTypes.array
+  wishlistItems: PropTypes.array,
 };
 
 const mapStateToProps = state => {
@@ -82,7 +82,7 @@ const mapStateToProps = state => {
     currency: state.currencyData,
     cartItems: state.cartData,
     wishlistItems: state.wishlistData,
-    compareItems: state.compareData
+    compareItems: state.compareData,
   };
 };
 

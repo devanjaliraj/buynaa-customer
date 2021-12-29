@@ -27,7 +27,7 @@ export class ProductImageGallerySticky extends Component {
     return (
       <div className="product-large-image-wrapper product-large-image-wrapper--sticky">
         <div className="product-sticky-image mb--10">
-          {this.state.detail?.product_img.map(single => (
+          {this.state.detail.product_img?.map(single => (
             <div className="product-sticky-image__single mb-10">
               <img src={single} alt="" className="img-fluid" />
             </div>
