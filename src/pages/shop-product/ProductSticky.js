@@ -32,6 +32,7 @@ export class ProductSticky extends Component {
   }
 
   render() {
+    console.log(this.state.detail);
     return (
       <Fragment>
         <MetaTags>

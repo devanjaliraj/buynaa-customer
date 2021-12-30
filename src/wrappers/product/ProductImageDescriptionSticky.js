@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { useToasts } from "react-toast-notifications";
+//import { useToasts } from "react-toast-notifications";
 import Sticky from "react-sticky-el";
 //import { getDiscountPrice } from "../../helpers/product";
 import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";
@@ -16,14 +16,15 @@ const ProductImageDescriptionSticky = ({
   wishlistItems,
   compareItems,
   productImage,
+  productFullDesc,
 }) => {
-  const wishlistItem = wishlistItems.filter(
-    wishlistItem => wishlistItem.id === product.id
-  )[0];
-  const compareItem = compareItems.filter(
-    compareItem => compareItem.id === product.id
-  )[0];
-  const { addToast } = useToasts();
+  // const wishlistItem = wishlistItems.filter(
+  //   wishlistItem => wishlistItem.id === product.id
+  // )[0];
+  // const compareItem = compareItems.filter(
+  //   compareItem => compareItem.id === product.id
+  // )[0];
+  // const { addToast } = useToasts();
 
   // const discountedPrice = getDiscountPrice(product.price, product.discount);
   // const finalProductPrice = +(product.price * currency.currencyRate).toFixed(2);
@@ -33,10 +34,16 @@ const ProductImageDescriptionSticky = ({
   const [state, setstate] = React.useState({});
   const [imgArr, setImgArr] = React.useState([]);
   React.useEffect(() => {
+    console.log("ProductDesc", productFullDesc);
     console.log("Product Img", productImage);
     var t = JSON.parse(productImage).product_img;
     if (t !== undefined && t !== null) setImgArr(t);
-    setstate(JSON.parse(productImage));
+    if (
+      productFullDesc !== undefined &&
+      productFullDesc !== null &&
+      productFullDesc !== ""
+    )
+      setstate(JSON.parse(productFullDesc));
   });
   return (
     <div
@@ -69,11 +76,12 @@ const ProductImageDescriptionSticky = ({
                 //discountedPrice={discountedPrice}
                 //currency={currency}
                 //finalDiscountedPrice={finalDiscountedPrice}
-                finalProductPrice={state?.sell_price}
+                //finalProductPrice={state?.sell_price}
                 // cartItems={cartItems}
                 // wishlistItem={wishlistItem}
                 // compareItem={compareItem}
                 // addToast={addToast}
+                fullProductDesc={JSON.stringify(state)}
               />
             </Sticky>
           </div>
@@ -84,6 +92,7 @@ const ProductImageDescriptionSticky = ({
 };
 
 ProductImageDescriptionSticky.propTypes = {
+  fullProductDesc: PropTypes.string,
   cartItems: PropTypes.array,
   compareItems: PropTypes.array,
   currency: PropTypes.object,

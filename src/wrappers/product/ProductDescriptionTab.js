@@ -35,12 +35,15 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
               <Tab.Pane eventKey="additionalInfo">
                 <div className="product-anotherinfo-wrapper">
                   <ul>
+                    {/* <li>
+                      <span>Brand</span>
+                      {state?.brand?.name}
+                    </li> */}
                     <li>
-                      <span>Weight</span> 400 g
+                      <span>Material</span>
+                      {state?.material}
                     </li>
-                    <li>
-                      <span>Dimensions</span>10 x 10 x 15 cm{" "}
-                    </li>
+
                     <li>
                       <span>Materials</span> 60% cotton, 40% polyester
                     </li>
@@ -52,7 +55,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                 </div>
               </Tab.Pane>
               <Tab.Pane eventKey="productDescription">
-                {state?.short_desc}
+                {state?.long_desc}
               </Tab.Pane>
               <Tab.Pane eventKey="productReviews">
                 <div className="row">
