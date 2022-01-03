@@ -207,7 +207,7 @@ ProductDescriptionInfo.propTypes = {
   wishlistItem: PropTypes.object,
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (
       item,
