@@ -35,10 +35,10 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
               <Tab.Pane eventKey="additionalInfo">
                 <div className="product-anotherinfo-wrapper">
                   <ul>
-                    {/* <li>
+                    <li>
                       <span>Brand</span>
                       {state?.brand?.name}
-                    </li> */}
+                    </li>
                     <li>
                       <span>Material</span>
                       {state?.material}

@@ -1,290 +1,473 @@
-'use strict';
+import PropTypes from "prop-types";
+import React, { useEffect, Suspense, lazy } from "react";
+import ScrollToTop from "./helpers/scroll-top";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { ToastProvider } from "react-toast-notifications";
+import { multilanguage, loadLanguages } from "redux-multilanguage";
+import { connect } from "react-redux";
+import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
+import TermsOfUse from "./wrappers/myPage/TermsOfUse";
 
-module.exports = {
-	abs: 'https://262.ecma-international.org/12.0/#eqn-abs',
-	'Abstract Equality Comparison': 'https://262.ecma-international.org/12.0/#sec-abstract-equality-comparison',
-	'Abstract Relational Comparison': 'https://262.ecma-international.org/12.0/#sec-abstract-relational-comparison',
-	AddEntriesFromIterable: 'https://262.ecma-international.org/12.0/#sec-add-entries-from-iterable',
-	AddRestrictedFunctionProperties: 'https://262.ecma-international.org/12.0/#sec-addrestrictedfunctionproperties',
-	AddToKeptObjects: 'https://262.ecma-international.org/12.0/#sec-addtokeptobjects',
-	AddWaiter: 'https://262.ecma-international.org/12.0/#sec-addwaiter',
-	AdvanceStringIndex: 'https://262.ecma-international.org/12.0/#sec-advancestringindex',
-	'agent-order': 'https://262.ecma-international.org/12.0/#sec-agent-order',
-	AgentCanSuspend: 'https://262.ecma-international.org/12.0/#sec-agentcansuspend',
-	AgentSignifier: 'https://262.ecma-international.org/12.0/#sec-agentsignifier',
-	AllocateArrayBuffer: 'https://262.ecma-international.org/12.0/#sec-allocatearraybuffer',
-	AllocateSharedArrayBuffer: 'https://262.ecma-international.org/12.0/#sec-allocatesharedarraybuffer',
-	AllocateTypedArray: 'https://262.ecma-international.org/12.0/#sec-allocatetypedarray',
-	AllocateTypedArrayBuffer: 'https://262.ecma-international.org/12.0/#sec-allocatetypedarraybuffer',
-	ApplyStringOrNumericBinaryOperator: 'https://262.ecma-international.org/12.0/#sec-applystringornumericbinaryoperator',
-	ArrayCreate: 'https://262.ecma-international.org/12.0/#sec-arraycreate',
-	ArraySetLength: 'https://262.ecma-international.org/12.0/#sec-arraysetlength',
-	ArraySpeciesCreate: 'https://262.ecma-international.org/12.0/#sec-arrayspeciescreate',
-	AsyncFromSyncIteratorContinuation: 'https://262.ecma-international.org/12.0/#sec-asyncfromsynciteratorcontinuation',
-	AsyncFunctionStart: 'https://262.ecma-international.org/12.0/#sec-async-functions-abstract-operations-async-function-start',
-	AsyncGeneratorEnqueue: 'https://262.ecma-international.org/12.0/#sec-asyncgeneratorenqueue',
-	AsyncGeneratorReject: 'https://262.ecma-international.org/12.0/#sec-asyncgeneratorreject',
-	AsyncGeneratorResolve: 'https://262.ecma-international.org/12.0/#sec-asyncgeneratorresolve',
-	AsyncGeneratorResumeNext: 'https://262.ecma-international.org/12.0/#sec-asyncgeneratorresumenext',
-	AsyncGeneratorStart: 'https://262.ecma-international.org/12.0/#sec-asyncgeneratorstart',
-	AsyncGeneratorValidate: 'https://262.ecma-international.org/12.0/#sec-asyncgeneratorvalidate',
-	AsyncGeneratorYield: 'https://262.ecma-international.org/12.0/#sec-asyncgeneratoryield',
-	AsyncIteratorClose: 'https://262.ecma-international.org/12.0/#sec-asynciteratorclose',
-	AtomicReadModifyWrite: 'https://262.ecma-international.org/12.0/#sec-atomicreadmodifywrite',
-	Await: 'https://262.ecma-international.org/12.0/#await',
-	BackreferenceMatcher: 'https://262.ecma-international.org/12.0/#sec-backreference-matcher',
-	'BigInt::add': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-add',
-	'BigInt::bitwiseAND': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-bitwiseAND',
-	'BigInt::bitwiseNOT': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-bitwiseNOT',
-	'BigInt::bitwiseOR': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-bitwiseOR',
-	'BigInt::bitwiseXOR': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-bitwiseXOR',
-	'BigInt::divide': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-divide',
-	'BigInt::equal': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-equal',
-	'BigInt::exponentiate': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-exponentiate',
-	'BigInt::leftShift': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-leftShift',
-	'BigInt::lessThan': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-lessThan',
-	'BigInt::multiply': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-multiply',
-	'BigInt::remainder': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-remainder',
-	'BigInt::sameValue': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-sameValue',
-	'BigInt::sameValueZero': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-sameValueZero',
-	'BigInt::signedRightShift': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-signedRightShift',
-	'BigInt::subtract': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-subtract',
-	'BigInt::toString': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-tostring',
-	'BigInt::unaryMinus': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-unaryMinus',
-	'BigInt::unsignedRightShift': 'https://262.ecma-international.org/12.0/#sec-numeric-types-bigint-unsignedRightShift',
-	BigIntBitwiseOp: 'https://262.ecma-international.org/12.0/#sec-bigintbitwiseop',
-	BinaryAnd: 'https://262.ecma-international.org/12.0/#sec-binaryand',
-	BinaryOr: 'https://262.ecma-international.org/12.0/#sec-binaryor',
-	BinaryXor: 'https://262.ecma-international.org/12.0/#sec-binaryxor',
-	BlockDeclarationInstantiation: 'https://262.ecma-international.org/12.0/#sec-blockdeclarationinstantiation',
-	BoundFunctionCreate: 'https://262.ecma-international.org/12.0/#sec-boundfunctioncreate',
-	ByteListBitwiseOp: 'https://262.ecma-international.org/12.0/#sec-bytelistbitwiseop',
-	ByteListEqual: 'https://262.ecma-international.org/12.0/#sec-bytelistequal',
-	Call: 'https://262.ecma-international.org/12.0/#sec-call',
-	Canonicalize: 'https://262.ecma-international.org/12.0/#sec-runtime-semantics-canonicalize-ch',
-	CanonicalNumericIndexString: 'https://262.ecma-international.org/12.0/#sec-canonicalnumericindexstring',
-	CaseClauseIsSelected: 'https://262.ecma-international.org/12.0/#sec-runtime-semantics-caseclauseisselected',
-	CharacterRange: 'https://262.ecma-international.org/12.0/#sec-runtime-semantics-characterrange-abstract-operation',
-	CharacterRangeOrUnion: 'https://262.ecma-international.org/12.0/#sec-runtime-semantics-characterrangeorunion-abstract-operation',
-	CharacterSetMatcher: 'https://262.ecma-international.org/12.0/#sec-runtime-semantics-charactersetmatcher-abstract-operation',
-	clamp: 'https://262.ecma-international.org/12.0/#clamping',
-	CleanupFinalizationRegistry: 'https://262.ecma-international.org/12.0/#sec-cleanup-finalization-registry',
-	ClearKeptObjects: 'https://262.ecma-international.org/12.0/#sec-clear-kept-objects',
-	CloneArrayBuffer: 'https://262.ecma-international.org/12.0/#sec-clonearraybuffer',
-	CodePointAt: 'https://262.ecma-international.org/12.0/#sec-codepointat',
-	CodePointsToString: 'https://262.ecma-international.org/12.0/#sec-codepointstostring',
-	CompletePropertyDescriptor: 'https://262.ecma-international.org/12.0/#sec-completepropertydescriptor',
-	Completion: 'https://262.ecma-international.org/12.0/#sec-completion-record-specification-type',
-	ComposeWriteEventBytes: 'https://262.ecma-international.org/12.0/#sec-composewriteeventbytes',
-	Construct: 'https://262.ecma-international.org/12.0/#sec-construct',
-	CopyDataBlockBytes: 'https://262.ecma-international.org/12.0/#sec-copydatablockbytes',
-	CopyDataProperties: 'https://262.ecma-international.org/12.0/#sec-copydataproperties',
-	CreateArrayFromList: 'https://262.ecma-international.org/12.0/#sec-createarrayfromlist',
-	CreateArrayIterator: 'https://262.ecma-international.org/12.0/#sec-createarrayiterator',
-	CreateAsyncFromSyncIterator: 'https://262.ecma-international.org/12.0/#sec-createasyncfromsynciterator',
-	CreateAsyncIteratorFromClosure: 'https://262.ecma-international.org/12.0/#sec-createasynciteratorfromclosure',
-	CreateBuiltinFunction: 'https://262.ecma-international.org/12.0/#sec-createbuiltinfunction',
-	CreateByteDataBlock: 'https://262.ecma-international.org/12.0/#sec-createbytedatablock',
-	CreateDataProperty: 'https://262.ecma-international.org/12.0/#sec-createdataproperty',
-	CreateDataPropertyOrThrow: 'https://262.ecma-international.org/12.0/#sec-createdatapropertyorthrow',
-	CreateDynamicFunction: 'https://262.ecma-international.org/12.0/#sec-createdynamicfunction',
-	CreateForInIterator: 'https://262.ecma-international.org/12.0/#sec-createforiniterator',
-	CreateHTML: 'https://262.ecma-international.org/12.0/#sec-createhtml',
-	CreateIntrinsics: 'https://262.ecma-international.org/12.0/#sec-createintrinsics',
-	CreateIteratorFromClosure: 'https://262.ecma-international.org/12.0/#sec-createiteratorfromclosure',
-	CreateIterResultObject: 'https://262.ecma-international.org/12.0/#sec-createiterresultobject',
-	CreateListFromArrayLike: 'https://262.ecma-international.org/12.0/#sec-createlistfromarraylike',
-	CreateListIteratorRecord: 'https://262.ecma-international.org/12.0/#sec-createlistiteratorRecord',
-	CreateMapIterator: 'https://262.ecma-international.org/12.0/#sec-createmapiterator',
-	CreateMappedArgumentsObject: 'https://262.ecma-international.org/12.0/#sec-createmappedargumentsobject',
-	CreateMethodProperty: 'https://262.ecma-international.org/12.0/#sec-createmethodproperty',
-	CreatePerIterationEnvironment: 'https://262.ecma-international.org/12.0/#sec-createperiterationenvironment',
-	CreateRealm: 'https://262.ecma-international.org/12.0/#sec-createrealm',
-	CreateRegExpStringIterator: 'https://262.ecma-international.org/12.0/#sec-createregexpstringiterator',
-	CreateResolvingFunctions: 'https://262.ecma-international.org/12.0/#sec-createresolvingfunctions',
-	CreateSetIterator: 'https://262.ecma-international.org/12.0/#sec-createsetiterator',
-	CreateSharedByteDataBlock: 'https://262.ecma-international.org/12.0/#sec-createsharedbytedatablock',
-	CreateUnmappedArgumentsObject: 'https://262.ecma-international.org/12.0/#sec-createunmappedargumentsobject',
-	DateFromTime: 'https://262.ecma-international.org/12.0/#sec-date-number',
-	DateString: 'https://262.ecma-international.org/12.0/#sec-datestring',
-	Day: 'https://262.ecma-international.org/12.0/#eqn-Day',
-	DayFromYear: 'https://262.ecma-international.org/12.0/#eqn-DaysFromYear',
-	DaysInYear: 'https://262.ecma-international.org/12.0/#eqn-DaysInYear',
-	DayWithinYear: 'https://262.ecma-international.org/12.0/#eqn-DayWithinYear',
-	Decode: 'https://262.ecma-international.org/12.0/#sec-decode',
-	DefinePropertyOrThrow: 'https://262.ecma-international.org/12.0/#sec-definepropertyorthrow',
-	DeletePropertyOrThrow: 'https://262.ecma-international.org/12.0/#sec-deletepropertyorthrow',
-	DetachArrayBuffer: 'https://262.ecma-international.org/12.0/#sec-detacharraybuffer',
-	Encode: 'https://262.ecma-international.org/12.0/#sec-encode',
-	EnterCriticalSection: 'https://262.ecma-international.org/12.0/#sec-entercriticalsection',
-	EnumerableOwnPropertyNames: 'https://262.ecma-international.org/12.0/#sec-enumerableownpropertynames',
-	EnumerateObjectProperties: 'https://262.ecma-international.org/12.0/#sec-enumerate-object-properties',
-	EscapeRegExpPattern: 'https://262.ecma-international.org/12.0/#sec-escaperegexppattern',
-	EvalDeclarationInstantiation: 'https://262.ecma-international.org/12.0/#sec-evaldeclarationinstantiation',
-	EvaluateCall: 'https://262.ecma-international.org/12.0/#sec-evaluatecall',
-	EvaluateNew: 'https://262.ecma-international.org/12.0/#sec-evaluatenew',
-	EvaluatePropertyAccessWithExpressionKey: 'https://262.ecma-international.org/12.0/#sec-evaluate-property-access-with-expression-key',
-	EvaluatePropertyAccessWithIdentifierKey: 'https://262.ecma-international.org/12.0/#sec-evaluate-property-access-with-identifier-key',
-	EvaluateStringOrNumericBinaryExpression: 'https://262.ecma-international.org/12.0/#sec-evaluatestringornumericbinaryexpression',
-	EventSet: 'https://262.ecma-international.org/12.0/#sec-event-set',
-	ExecuteModule: 'https://262.ecma-international.org/12.0/#sec-source-text-module-record-execute-module',
-	FinishDynamicImport: 'https://262.ecma-international.org/12.0/#sec-finishdynamicimport',
-	FlattenIntoArray: 'https://262.ecma-international.org/12.0/#sec-flattenintoarray',
-	floor: 'https://262.ecma-international.org/12.0/#eqn-floor',
-	ForBodyEvaluation: 'https://262.ecma-international.org/12.0/#sec-forbodyevaluation',
-	'ForIn/OfBodyEvaluation': 'https://262.ecma-international.org/12.0/#sec-runtime-semantics-forin-div-ofbodyevaluation-lhs-stmt-iterator-lhskind-labelset',
-	'ForIn/OfHeadEvaluation': 'https://262.ecma-international.org/12.0/#sec-runtime-semantics-forinofheadevaluation',
-	FromPropertyDescriptor: 'https://262.ecma-international.org/12.0/#sec-frompropertydescriptor',
-	FulfillPromise: 'https://262.ecma-international.org/12.0/#sec-fulfillpromise',
-	FunctionDeclarationInstantiation: 'https://262.ecma-international.org/12.0/#sec-functiondeclarationinstantiation',
-	GeneratorResume: 'https://262.ecma-international.org/12.0/#sec-generatorresume',
-	GeneratorResumeAbrupt: 'https://262.ecma-international.org/12.0/#sec-generatorresumeabrupt',
-	GeneratorStart: 'https://262.ecma-international.org/12.0/#sec-generatorstart',
-	GeneratorValidate: 'https://262.ecma-international.org/12.0/#sec-generatorvalidate',
-	GeneratorYield: 'https://262.ecma-international.org/12.0/#sec-generatoryield',
-	Get: 'https://262.ecma-international.org/12.0/#sec-get-o-p',
-	GetActiveScriptOrModule: 'https://262.ecma-international.org/12.0/#sec-getactivescriptormodule',
-	GetFunctionRealm: 'https://262.ecma-international.org/12.0/#sec-getfunctionrealm',
-	GetGeneratorKind: 'https://262.ecma-international.org/12.0/#sec-getgeneratorkind',
-	GetGlobalObject: 'https://262.ecma-international.org/12.0/#sec-getglobalobject',
-	GetIdentifierReference: 'https://262.ecma-international.org/12.0/#sec-getidentifierreference',
-	GetIterator: 'https://262.ecma-international.org/12.0/#sec-getiterator',
-	GetMethod: 'https://262.ecma-international.org/12.0/#sec-getmethod',
-	GetModifySetValueInBuffer: 'https://262.ecma-international.org/12.0/#sec-getmodifysetvalueinbuffer',
-	GetModuleNamespace: 'https://262.ecma-international.org/12.0/#sec-getmodulenamespace',
-	GetNewTarget: 'https://262.ecma-international.org/12.0/#sec-getnewtarget',
-	GetOwnPropertyKeys: 'https://262.ecma-international.org/12.0/#sec-getownpropertykeys',
-	GetPromiseResolve: 'https://262.ecma-international.org/12.0/#sec-getpromiseresolve',
-	GetPrototypeFromConstructor: 'https://262.ecma-international.org/12.0/#sec-getprototypefromconstructor',
-	GetSubstitution: 'https://262.ecma-international.org/12.0/#sec-getsubstitution',
-	GetSuperConstructor: 'https://262.ecma-international.org/12.0/#sec-getsuperconstructor',
-	GetTemplateObject: 'https://262.ecma-international.org/12.0/#sec-gettemplateobject',
-	GetThisEnvironment: 'https://262.ecma-international.org/12.0/#sec-getthisenvironment',
-	GetThisValue: 'https://262.ecma-international.org/12.0/#sec-getthisvalue',
-	GetV: 'https://262.ecma-international.org/12.0/#sec-getv',
-	GetValue: 'https://262.ecma-international.org/12.0/#sec-getvalue',
-	GetValueFromBuffer: 'https://262.ecma-international.org/12.0/#sec-getvaluefrombuffer',
-	GetViewValue: 'https://262.ecma-international.org/12.0/#sec-getviewvalue',
-	GetWaiterList: 'https://262.ecma-international.org/12.0/#sec-getwaiterlist',
-	GlobalDeclarationInstantiation: 'https://262.ecma-international.org/12.0/#sec-globaldeclarationinstantiation',
-	'happens-before': 'https://262.ecma-international.org/12.0/#sec-happens-before',
-	HasOwnProperty: 'https://262.ecma-international.org/12.0/#sec-hasownproperty',
-	HasProperty: 'https://262.ecma-international.org/12.0/#sec-hasproperty',
-	'host-synchronizes-with': 'https://262.ecma-international.org/12.0/#sec-host-synchronizes-with',
-	HostCallJobCallback: 'https://262.ecma-international.org/12.0/#sec-hostcalljobcallback',
-	HostEnqueueFinalizationRegistryCleanupJob: 'https://262.ecma-international.org/12.0/#sec-host-cleanup-finalization-registry',
-	HostEnqueuePromiseJob: 'https://262.ecma-international.org/12.0/#sec-hostenqueuepromisejob',
-	HostEnsureCanCompileStrings: 'https://262.ecma-international.org/12.0/#sec-hostensurecancompilestrings',
-	HostEventSet: 'https://262.ecma-international.org/12.0/#sec-hosteventset',
-	HostFinalizeImportMeta: 'https://262.ecma-international.org/12.0/#sec-hostfinalizeimportmeta',
-	HostGetImportMetaProperties: 'https://262.ecma-international.org/12.0/#sec-hostgetimportmetaproperties',
-	HostHasSourceTextAvailable: 'https://262.ecma-"use strict";
+// home pages
+// const HomeFashion = lazy(() => import("./pages/home/HomeFashion"));
+//const HomeFashionTwo = lazy(() => import("./pages/home/HomeFashionTwo"));
+// const HomeFashionThree = lazy(() => import("./pages/home/HomeFashionThree"));
+// const HomeFashionFour = lazy(() => import("./pages/home/HomeFashionFour"));
+// const HomeFashionFive = lazy(() => import("./pages/home/HomeFashionFive"));
+// const HomeFashionSix = lazy(() => import("./pages/home/HomeFashionSix"));
+// const HomeFashionSeven = lazy(() => import("./pages/home/HomeFashionSeven"));
+// const HomeFashionEight = lazy(() => import("./pages/home/HomeFashionEight"));
+// const HomeKidsFashion = lazy(() => import("./pages/home/HomeKidsFashion"));
+// const HomeCosmetics = lazy(() => import("./pages/home/HomeCosmetics"));
+// const HomeFurniture = lazy(() => import("./pages/home/HomeFurniture"));
+const HomeFurnitureTwo = lazy(() => import("./pages/home/HomeFurnitureTwo"));
+// const HomeFurnitureThree = lazy(() =>
+//   import("./pages/home/HomeFurnitureThree")
+// );
+// const HomeFurnitureFour = lazy(() => import("./pages/home/HomeFurnitureFour"));
+// const HomeFurnitureFive = lazy(() => import("./pages/home/HomeFurnitureFive"));
+// const HomeFurnitureSix = lazy(() => import("./pages/home/HomeFurnitureSix"));
+// const HomeFurnitureSeven = lazy(() =>
+//   import("./pages/home/HomeFurnitureSeven")
+// );
+// const HomeElectronics = lazy(() => import("./pages/home/HomeElectronics"));
+// const HomeElectronicsTwo = lazy(() =>
+//   import("./pages/home/HomeElectronicsTwo")
+// );
+// const HomeElectronicsThree = lazy(() =>
+//   import("./pages/home/HomeElectronicsThree")
+// );
+// const HomeBookStore = lazy(() => import("./pages/home/HomeBookStore"));
+// const HomeBookStoreTwo = lazy(() => import("./pages/home/HomeBookStoreTwo"));
+// const HomePlants = lazy(() => import("./pages/home/HomePlants"));
+// const HomeFlowerShop = lazy(() => import("./pages/home/HomeFlowerShop"));
+// const HomeFlowerShopTwo = lazy(() => import("./pages/home/HomeFlowerShopTwo"));
+// const HomeOrganicFood = lazy(() => import("./pages/home/HomeOrganicFood"));
+// const HomeOrganicFoodTwo = lazy(() =>
+//   import("./pages/home/HomeOrganicFoodTwo")
+// );
+// const HomeOnepageScroll = lazy(() => import("./pages/home/HomeOnepageScroll"));
+// const HomeGridBanner = lazy(() => import("./pages/home/HomeGridBanner"));
+// const HomeAutoParts = lazy(() => import("./pages/home/HomeAutoParts"));
+// const HomeCakeShop = lazy(() => import("./pages/home/HomeCakeShop"));
+// const HomeHandmade = lazy(() => import("./pages/home/HomeHandmade"));
+// const HomePetFood = lazy(() => import("./pages/home/HomePetFood"));
+// const HomeMedicalEquipment = lazy(() =>
+//   import("./pages/home/HomeMedicalEquipment")
+// );
+// const HomeChristmas = lazy(() => import("./pages/home/HomeChristmas"));
+// const HomeBlackFriday = lazy(() => import("./pages/home/HomeBlackFriday"));
+// const HomeBlackFridayTwo = lazy(() =>
+//   import("./pages/home/HomeBlackFridayTwo")
+// );
+// const HomeValentinesDay = lazy(() => import("./pages/home/HomeValentinesDay"));
 
-// Returns "Type(value) is Object" in ES terminology.
-function isObject(value) {
-  return typeof value === "object" && value !== null || typeof value === "function";
-}
+// shop pages
+const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
+const ShopGridFilter = lazy(() => import("./pages/shop/ShopGridFilter"));
+const ShopGridTwoColumn = lazy(() => import("./pages/shop/ShopGridTwoColumn"));
+const ShopGridNoSidebar = lazy(() => import("./pages/shop/ShopGridNoSidebar"));
+const ShopGridFullWidth = lazy(() => import("./pages/shop/ShopGridFullWidth"));
+const ShopGridRightSidebar = lazy(() =>
+  import("./pages/shop/ShopGridRightSidebar")
+);
+const ShopListStandard = lazy(() => import("./pages/shop/ShopListStandard"));
+const ShopListFullWidth = lazy(() => import("./pages/shop/ShopListFullWidth"));
+const ShopListTwoColumn = lazy(() => import("./pages/shop/ShopListTwoColumn"));
 
-function getReferenceToBytes(bufferSource) {
-  // Node.js' Buffer does not allow subclassing for now, so we can get away with a prototype object check for perf.
-  if (Object.getPrototypeOf(bufferSource) === Buffer.prototype) {
-    return bufferSource;
-  }
-  if (bufferSource instanceof ArrayBuffer) {
-    return Buffer.from(bufferSource);
-  }
-  return Buffer.from(bufferSource.buffer, bufferSource.byteOffset, bufferSource.byteLength);
-}
+// product pages
+const Product = lazy(() => import("./pages/shop-product/Product"));
+const ProductTabLeft = lazy(() =>
+  import("./pages/shop-product/ProductTabLeft")
+);
+const ProductTabRight = lazy(() =>
+  import("./pages/shop-product/ProductTabRight")
+);
+const ProductSticky = lazy(() => import("./pages/shop-product/ProductSticky"));
+const ProductSlider = lazy(() => import("./pages/shop-product/ProductSlider"));
+const ProductFixedImage = lazy(() =>
+  import("./pages/shop-product/ProductFixedImage")
+);
 
-function getCopyToBytes(bufferSource) {
-  return Buffer.from(getReferenceToBytes(bufferSource));
-}
+// blog pages
+const BlogStandard = lazy(() => import("./pages/blog/BlogStandard"));
+const BlogNoSidebar = lazy(() => import("./pages/blog/BlogNoSidebar"));
+const BlogRightSidebar = lazy(() => import("./pages/blog/BlogRightSidebar"));
+const BlogDetailsStandard = lazy(() =>
+  import("./pages/blog/BlogDetailsStandard")
+);
 
-function mixin(target, source) {
-  const keys = Object.getOwnPropertyNames(source);
-  for (let i = 0; i < keys.length; ++i) {
-    if (keys[i] in target) {
-      continue;
-    }
+// other pages
+const About = lazy(() => import("./pages/other/About"));
+const Contact = lazy(() => import("./pages/other/Contact"));
+const faqPage = lazy(() => import("./wrappers/myPage/FaqPage"));
+const privacyPolicy = lazy(() => import("./wrappers/myPage/privacyPolicy"));
+const MyAccount = lazy(() => import("./pages/other/MyAccount"));
+const LoginRegister = lazy(() => import("./pages/other/LoginRegister"));
+const Step = lazy(() => import("./pages/other/Step"));
+const Phone = lazy(() => import("./pages/other/Phone"));
+const Otp = lazy(() => import("./pages/other/Otp"));
 
-    Object.defineProperty(target, keys[i], Object.getOwnPropertyDescriptor(source, keys[i]));
-  }
-}
+const Cart = lazy(() => import("./pages/other/Cart"));
+const Wishlist = lazy(() => import("./pages/other/Wishlist"));
+const Compare = lazy(() => import("./pages/other/Compare"));
+const Checkout = lazy(() => import("./pages/other/Checkout"));
 
-const wrapperSymbol = Symbol("wrapper");
-const implSymbol = Symbol("impl");
-const sameObjectCaches = Symbol("SameObject caches");
+const NotFound = lazy(() => import("./pages/other/NotFound"));
 
-function getSameObject(wrapper, prop, creator) {
-  if (!wrapper[sameObjectCaches]) {
-    wrapper[sameObjectCaches] = Object.create(null);
-  }
+const App = (props) => {
+  useEffect(() => {
+    props.dispatch(
+      loadLanguages({
+        languages: {
+          en: require("./translations/english.json"),
+          fn: require("./translations/french.json"),
+          de: require("./translations/germany.json"),
+        },
+      })
+    );
+  });
 
-  if (prop in wrapper[sameObjectCaches]) {
-    return wrapper[sameObjectCaches][prop];
-  }
+  return (
+    <ToastProvider placement="bottom-left">
+      <BreadcrumbsProvider>
+        <Router>
+          <ScrollToTop>
+            <Suspense
+              fallback={
+                <div className="flone-preloader-wrapper">
+                  <div className="flone-preloader">
+                    <span></span>
+                    <span></span>
+                  </div>
+                </div>
+              }
+            >
+              <Switch>
+                <Route
+                  exact
+                  path={process.env.PUBLIC_URL + "/"}
+                  component={HomeFurnitureTwo}
+                />
 
-  wrapper[sameObjectCaches][prop] = creator();
-  return wrapper[sameObjectCaches][prop];
-}
+                {/* Homepages */}
+                {/* <Route
+                  path={process.env.PUBLIC_URL + "/home-fashion"}
+                  component={HomeFashion}
+                /> */}
+                {/* <Route
+                  path={process.env.PUBLIC_URL + "/home-fashion-two"}
+                  component={HomeFashionTwo}
+                /> */}
+                {/*  <Route
+                  path={process.env.PUBLIC_URL + "/home-fashion-three"}
+                  component={HomeFashionThree}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-fashion-four"}
+                  component={HomeFashionFour}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-fashion-five"}
+                  component={HomeFashionFive}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-fashion-six"}
+                  component={HomeFashionSix}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-fashion-seven"}
+                  component={HomeFashionSeven}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-fashion-eight"}
+                  component={HomeFashionEight}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-kids-fashion"}
+                  component={HomeKidsFashion}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-cosmetics"}
+                  component={HomeCosmetics}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-furniture"}
+                  component={HomeFurniture}
+                /> */}
+                <Route
+                  exact
+                  path={process.env.PUBLIC_URL + "/"}
+                  component={HomeFurnitureTwo}
+                />
+                {/*  <Route
+                  path={process.env.PUBLIC_URL + "/home-furniture-three"}
+                  component={HomeFurnitureThree}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-furniture-four"}
+                  component={HomeFurnitureFour}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-furniture-five"}
+                  component={HomeFurnitureFive}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-furniture-six"}
+                  component={HomeFurnitureSix}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-furniture-seven"}
+                  component={HomeFurnitureSeven}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-electronics"}
+                  component={HomeElectronics}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-electronics-two"}
+                  component={HomeElectronicsTwo}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-electronics-three"}
+                  component={HomeElectronicsThree}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-book-store"}
+                  component={HomeBookStore}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-book-store-two"}
+                  component={HomeBookStoreTwo}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-plants"}
+                  component={HomePlants}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-flower-shop"}
+                  component={HomeFlowerShop}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-flower-shop-two"}
+                  component={HomeFlowerShopTwo}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-organic-food"}
+                  component={HomeOrganicFood}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-organic-food-two"}
+                  component={HomeOrganicFoodTwo}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-onepage-scroll"}
+                  component={HomeOnepageScroll}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-grid-banner"}
+                  component={HomeGridBanner}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-auto-parts"}
+                  component={HomeAutoParts}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-cake-shop"}
+                  component={HomeCakeShop}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-handmade"}
+                  component={HomeHandmade}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-pet-food"}
+                  component={HomePetFood}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-medical-equipment"}
+                  component={HomeMedicalEquipment}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-christmas"}
+                  component={HomeChristmas}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-black-friday"}
+                  component={HomeBlackFriday}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-black-friday-two"}
+                  component={HomeBlackFridayTwo}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/home-valentines-day"}
+                  component={HomeValentinesDay}
+                /> */}
 
-function wrapperForImpl(impl) {
-  return impl ? impl[wrapperSymbol] : null;
-}
+                {/* Shop pages */}
+                <Route
+                  path={process.env.PUBLIC_URL + "/shop-grid-standard"}
+                  component={ShopGridStandard}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/shop-grid-filter"}
+                  component={ShopGridFilter}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/shop-grid-two-column"}
+                  component={ShopGridTwoColumn}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/shop-grid-no-sidebar"}
+                  component={ShopGridNoSidebar}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/shop-grid-full-width"}
+                  component={ShopGridFullWidth}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/shop-grid-right-sidebar"}
+                  component={ShopGridRightSidebar}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/shop-list-standard/:_id"}
+                  render={(routeProps) => (
+                    <Product
+                      {...routeProps}
+                      key={routeProps.match.params._id}
+                    />
+                  )}
+                  component={ShopListStandard}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/shop-list-full-width"}
+                  component={ShopListFullWidth}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/shop-list-two-column"}
+                  component={ShopListTwoColumn}
+                />
 
-function implForWrapper(wrapper) {
-  return wrapper ? wrapper[implSymbol] : null;
-}
+                {/* Shop product pages */}
+                <Route
+                  path={process.env.PUBLIC_URL + "/product/:id"}
+                  render={(routeProps) => (
+                    <Product {...routeProps} key={routeProps.match.params.id} />
+                  )}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/product-tab-left/:id"}
+                  component={ProductTabLeft}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/product-tab-right/:id"}
+                  component={ProductTabRight}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/product-sticky/:id"}
+                  component={ProductSticky}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/product-slider/:id"}
+                  component={ProductSlider}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/product-fixed-image/:id"}
+                  component={ProductFixedImage}
+                />
 
-function tryWrapperForImpl(impl) {
-  const wrapper = wrapperForImpl(impl);
-  return wrapper ? wrapper : impl;
-}
+                {/* Blog pages */}
+                <Route
+                  path={process.env.PUBLIC_URL + "/blog-standard"}
+                  component={BlogStandard}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/blog-no-sidebar"}
+                  component={BlogNoSidebar}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/blog-right-sidebar"}
+                  component={BlogRightSidebar}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/blog-details-standard"}
+                  component={BlogDetailsStandard}
+                />
 
-function tryImplForWrapper(wrapper) {
-  const impl = implForWrapper(wrapper);
-  return impl ? impl : wrapper;
-}
+                {/* Other pages */}
+                <Route
+                  path={process.env.PUBLIC_URL + "/about"}
+                  component={About}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/contact"}
+                  component={Contact}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/faqPage"}
+                  component={faqPage}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/privacyPolicy"}
+                  component={privacyPolicy}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/TermsOfUse"}
+                  component={TermsOfUse}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/my-account"}
+                  component={MyAccount}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/login-register"}
+                  component={LoginRegister}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/step"}
+                  component={Step}
+                />
 
-const iterInternalSymbol = Symbol("internal");
-const IteratorPrototype = Object.getPrototypeOf(Object.getPrototypeOf([][Symbol.iterator]()));
+                <Route
+                  path={process.env.PUBLIC_URL + "/Phone"}
+                  component={Phone}
+                />
+                <Route path={process.env.PUBLIC_URL + "/Otp"} component={Otp} />
+                <Route
+                  path={process.env.PUBLIC_URL + "/cart"}
+                  component={Cart}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/wishlist"}
+                  component={Wishlist}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/compare"}
+                  component={Compare}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/checkout"}
+                  component={Checkout}
+                />
 
-function isArrayIndexPropName(P) {
-  if (typeof P !== "string") {
-    return false;
-  }
-  const i = P >>> 0;
-  if (i === Math.pow(2, 32) - 1) {
-    return false;
-  }
-  const s = `${i}`;
-  if (P !== s) {
-    return false;
-  }
-  return true;
-}
+                <Route
+                  path={process.env.PUBLIC_URL + "/not-found"}
+                  component={NotFound}
+                />
 
-const supportsPropertyIndex = Symbol("supports property index");
-const supportedPropertyIndices = Symbol("supported property indices");
-const supportsPropertyName = Symbol("supports property name");
-const supportedPropertyNames = Symbol("supported property names");
-const indexedGet = Symbol("indexed property get");
-const indexedSetNew = Symbol("indexed property set new");
-const indexedSetExisting = Symbol("indexed property set existing");
-const namedGet = Symbol("named property get");
-const namedSetNew = Symbol("named property set new");
-const namedSetExisting = Symbol("named property set existing");
-const namedDelete = Symbol("named property delete");
+                <Route exact component={NotFound} />
+              </Switch>
+            </Suspense>
+          </ScrollToTop>
+        </Router>
+      </BreadcrumbsProvider>
+    </ToastProvider>
+  );
+};
 
-module.exports = exports = {
-  isObject,
-  getReferenceToBytes,
-  getCopyToBytes,
-  mixin,
-  wrapperSymbol,
-  implSymbol,
-  getSameObject,
-  wrapperForImpl,
-  implForWrapper,
-  tryWrapperForImpl,
-  tryI
+App.propTypes = {
+  dispatch: PropTypes.func,
+};
+
+export default connect()(multilanguage(App));
