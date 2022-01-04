@@ -5,11 +5,12 @@ import { connect } from "react-redux";
 import Sticky from "react-sticky-el";
 //import { getDiscountPrice } from "../../helpers/product";
 import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";
-//import ProductImageGallerySticky from "../../components/product/ProductImageGallerySticky";
+import ProductImageGallerySticky from "../../components/product/ProductImageGallerySticky";
 import { getProductCartQuantity } from "../../helpers/product";
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
+import Rating from "../../components/product/sub-components/ProductRating";
 
 const ProductImageDescriptionSticky = ({
   spaceTopClass,
@@ -53,13 +54,15 @@ const ProductImageDescriptionSticky = ({
     console.log("Product Img", productImage);
     var t = JSON.parse(productImage).product_img;
     if (t !== undefined && t !== null) setImgArr(t);
-    if (
-      productFullDesc !== undefined &&
-      productFullDesc !== null &&
-      productFullDesc !== ""
-    )
-      setstate(JSON.parse(productFullDesc));
+    // if (
+    //   productFullDesc !== undefined &&
+    //   productFullDesc !== null &&
+    //   productFullDesc !== ""
+    // )
+    //   setstate(JSON.parse(productFullDesc));
+    setstate(JSON.parse(productImage));
   });
+
   return (
     <div
       className={`shop-area ${spaceTopClass ? spaceTopClass : ""} ${
@@ -98,19 +101,19 @@ const ProductImageDescriptionSticky = ({
                 // addToast={addToast}
                 fullProductDesc={JSON.stringify(state)}
               /> */}
-              <div className="product-details-content ml-70">
+              <div className="product-details-content ml-70 mt-5 mb-5">
                 <h2>{state?.product_name}</h2>
                 <div className="product-details-price">
                   <Fragment>
-                    <span>{state?.sell_price}</span>{" "}
+                    <span>₹{state?.sell_price}</span>{" "}
                   </Fragment>
                 </div>
 
-                {/* <div className="pro-details-rating-wrap">
-          <div className="pro-details-rating">
-            <Rating ratingValue={product.rating} />
-          </div>
-        </div> */}
+                <div className="pro-details-rating-wrap">
+                  <div className="pro-details-rating">
+                    <Rating />
+                  </div>
+                </div>
 
                 <div className="pro-details-list">
                   <p>{state?.short_desc}</p>
@@ -120,7 +123,7 @@ const ProductImageDescriptionSticky = ({
                   <div className="pro-details-color-wrap">
                     <span>Color</span>
                     <div className="pro-details-color-content">
-                      <h5>{state?.color}</h5>
+                      <h5>{state?.color?.colorName}</h5>
                       {/* <label
                     className={`pro-details-color-content--single ${single.color}`}
                    
@@ -145,44 +148,28 @@ const ProductImageDescriptionSticky = ({
                   </div>
                   <div className="pro-details-size">
                     <span>Size</span>
-                    <h6>{state?.size}</h6>
-                    {/* <div className="pro-details-size-content">
-              {product.variation &&
-                product.variation.map(single => {
-                  return single.color === selectedProductColor
-                    ? single.size.map((singleSize, key) => {
-                        return (
-                          <label
-                            className={`pro-details-size-content--single`}
-                            key={key}
-                          >
-                            <input
-                              type="radio"
-                              value={singleSize.name}
-                              checked={
-                                singleSize.name === selectedProductSize
-                                  ? "checked"
-                                  : ""
-                              }
-                              onChange={() => {
-                                setSelectedProductSize(singleSize.name);
-                                setProductStock(singleSize.stock);
-                                setQuantityCount(1);
-                              }}
-                            />
-                            <span className="size-name">{singleSize.name}</span>
-                          </label>
-                        );
-                      })
-                    : "";
-                })}
-            </div> */}
+                    {/* <h6>{state?.size?.sizeName}</h6>  */}
+                    <div className="pro-details-size-content">
+                      {state?.size?.map((sizes) => (
+                        <label
+                          className={`pro-details-size-content--single`}
+                          key={sizes._id}
+                        >
+                          <input
+                            type="radio"
+                            value={sizes.sizeName}
+                            checked={sizes.sizeName}
+                          />
+                          <span className="size-name">{sizes.name}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
                 <div className="pro-details-quality">
                   <div className="pro-details-cart btn-hover ml-0">
-                    <a href="#" rel="noopener noreferrer" target="_blank">
+                    <a href="##" target="_blank">
                       Buy Now
                     </a>
                   </div>
@@ -214,17 +201,15 @@ const ProductImageDescriptionSticky = ({
                         addToCart(product, addToast, quantityCount)
                       }
                     >
-                      Add To Cart{" "}
+                      Add To Cart
                     </button>
-
-                    <button disabled>Out of Stock</button>
                   </div>
                   <div className="pro-details-wishlist">
                     <button
-                      className={wishlistItem !== undefined ? "active" : ""}
-                      disabled={wishlistItem !== undefined}
+                      className={wishlistItems !== undefined ? "active" : ""}
+                      disabled={wishlistItems !== undefined}
                       title={
-                        wishlistItem !== undefined
+                        wishlistItems !== undefined
                           ? "Added to wishlist"
                           : "Add to wishlist"
                       }
@@ -258,7 +243,6 @@ ProductImageDescriptionSticky.propTypes = {
   addToast: PropTypes.func,
   cartItems: PropTypes.array,
   compareItem: PropTypes.array,
-  currency: PropTypes.object,
   discountedPrice: PropTypes.number,
   finalDiscountedPrice: PropTypes.number,
   finalProductPrice: PropTypes.number,
