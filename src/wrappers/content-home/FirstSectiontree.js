@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Row, Col, Container } from "reactstrap";
 import { FaArrowRight } from "react-icons/fa";
-import store1 from "../../assets/img/store1.png";
-import store2 from "../../assets/img/store3.png";
-import store3 from "../../assets/img/store4.png";
+import store1 from "../../assets/img/findashop.png";
+import store2 from "../../assets/img/checkshopprofile.png";
+import store3 from "../../assets/img/visittheshop.png";
 
 export class FirstSectiontree extends Component {
   render() {

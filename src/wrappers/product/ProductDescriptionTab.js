@@ -1,13 +1,28 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
+import Axios from "axios";
 
 const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
   const [state, setstate] = React.useState({});
   const [imgArr, setImgArr] = React.useState([]);
+  const [review, setReview] = useState([]);
+
+  const fetchReview = async () => {
+    const { data } = await Axios.get(
+      "http://35.154.86.59/api/admin/getallreview"
+    );
+    const review = data.data;
+    setReview(review);
+    console.log(review);
+  };
+
+  useEffect(() => {
+    fetchReview();
+  }, []);
   React.useEffect(() => {
-    console.log("Product Desc", productFullDesc);
+    // console.log("Product Desc", productFullDesc);
     var t = JSON.parse(productFullDesc).product_img;
     if (t !== undefined && t !== null) setImgArr(t);
     setstate(JSON.parse(productFullDesc));
@@ -41,7 +56,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                     </li>
                     <li>
                       <span>Material</span>
-                      {state?.material}
+                      {state?.material?.materialname}
                     </li>
 
                     <li>
@@ -60,84 +75,43 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
               <Tab.Pane eventKey="productReviews">
                 <div className="row">
                   <div className="col-lg-7">
-                    <div className="review-wrapper">
-                      <div className="single-review">
-                        <div className="review-img">
-                          <img
-                            src={
-                              process.env.PUBLIC_URL +
-                              "/assets/img/testimonial/1.jpg"
-                            }
-                            alt=""
-                          />
-                        </div>
-                        <div className="review-content">
-                          <div className="review-top-wrap">
-                            <div className="review-left">
-                              <div className="review-name">
-                                <h4>White Lewis</h4>
-                              </div>
-                              <div className="review-rating">
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
-                              </div>
-                            </div>
-                            <div className="review-left">
-                              <button>Reply</button>
-                            </div>
+                    {review?.map((rev) => (
+                      <div className="review-wrapper" key={rev._id}>
+                        <div className="single-review">
+                          <div className="review-img">
+                            <img
+                              src={
+                                process.env.PUBLIC_URL +
+                                "/assets/img/testimonial/1.jpg"
+                              }
+                              alt=""
+                            />
                           </div>
-                          <div className="review-bottom">
-                            <p>
-                              Vestibulum ante ipsum primis aucibus orci
-                              luctustrices posuere cubilia Curae Suspendisse
-                              viverra ed viverra. Mauris ullarper euismod
-                              vehicula. Phasellus quam nisi, congue id nulla.
-                            </p>
+                          <div className="review-content">
+                            <div className="review-top-wrap">
+                              <div className="review-left">
+                                <div className="review-name">
+                                  <h4>
+                                    {rev.customer.first_name}{" "}
+                                    {rev.customer.last_name}
+                                  </h4>
+                                </div>
+                                {/* <div className="review-rating">
+                                <i className="fa fa-star" />
+                                <i className="fa fa-star" />
+                                <i className="fa fa-star" />
+                                <i className="fa fa-star" />
+                                <i className="fa fa-star" />
+                              </div> */}
+                              </div>
+                            </div>
+                            <div className="review-bottom">
+                              <p>{rev.comment}</p>
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div className="single-review child-review">
-                        <div className="review-img">
-                          <img
-                            src={
-                              process.env.PUBLIC_URL +
-                              "/assets/img/testimonial/2.jpg"
-                            }
-                            alt=""
-                          />
-                        </div>
-                        <div className="review-content">
-                          <div className="review-top-wrap">
-                            <div className="review-left">
-                              <div className="review-name">
-                                <h4>White Lewis</h4>
-                              </div>
-                              <div className="review-rating">
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
-                              </div>
-                            </div>
-                            <div className="review-left">
-                              <button>Reply</button>
-                            </div>
-                          </div>
-                          <div className="review-bottom">
-                            <p>
-                              Vestibulum ante ipsum primis aucibus orci
-                              luctustrices posuere cubilia Curae Suspendisse
-                              viverra ed viverra. Mauris ullarper euismod
-                              vehicula. Phasellus quam nisi, congue id nulla.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                   <div className="col-lg-5">
                     <div className="ratting-form-wrapper pl-50">
@@ -145,14 +119,14 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                       <div className="ratting-form">
                         <form action="#">
                           <div className="star-box">
-                            <span>Your rating:</span>
-                            <div className="ratting-star">
+                            {/* <span>Your rating:</span> */}
+                            {/* <div className="ratting-star">
                               <i className="fa fa-star" />
                               <i className="fa fa-star" />
                               <i className="fa fa-star" />
                               <i className="fa fa-star" />
                               <i className="fa fa-star" />
-                            </div>
+                            </div> */}
                           </div>
                           <div className="row">
                             <div className="col-md-6">

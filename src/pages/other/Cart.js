@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
@@ -11,24 +12,44 @@ import {
   decreaseQuantity,
   deleteFromCart,
   cartItemStock,
-  deleteAllFromCart
+  deleteAllFromCart,
 } from "../../redux/actions/cartActions";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import Axios from "axios";
 
 const Cart = ({
+  props,
   location,
   cartItems,
   currency,
   decreaseQuantity,
   addToCart,
   deleteFromCart,
-  deleteAllFromCart
+  deleteAllFromCart,
 }) => {
   const [quantityCount] = useState(1);
   const { addToast } = useToasts();
   const { pathname } = location;
   let cartTotalPrice = 0;
+  const [carts, setCarts] = useState([]);
+  //const { id } = useParams();
+  const fetchcarts = async (token) => {
+    const { data } = await Axios.get(
+      `http://35.154.86.59/api/admin/cartbycustomer`,
+      {
+        headers: {
+          "auth-token": localStorage.getItem("token"),
+        },
+      }
+    );
+    const carts = data.data;
+    setCarts(carts);
+    console.log(carts);
+  };
+  useEffect(() => {
+    fetchcarts();
+  }, []);
 
   return (
     <Fragment>
@@ -50,7 +71,7 @@ const Cart = ({
         <Breadcrumb />
         <div className="cart-main-area pt-90 pb-100">
           <div className="container">
-            {cartItems && cartItems.length >= 1 ? (
+            {carts && carts.length >= 1 ? (
               <Fragment>
                 <h3 className="cart-page-title">Your cart items</h3>
                 <div className="row">
@@ -68,7 +89,7 @@ const Cart = ({
                           </tr>
                         </thead>
                         <tbody>
-                          {cartItems.map((cartItem, key) => {
+                          {carts?.map((cartItem, key) => {
                             const discountedPrice = getDiscountPrice(
                               cartItem.price,
                               cartItem.discount
@@ -91,15 +112,15 @@ const Cart = ({
                                   <Link
                                     to={
                                       process.env.PUBLIC_URL +
-                                      "/product/" +
-                                      cartItem.id
+                                      "/product-sticky/" +
+                                      cartItem.product._id
                                     }
                                   >
                                     <img
                                       className="img-fluid"
                                       src={
                                         process.env.PUBLIC_URL +
-                                        cartItem.image[0]
+                                        cartItem.product.product_img[0]
                                       }
                                       alt=""
                                     />
@@ -110,11 +131,11 @@ const Cart = ({
                                   <Link
                                     to={
                                       process.env.PUBLIC_URL +
-                                      "/product/" +
-                                      cartItem.id
+                                      "/product-sticky/" +
+                                      cartItem.product._id
                                     }
                                   >
-                                    {cartItem.name}
+                                    {cartItem.product.product_name}
                                   </Link>
                                   {cartItem.selectedProductColor &&
                                   cartItem.selectedProductSize ? (
@@ -132,42 +153,29 @@ const Cart = ({
                                 </td>
 
                                 <td className="product-price-cart">
-                                  {discountedPrice !== null ? (
-                                    <Fragment>
-                                      <span className="amount old">
-                                        {currency.currencySymbol +
-                                          finalProductPrice}
-                                      </span>
-                                      <span className="amount">
-                                        {currency.currencySymbol +
-                                          finalDiscountedPrice}
-                                      </span>
-                                    </Fragment>
-                                  ) : (
-                                    <span className="amount">
-                                      {currency.currencySymbol +
-                                        finalProductPrice}
-                                    </span>
-                                  )}
+                                  <span className="amount">
+                                    {cartItem.product_price}
+                                  </span>
                                 </td>
 
                                 <td className="product-quantity">
                                   <div className="cart-plus-minus">
-                                    <button
+                                    {/* <button
                                       className="dec qtybutton"
                                       onClick={() =>
                                         decreaseQuantity(cartItem, addToast)
                                       }
                                     >
                                       -
-                                    </button>
-                                    <input
+                                    </button> */}
+                                    {/* <input
                                       className="cart-plus-minus-box"
                                       type="text"
                                       value={cartItem.quantity}
                                       readOnly
-                                    />
-                                    <button
+                                    /> */}
+                                    <span>{cartItem.product_qty}</span>
+                                    {/* <button
                                       className="inc qtybutton"
                                       onClick={() =>
                                         addToCart(
@@ -188,7 +196,7 @@ const Cart = ({
                                       }
                                     >
                                       +
-                                    </button>
+                                    </button> */}
                                   </div>
                                 </td>
                                 <td className="product-subtotal">
@@ -361,17 +369,17 @@ Cart.propTypes = {
   decreaseQuantity: PropTypes.func,
   location: PropTypes.object,
   deleteAllFromCart: PropTypes.func,
-  deleteFromCart: PropTypes.func
+  deleteFromCart: PropTypes.func,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     cartItems: state.cartData,
-    currency: state.currencyData
+    currency: state.currencyData,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (item, addToast, quantityCount) => {
       dispatch(addToCart(item, addToast, quantityCount));
@@ -382,9 +390,9 @@ const mapDispatchToProps = dispatch => {
     deleteFromCart: (item, addToast) => {
       dispatch(deleteFromCart(item, addToast));
     },
-    deleteAllFromCart: addToast => {
+    deleteAllFromCart: (addToast) => {
       dispatch(deleteAllFromCart(addToast));
-    }
+    },
   };
 };
 

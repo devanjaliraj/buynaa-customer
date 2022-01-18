@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
+import { Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import MetaTags from "react-meta-tags";
@@ -9,11 +10,12 @@ import { getDiscountPrice } from "../../helpers/product";
 import {
   addToWishlist,
   deleteFromWishlist,
-  deleteAllFromWishlist
+  deleteAllFromWishlist,
 } from "../../redux/actions/wishlistActions";
 import { addToCart } from "../../redux/actions/cartActions";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import Axios from "axios";
 
 const Wishlist = ({
   location,
@@ -22,10 +24,28 @@ const Wishlist = ({
   addToCart,
   wishlistItems,
   deleteFromWishlist,
-  deleteAllFromWishlist
+  deleteAllFromWishlist,
 }) => {
   const { addToast } = useToasts();
   const { pathname } = location;
+  const [wish, setWish] = useState([]);
+  const fetchWish = async (token) => {
+    const { data } = await Axios.get(
+      "http://35.154.86.59/api/admin/getallwishlist",
+      {
+        headers: {
+          "auth-token": localStorage.getItem("token"),
+        },
+      }
+    );
+
+    const wish = data.data;
+    setWish(wish);
+    console.log(wish);
+  };
+  useEffect(() => {
+    fetchWish();
+  }, []);
 
   return (
     <Fragment>
@@ -47,7 +67,7 @@ const Wishlist = ({
         <Breadcrumb />
         <div className="cart-main-area pt-90 pb-100">
           <div className="container">
-            {wishlistItems && wishlistItems.length >= 1 ? (
+            {wish && wish.length >= 1 ? (
               <Fragment>
                 <h3 className="cart-page-title">Your wishlist items</h3>
                 <div className="row">
@@ -58,41 +78,24 @@ const Wishlist = ({
                           <tr>
                             <th>Image</th>
                             <th>Product Name</th>
-                            <th>Unit Price</th>
+                            <th>Colour</th>
+                            <th>Size</th>
+                            {/* <th>Unit Price</th> */}
                             <th>Add To Cart</th>
                             <th>action</th>
                           </tr>
                         </thead>
                         <tbody>
-                          {wishlistItems.map((wishlistItem, key) => {
-                            const discountedPrice = getDiscountPrice(
-                              wishlistItem.price,
-                              wishlistItem.discount
-                            );
-                            const finalProductPrice = (
-                              wishlistItem.price * currency.currencyRate
-                            ).toFixed(2);
-                            const finalDiscountedPrice = (
-                              discountedPrice * currency.currencyRate
-                            ).toFixed(2);
-                            const cartItem = cartItems.filter(
-                              item => item.id === wishlistItem.id
-                            )[0];
+                          {wish?.map((wishes, key) => {
                             return (
                               <tr key={key}>
                                 <td className="product-thumbnail">
-                                  <Link
-                                    to={
-                                      process.env.PUBLIC_URL +
-                                      "/product/" +
-                                      wishlistItem.id
-                                    }
-                                  >
+                                  <Link to="#">
                                     <img
                                       className="img-fluid"
                                       src={
                                         process.env.PUBLIC_URL +
-                                        wishlistItem.image[0]
+                                        wishes.product.product_img[0]
                                       }
                                       alt=""
                                     />
@@ -103,89 +106,80 @@ const Wishlist = ({
                                   <Link
                                     to={
                                       process.env.PUBLIC_URL +
-                                      "/product/" +
-                                      wishlistItem.id
+                                      "/product-sticky/"
+                                      // wishes.prodct._id
                                     }
                                   >
-                                    {wishlistItem.name}
+                                    {wishes.product.product_name}
                                   </Link>
                                 </td>
 
                                 <td className="product-price-cart">
-                                  {discountedPrice !== null ? (
-                                    <Fragment>
-                                      <span className="amount old">
-                                        {currency.currencySymbol +
-                                          finalProductPrice}
-                                      </span>
-                                      <span className="amount">
-                                        {currency.currencySymbol +
-                                          finalDiscountedPrice}
-                                      </span>
-                                    </Fragment>
-                                  ) : (
-                                    <span className="amount">
-                                      {currency.currencySymbol +
-                                        finalProductPrice}
-                                    </span>
-                                  )}
+                                  <span className="amount">{wishes.color}</span>
+                                </td>
+
+                                <td className="product-price-cart">
+                                  <span className="amount">{wishes.size}</span>
                                 </td>
 
                                 <td className="product-wishlist-cart">
-                                  {wishlistItem.affiliateLink ? (
-                                    <a
-                                      href={wishlistItem.affiliateLink}
-                                      rel="noopener noreferrer"
-                                      target="_blank"
+                                  <div className="pro-details-cart btn-hover">
+                                    <Button
+                                      color="primary"
+                                      onClick={() => {
+                                        Axios.post(
+                                          "http://35.154.86.59/api/admin/add_ToCart",
+                                          {
+                                            product: wishes.product._id,
+                                            //product_qty: quantityCount,
+                                            //product_price: state.sell_price,
+                                            colorName: wishes.color,
+                                            size: wishes.size,
+                                          },
+                                          {
+                                            headers: {
+                                              "auth-token":
+                                                localStorage.getItem("token"),
+                                            },
+                                          }
+                                        )
+                                          .then((response) => {
+                                            alert("Added To Cart");
+                                            console.log(response);
+                                            //pahucha dena
+                                          })
+                                          .catch(function (error) {
+                                            if (error.response) {
+                                              // Request made and server responded
+                                              console.log(error.response.data);
+                                              console.log(
+                                                error.response.status
+                                              );
+                                              console.log(
+                                                error.response.headers
+                                              );
+                                            } else if (error.request) {
+                                              // The request was made but no response was received
+                                              console.log(error.request);
+                                            } else {
+                                              // Something happened in setting up the request that triggered an Error
+                                              console.log(
+                                                "Error",
+                                                error.message
+                                              );
+                                            }
+                                          });
+                                      }}
                                     >
-                                      {" "}
-                                      Buy now{" "}
-                                    </a>
-                                  ) : wishlistItem.variation &&
-                                    wishlistItem.variation.length >= 1 ? (
-                                    <Link
-                                      to={`${process.env.PUBLIC_URL}/product/${wishlistItem.id}`}
-                                    >
-                                      Select option
-                                    </Link>
-                                  ) : wishlistItem.stock &&
-                                    wishlistItem.stock > 0 ? (
-                                    <button
-                                      onClick={() =>
-                                        addToCart(wishlistItem, addToast)
-                                      }
-                                      className={
-                                        cartItem !== undefined &&
-                                        cartItem.quantity > 0
-                                          ? "active"
-                                          : ""
-                                      }
-                                      disabled={
-                                        cartItem !== undefined &&
-                                        cartItem.quantity > 0
-                                      }
-                                      title={
-                                        wishlistItem !== undefined
-                                          ? "Added to cart"
-                                          : "Add to cart"
-                                      }
-                                    >
-                                      {cartItem !== undefined &&
-                                      cartItem.quantity > 0
-                                        ? "Added"
-                                        : "Add to cart"}
-                                    </button>
-                                  ) : (
-                                    <button disabled className="active">
-                                      Out of stock
-                                    </button>
-                                  )}
+                                      Add To Cart
+                                    </Button>
+                                  </div>
                                 </td>
 
                                 <td className="product-remove">
                                   <button
                                     onClick={() =>
-                                      deleteFromWishlist(wishlistItem, addToast)
+                                      deleteFromWishlist(wishes, addToast)
                                     }
                                   >
                                     <i className="fa fa-times"></i>
@@ -228,9 +222,7 @@ const Wishlist = ({
                     </div>
                     <div className="item-empty-area__text">
                       No items found in wishlist <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
-                        Add Items
-                      </Link>
+                      <Link to={process.env.PUBLIC_URL + "/"}>Add Items</Link>
                     </div>
                   </div>
                 </div>
@@ -250,18 +242,18 @@ Wishlist.propTypes = {
   location: PropTypes.object,
   deleteAllFromWishlist: PropTypes.func,
   deleteFromWishlist: PropTypes.func,
-  wishlistItems: PropTypes.array
+  wishlistItems: PropTypes.array,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     cartItems: state.cartData,
     wishlistItems: state.wishlistData,
-    currency: state.currencyData
+    currency: state.currencyData,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (item, addToast, quantityCount) => {
       dispatch(addToCart(item, addToast, quantityCount));
@@ -272,9 +264,9 @@ const mapDispatchToProps = dispatch => {
     deleteFromWishlist: (item, addToast, quantityCount) => {
       dispatch(deleteFromWishlist(item, addToast, quantityCount));
     },
-    deleteAllFromWishlist: addToast => {
+    deleteAllFromWishlist: (addToast) => {
       dispatch(deleteAllFromWishlist(addToast));
-    }
+    },
   };
 };
 

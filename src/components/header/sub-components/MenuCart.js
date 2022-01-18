@@ -1,18 +1,37 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import React, { Fragment, useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { getDiscountPrice } from "../../../helpers/product";
+import Axios from "axios";
 
 const MenuCart = ({ cartData, currency, deleteFromCart }) => {
   let cartTotalPrice = 0;
   const { addToast } = useToasts();
+  const [carts, setCarts] = useState([]);
+  const { id } = useParams();
+  const fetchcarts = async (token) => {
+    const { data } = await Axios.get(
+      `http://35.154.86.59/api/admin/cartbycustomer`,
+      {
+        headers: {
+          "auth-token": localStorage.getItem("token"),
+        },
+      }
+    );
+    const carts = data.data;
+    setCarts(carts);
+    console.log(carts);
+  };
+  useEffect(() => {
+    fetchcarts();
+  }, []);
   return (
     <div className="shopping-cart-content">
-      {cartData && cartData.length > 0 ? (
+      {carts && carts?.length > 0 ? (
         <Fragment>
           <ul>
-            {cartData.map((single, key) => {
+            {carts.map((single, key) => {
               const discountedPrice = getDiscountPrice(
                 single.price,
                 single.discount
@@ -31,10 +50,18 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
               return (
                 <li className="single-shopping-cart" key={key}>
                   <div className="shopping-cart-img">
-                    <Link to={process.env.PUBLIC_URL + "/product/" + single.id}>
+                    <Link
+                      to={
+                        process.env.PUBLIC_URL +
+                        "/product-sticky/" +
+                        single.product._id
+                      }
+                    >
                       <img
                         alt=""
-                        src={process.env.PUBLIC_URL + single.image[0]}
+                        src={
+                          process.env.PUBLIC_URL + single.product.product_img[0]
+                        }
                         className="img-fluid"
                       />
                     </Link>
@@ -42,27 +69,18 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
                   <div className="shopping-cart-title">
                     <h4>
                       <Link
-                        to={process.env.PUBLIC_URL + "/product/" + single.id}
+                        to={
+                          process.env.PUBLIC_URL +
+                          "/product-sticky/" +
+                          single.product._id
+                        }
                       >
                         {" "}
-                        {single.name}{" "}
+                        {single.product.product_name}
                       </Link>
                     </h4>
-                    <h6>Qty: {single.quantity}</h6>
-                    <span>
-                      {discountedPrice !== null
-                        ? currency.currencySymbol + finalDiscountedPrice
-                        : currency.currencySymbol + finalProductPrice}
-                    </span>
-                    {single.selectedProductColor &&
-                    single.selectedProductSize ? (
-                      <div className="cart-item-variation">
-                        <span>Color: {single.selectedProductColor}</span>
-                        <span>Size: {single.selectedProductSize}</span>
-                      </div>
-                    ) : (
-                      ""
-                    )}
+                    <h6>Qty: {single.product_qty}</h6>
+                    <span></span>
                   </div>
                   <div className="shopping-cart-delete">
                     <button onClick={() => deleteFromCart(single, addToast)}>
@@ -103,7 +121,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
 MenuCart.propTypes = {
   cartData: PropTypes.array,
   currency: PropTypes.object,
-  deleteFromCart: PropTypes.func
+  deleteFromCart: PropTypes.func,
 };
 
 export default MenuCart;

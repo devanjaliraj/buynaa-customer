@@ -3,9 +3,9 @@ import axios from "axios";
 // import Carousel from "react-elastic-carousel";
 import { Container, Col, Row, Button, Jumbotron } from "reactstrap";
 import "../../assets/css/productcard.css";
-// import men from "../../assets/img/team/men.jpg";
-// import women from "../../assets/img/women.jpg"
-// import kid from "../../assets/img/kid.jpg"
+import men from "../../assets/img/team/men.jpg";
+import women from "../../assets/img/women.jpg";
+import kid from "../../assets/img/kid.jpg";
 import { Link } from "react-router-dom";
 
 class ByCategory extends React.Component {
@@ -13,10 +13,12 @@ class ByCategory extends React.Component {
     ByCategoryList: [],
   };
   componentDidMount() {
-    axios.get(`http://35.154.86.59/api/admin/getproductCategory/`).then(res => {
-      console.log(res);
-      this.setState({ ByCategoryList: res.data.data });
-    });
+    axios
+      .get(`http://35.154.86.59/api/admin/getproductCategory/`)
+      .then((res) => {
+        console.log(res);
+        this.setState({ ByCategoryList: res.data.data });
+      });
   }
   // const [users, setUsers] = useState([]);
   // const getUsers = async()=>{
@@ -37,7 +39,7 @@ class ByCategory extends React.Component {
   // },[]);
 
   render() {
-    const ByCategoryListData = this.state.ByCategoryList?.map(data => {
+    const ByCategoryListData = this.state.ByCategoryList?.map((data) => {
       return (
         <div>
           <Col lg="4">
@@ -72,7 +74,7 @@ class ByCategory extends React.Component {
               <Button
                 color="primary"
                 className=""
-                onClick={event => {
+                onClick={(event) => {
                   window.location.href = "/shop-grid-two-column";
                   console.log("ok");
                 }}
@@ -83,56 +85,24 @@ class ByCategory extends React.Component {
           </Row>
         </Jumbotron>
         <Jumbotron className="d-flex align-items-center justify-content-center">
-          {ByCategoryListData}
-
-          {/* <div>
-
-          <Col lg="4">
-            <Link to={`${process.env.PUBLIC_URL}/shop-list-standard/${product.id}`}>
-            <img
-              src={men}
-              alt="img"
-              height="320vh"
-              width="300px"
-
-            />
-            </Link>
-          </Col>
-          </div> */}
-
-          {/*
-          <Col lg="4">
-          <Link to="/shop-list-standard">
-
-            <img
-              src={men}
-              alt="img"
-              height="320vh"
-              width="300px"
-            />
-            </Link>
-          </Col> <Col lg="4">
-          <Link to="/shop-list-standard">
-
-            <img
-              src={women}
-              alt="img"
-              height="320vh"
-              width="300px"
-            />
-            </Link>
-          </Col>
-          <Col lg="4">
-          <Link to="/shop-list-standard">
-
-            <img
-              src={kid}
-              alt="img"
-              height="320vh"
-              width="300px"
-            />
-            </Link>
-          </Col> */}
+          {/* {ByCategoryListData} */}
+          <Row>
+            <Col lg="4">
+              <Link to="/shop-grid-men-column">
+                <img src={men} alt="img" height="320vh" width="300px" />
+              </Link>
+            </Col>
+            <Col lg="4">
+              <Link to="/shop-grid-women-column">
+                <img src={women} alt="img" height="320vh" width="300px" />
+              </Link>
+            </Col>
+            <Col lg="4">
+              <Link to="/shop-grid-kids-column">
+                <img src={kid} alt="img" height="320vh" width="300px" />
+              </Link>
+            </Col>
+          </Row>
         </Jumbotron>
       </Container>
     );

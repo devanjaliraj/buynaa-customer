@@ -11,17 +11,17 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
     >
       <div className="footer-logo">
         <Link to={process.env.PUBLIC_URL + "/"}>
-          <img alt="" src={process.env.PUBLIC_URL + footerLogo} style={{width:150}}/>
+          <img
+            alt=""
+            src={process.env.PUBLIC_URL + footerLogo}
+            style={{ width: 150 }}
+          />
         </Link>
       </div>
       <p>
         &copy; {new Date().getFullYear()}{" "}
-        <a
-          href="https://hasthemes.com"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          Flone
+        <a href="/" rel="noopener noreferrer" target="">
+          Buynaa
         </a>
         .<br /> All Rights Reserved
       </p>
@@ -32,7 +32,7 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
 FooterCopyright.propTypes = {
   footerLogo: PropTypes.string,
   spaceBottomClass: PropTypes.string,
-  colorClass: PropTypes.string
+  colorClass: PropTypes.string,
 };
 
 export default FooterCopyright;

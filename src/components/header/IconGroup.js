@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
 import { deleteFromCart } from "../../redux/actions/cartActions";
+import Axios from "axios";
 
 const IconGroup = ({
   currency,
@@ -11,9 +12,9 @@ const IconGroup = ({
   wishlistData,
   compareData,
   deleteFromCart,
-  iconWhiteClass
+  iconWhiteClass,
 }) => {
-  const handleClick = e => {
+  const handleClick = (e) => {
     e.currentTarget.nextSibling.classList.toggle("active");
   };
 
@@ -24,12 +25,49 @@ const IconGroup = ({
     offcanvasMobileMenu.classList.add("active");
   };
 
+  const [carts, setCarts] = useState([]);
+  //const { id } = useParams();
+  const fetchcarts = async (token) => {
+    const { data } = await Axios.get(
+      `http://35.154.86.59/api/admin/cartbycustomer`,
+      {
+        headers: {
+          "auth-token": localStorage.getItem("token"),
+        },
+      }
+    );
+    const carts = data.data;
+    setCarts(carts);
+    console.log(carts);
+  };
+  useEffect(() => {
+    fetchcarts();
+  }, []);
+
+  const [wish, setWish] = useState([]);
+  const fetchWish = async () => {
+    const { data } = await Axios.get(
+      "http://35.154.86.59/api/admin/getallwishlist",
+      {
+        headers: {
+          "auth-token": localStorage.getItem("token"),
+        },
+      }
+    );
+    const wish = data.data;
+    setWish(wish);
+    console.log(wish);
+  };
+  useEffect(() => {
+    fetchWish();
+  }, []);
+
   return (
     <div
       className={`header-right-wrap ${iconWhiteClass ? iconWhiteClass : ""}`}
     >
-      <div className="same-style header-search d-none d-lg-block">
-        <button className="search-active" onClick={e => handleClick(e)}>
+      {/* <div className="same-style header-search d-none d-lg-block">
+        <button className="search-active" onClick={(e) => handleClick(e)}>
           <i className="pe-7s-search" />
         </button>
         <div className="search-content">
@@ -40,11 +78,11 @@ const IconGroup = ({
             </button>
           </form>
         </div>
-      </div>
+      </div> */}
       <div className="same-style account-setting d-none d-lg-block">
         <button
           className="account-setting-active"
-          onClick={e => handleClick(e)}
+          onClick={(e) => handleClick(e)}
         >
           <i className="pe-7s-user-female" />
         </button>
@@ -66,32 +104,32 @@ const IconGroup = ({
           </ul>
         </div>
       </div>
-      <div className="same-style header-compare">
+      {/* <div className="same-style header-compare">
         <Link to={process.env.PUBLIC_URL + "/compare"}>
           <i className="pe-7s-shuffle" />
           <span className="count-style">
             {compareData && compareData.length ? compareData.length : 0}
           </span>
         </Link>
-      </div>
+      </div> */}
       <div className="same-style header-wishlist">
         <Link to={process.env.PUBLIC_URL + "/wishlist"}>
           <i className="pe-7s-like" />
           <span className="count-style">
-            {wishlistData && wishlistData.length ? wishlistData.length : 0}
+            {wish && wish.length ? wish.length : 0}
           </span>
         </Link>
       </div>
       <div className="same-style cart-wrap d-none d-lg-block">
-        <button className="icon-cart" onClick={e => handleClick(e)}>
+        <button className="icon-cart" onClick={(e) => handleClick(e)}>
           <i className="pe-7s-shopbag" />
           <span className="count-style">
-            {cartData && cartData.length ? cartData.length : 0}
+            {carts && carts.length ? carts.length : 0}
           </span>
         </button>
         {/* menu cart */}
         <MenuCart
-          cartData={cartData}
+          carts={carts}
           currency={currency}
           deleteFromCart={deleteFromCart}
         />
@@ -100,7 +138,7 @@ const IconGroup = ({
         <Link className="icon-cart" to={process.env.PUBLIC_URL + "/cart"}>
           <i className="pe-7s-shopbag" />
           <span className="count-style">
-            {cartData && cartData.length ? cartData.length : 0}
+            {carts && carts.length ? carts.length : 0}
           </span>
         </Link>
       </div>
@@ -122,23 +160,23 @@ IconGroup.propTypes = {
   currency: PropTypes.object,
   iconWhiteClass: PropTypes.string,
   deleteFromCart: PropTypes.func,
-  wishlistData: PropTypes.array
+  wishlistData: PropTypes.array,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     currency: state.currencyData,
     cartData: state.cartData,
     wishlistData: state.wishlistData,
-    compareData: state.compareData
+    compareData: state.compareData,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     deleteFromCart: (item, addToast) => {
       dispatch(deleteFromCart(item, addToast));
-    }
+    },
   };
 };
 

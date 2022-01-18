@@ -16,16 +16,16 @@ export class HeroSliderTwentyEightSingle extends Component {
     };
   }
 
-  search = async val => {
+  search = async (val) => {
     this.setState({ loading: true });
     const res = await axios(
-      `http://35.154.86.59/api/admin/searchinputbycategory`
+      `http://http://35.154.86.59/api/admin/searchinputproduct`
     );
     const products = await res.data;
 
     this.setState({ products, loading: false });
   };
-  onChangeHandler = async e => {
+  onChangeHandler = async (e) => {
     this.search(e.target.value);
     this.setState({ value: e.target.value });
   };
@@ -65,7 +65,7 @@ export class HeroSliderTwentyEightSingle extends Component {
                   <Input
                     type="search"
                     value={this.state.value}
-                    onChange={e => this.onChangeHandler(e)}
+                    onChange={(e) => this.onChangeHandler(e)}
                     placeholder="Type something to search"
                   />
                   {this.renderdiv}

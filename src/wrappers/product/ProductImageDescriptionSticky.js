@@ -3,34 +3,23 @@ import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 //import { useToasts } from "react-toast-notifications";
 import Sticky from "react-sticky-el";
+import Carousel from "react-bootstrap/Carousel";
 //import { getDiscountPrice } from "../../helpers/product";
-import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";
-import ProductImageGallerySticky from "../../components/product/ProductImageGallerySticky";
-import { getProductCartQuantity } from "../../helpers/product";
+//import ProductDescriptionInfo from "../../components/product/ProductDescriptionInfo";
+//import ProductImageGallerySticky from "../../components/product/ProductImageGallerySticky";
+//import { getProductCartQuantity } from "../../helpers/product";
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
 import Rating from "../../components/product/sub-components/ProductRating";
+import Axios from "axios";
+import { Button } from "reactstrap";
 
 const ProductImageDescriptionSticky = ({
   spaceTopClass,
   spaceBottomClass,
-  product,
-  currency,
-  cartItems,
   wishlistItems,
-  compareItems,
   productImage,
-  productFullDesc,
-  discountedPrice,
-  finalDiscountedPrice,
-  finalProductPrice,
-  compareItem,
-  addToast,
-  addToCart,
-  addToWishlist,
-  addToCompare,
-  fullProductDesc,
 }) => {
   // const wishlistItem = wishlistItems.filter(
   //   wishlistItem => wishlistItem.id === product.id
@@ -46,20 +35,14 @@ const ProductImageDescriptionSticky = ({
   //   discountedPrice * currency.currencyRate
   // ).toFixed(2);
   const [quantityCount, setQuantityCount] = useState(1);
-
+  const [selectedSize, setSelectedSize] = useState("");
+  const [rating, allRating] = useState([false, false, false, false, false]);
+  const [selectedColor, setSelectedColor] = useState("");
   const [state, setstate] = React.useState({});
   const [imgArr, setImgArr] = React.useState([]);
   React.useEffect(() => {
-    console.log("ProductDesc", productFullDesc);
-    console.log("Product Img", productImage);
     var t = JSON.parse(productImage).product_img;
     if (t !== undefined && t !== null) setImgArr(t);
-    // if (
-    //   productFullDesc !== undefined &&
-    //   productFullDesc !== null &&
-    //   productFullDesc !== ""
-    // )
-    //   setstate(JSON.parse(productFullDesc));
     setstate(JSON.parse(productImage));
   });
 
@@ -74,12 +57,19 @@ const ProductImageDescriptionSticky = ({
           <div className="col-lg-6 col-md-6">
             {/* product image gallery */}
             <div className="product-large-image-wrapper product-large-image-wrapper--sticky">
-              <div className="product-sticky-image mb--10">
-                {imgArr?.map((single) => (
-                  <div className="product-sticky-image__single mb-10">
-                    <img src={single} alt="" className="img-fluid" />
-                  </div>
-                ))}
+              <div className="">
+                <Carousel>
+                  {imgArr?.map((single) => (
+                    <Carousel.Item>
+                      <img
+                        src={single}
+                        alt=""
+                        className="img-fluid"
+                        style={{ width: "550px", height: "100vh" }}
+                      />
+                    </Carousel.Item>
+                  ))}
+                </Carousel>
               </div>
             </div>
           </div>
@@ -111,69 +101,106 @@ const ProductImageDescriptionSticky = ({
 
                 <div className="pro-details-rating-wrap">
                   <div className="pro-details-rating">
-                    <Rating />
+                    {rating.map((val, index) => (
+                      <span
+                        onClick={() => {
+                          var rat = [];
+                          for (var i = 0; i < 5; i++) {
+                            if (i <= index) rat.push(true);
+                            else rat.push(false);
+                          }
+                          allRating(rat);
+                        }}
+                      >
+                        {rating[index] ? (
+                          <i className="fa fa-star-o yellow" key={index}></i>
+                        ) : (
+                          <i className="fa fa-star-o" key={index}></i>
+                        )}
+                      </span>
+                    ))}
                   </div>
                 </div>
 
                 <div className="pro-details-list">
                   <p>{state?.short_desc}</p>
                 </div>
-
+                {/* section Color */}
                 <div className="pro-details-size-color">
                   <div className="pro-details-color-wrap">
                     <span>Color</span>
-                    <div className="pro-details-color-content">
-                      <h5>{state?.color?.colorName}</h5>
-                      {/* <label
-                    className={`pro-details-color-content--single ${single.color}`}
-                   
-                  > */}
-                      {/* <input
-                      type="radio"
-                      value={single.color}
-                      name="product-color"
-                      checked={
-                        single.color === selectedProductColor ? "checked" : ""
-                      }
-                      onChange={() => {
-                        setSelectedProductColor(single.color);
-                        setSelectedProductSize(single.size[0].name);
-                        setProductStock(single.size[0].stock);
-                        setQuantityCount(1);
-                      }}
-                    /> */}
-                      {/* <span className="checkmark"></span>
-                  </label> */}
+                    <div
+                      className="pro-details-color-content"
+                      style={{ flexDirection: "row" }}
+                    >
+                      {state
+                        ? state.color
+                          ? state.color.map((clr) => (
+                              <Button
+                                outline
+                                color="primary"
+                                className="m-1"
+                                onClick={() => {
+                                  setSelectedColor(clr.colorName);
+                                }}
+                              >
+                                <h5
+                                  style={{
+                                    backgroundColor:
+                                      selectedColor === clr.colorName,
+                                  }}
+                                >
+                                  {clr.colorName}
+                                </h5>
+                              </Button>
+                            ))
+                          : null
+                        : null}
                     </div>
                   </div>
-                  <div className="pro-details-size">
+                </div>
+                {/* Section Size */}
+                <div className="pro-details-size-color">
+                  <div className="pro-details-color-wrap">
                     <span>Size</span>
-                    {/* <h6>{state?.size?.sizeName}</h6>  */}
-                    <div className="pro-details-size-content">
-                      {state?.size?.map((sizes) => (
-                        <label
-                          className={`pro-details-size-content--single`}
-                          key={sizes._id}
-                        >
-                          <input
-                            type="radio"
-                            value={sizes.sizeName}
-                            checked={sizes.sizeName}
-                          />
-                          <span className="size-name">{sizes.name}</span>
-                        </label>
-                      ))}
+                    <div
+                      className="pro-details-color-content"
+                      style={{ flexDirection: "row" }}
+                    >
+                      {state
+                        ? state.size
+                          ? state.size.map((siz) => (
+                              <Button
+                                outline
+                                color="danger"
+                                className="m-1"
+                                onClick={() => {
+                                  setSelectedSize(siz.sizeName);
+                                }}
+                              >
+                                <h5
+                                  style={{
+                                    backgroundColor:
+                                      selectedSize === siz.sizeName,
+                                  }}
+                                >
+                                  {siz.sizeName}
+                                </h5>
+                              </Button>
+                            ))
+                          : null
+                        : null}
                     </div>
                   </div>
                 </div>
 
-                <div className="pro-details-quality">
+                {/* <div className="pro-details-quality">
                   <div className="pro-details-cart btn-hover ml-0">
                     <a href="##" target="_blank">
                       Buy Now
                     </a>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="pro-details-quality">
                   <div className="cart-plus-minus">
@@ -197,9 +224,42 @@ const ProductImageDescriptionSticky = ({
                   </div>
                   <div className="pro-details-cart btn-hover">
                     <button
-                      onClick={() =>
-                        addToCart(product, addToast, quantityCount)
-                      }
+                      onClick={() => {
+                        Axios.post(
+                          "http://35.154.86.59/api/admin/add_ToCart",
+                          {
+                            product: state._id,
+                            product_qty: quantityCount,
+                            product_price: state.sell_price,
+                            colorName: selectedColor,
+                            size: selectedSize,
+                          },
+                          {
+                            headers: {
+                              "auth-token": localStorage.getItem("token"),
+                            },
+                          }
+                        )
+                          .then((response) => {
+                            alert("Added To Cart");
+                            console.log(response);
+                            //pahucha dena
+                          })
+                          .catch(function (error) {
+                            if (error.response) {
+                              // Request made and server responded
+                              console.log(error.response.data);
+                              console.log(error.response.status);
+                              console.log(error.response.headers);
+                            } else if (error.request) {
+                              // The request was made but no response was received
+                              console.log(error.request);
+                            } else {
+                              // Something happened in setting up the request that triggered an Error
+                              console.log("Error", error.message);
+                            }
+                          });
+                      }}
                     >
                       Add To Cart
                     </button>
@@ -213,7 +273,40 @@ const ProductImageDescriptionSticky = ({
                           ? "Added to wishlist"
                           : "Add to wishlist"
                       }
-                      onClick={() => addToWishlist(product, addToast)}
+                      onClick={() => {
+                        Axios.post(
+                          "http://35.154.86.59/api/admin/addwishlist",
+                          {
+                            product: state._id,
+                            colorName: selectedColor,
+                            size: selectedSize,
+                          },
+                          {
+                            headers: {
+                              "auth-token": localStorage.getItem("token"),
+                            },
+                          }
+                        )
+                          .then((response) => {
+                            alert("Added To Wishlist");
+                            console.log(response);
+                            //pahucha dena
+                          })
+                          .catch(function (error) {
+                            if (error.response) {
+                              // Request made and server responded
+                              console.log(error.response.data);
+                              console.log(error.response.status);
+                              console.log(error.response.headers);
+                            } else if (error.request) {
+                              // The request was made but no response was received
+                              console.log(error.request);
+                            } else {
+                              // Something happened in setting up the request that triggered an Error
+                              console.log("Error", error.message);
+                            }
+                          });
+                      }}
                     >
                       <i className="pe-7s-like" />
                     </button>

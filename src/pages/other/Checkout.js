@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, Component } from "react";
 import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import { connect } from "react-redux";
@@ -8,28 +8,31 @@ import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 
-const Checkout = ({ location, cartItems, currency }) => {
-  const { pathname } = location;
-  let cartTotalPrice = 0;
+export class Checkout extends Component {
+  render() {
+    // const { pathname } = location;
+    //let cartTotalPrice = 0;
 
-  return (
-    <Fragment>
-      <MetaTags>
-        <title>Flone | Checkout</title>
-        <meta
-          name="description"
-          content="Checkout page of flone react minimalist eCommerce template."
-        />
-      </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+    return (
+      <Fragment>
+        <MetaTags>
+          <title>Flone | Checkout</title>
+          <meta
+            name="description"
+            content="Checkout page of flone react minimalist eCommerce template."
+          />
+        </MetaTags>
+        <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>
+          Home
+        </BreadcrumbsItem>
+        {/* <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}> 
         Checkout
-      </BreadcrumbsItem>
-      <LayoutOne headerTop="visible">
-        {/* breadcrumb */}
-        <Breadcrumb />
-        <div className="checkout-area pt-95 pb-100">
-          <div className="container">
+      </BreadcrumbsItem> */}
+        <LayoutOne headerTop="visible">
+          {/* breadcrumb */}
+          <Breadcrumb />
+          <div className="checkout-area pt-95 pb-100">
+            {/* <div className="container">
             {cartItems && cartItems.length >= 1 ? (
               <div className="row">
                 <div className="col-lg-7">
@@ -156,7 +159,7 @@ const Checkout = ({ location, cartItems, currency }) => {
                                 ? (cartTotalPrice +=
                                     finalDiscountedPrice * cartItem.quantity)
                                 : (cartTotalPrice +=
-                                    finalProductPrice * cartItem.quantity);
+                                    finalProductPrice * cartItem.quantity)
                               return (
                                 <li key={key}>
                                   <span className="order-middle-left">
@@ -189,9 +192,9 @@ const Checkout = ({ location, cartItems, currency }) => {
                           <ul>
                             <li className="order-total">Total</li>
                             <li>
-                              {currency.currencySymbol +
-                                cartTotalPrice.toFixed(2)}
-                            </li>
+                              {/* {currency.currencySymbol +
+                                cartTotalPrice.toFixed(2)} */}
+            {/*  </li>
                           </ul>
                         </div>
                       </div>
@@ -220,24 +223,25 @@ const Checkout = ({ location, cartItems, currency }) => {
                 </div>
               </div>
             )}
+          </div> */}
           </div>
-        </div>
-      </LayoutOne>
-    </Fragment>
-  );
-};
+        </LayoutOne>
+      </Fragment>
+    );
+  }
+}
 
-Checkout.propTypes = {
-  cartItems: PropTypes.array,
-  currency: PropTypes.object,
-  location: PropTypes.object
-};
+// Checkout.propTypes = {
+//   cartItems: PropTypes.array,
+//   currency: PropTypes.object,
+//   location: PropTypes.object,
+// };
 
-const mapStateToProps = state => {
-  return {
-    cartItems: state.cartData,
-    currency: state.currencyData
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     cartItems: state.cartData,
+//     currency: state.currencyData,
+//   };
+// };
 
-export default connect(mapStateToProps)(Checkout);
+export default Checkout;

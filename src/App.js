@@ -1,12 +1,18 @@
 import PropTypes from "prop-types";
 import React, { useEffect, Suspense, lazy } from "react";
 import ScrollToTop from "./helpers/scroll-top";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { ToastProvider } from "react-toast-notifications";
 import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 import TermsOfUse from "./wrappers/myPage/TermsOfUse";
+import { Component } from "react";
 
 // home pages
 // const HomeFashion = lazy(() => import("./pages/home/HomeFashion"));
@@ -66,6 +72,13 @@ const HomeFurnitureTwo = lazy(() => import("./pages/home/HomeFurnitureTwo"));
 const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
 const ShopGridFilter = lazy(() => import("./pages/shop/ShopGridFilter"));
 const ShopGridTwoColumn = lazy(() => import("./pages/shop/ShopGridTwoColumn"));
+const ShopGridMenColumn = lazy(() => import("./pages/shop/ShopGridMenColumn"));
+const ShopGridWomenColumn = lazy(() =>
+  import("./pages/shop/ShopGridWomenColumn")
+);
+const ShopGridKidsColumn = lazy(() =>
+  import("./pages/shop/ShopGridKidsColumn")
+);
 const ShopGridNoSidebar = lazy(() => import("./pages/shop/ShopGridNoSidebar"));
 const ShopGridFullWidth = lazy(() => import("./pages/shop/ShopGridFullWidth"));
 const ShopGridRightSidebar = lazy(() =>
@@ -319,6 +332,18 @@ const App = (props) => {
                   component={ShopGridTwoColumn}
                 />
                 <Route
+                  path={process.env.PUBLIC_URL + "/shop-grid-men-column"}
+                  component={ShopGridMenColumn}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/shop-grid-women-column"}
+                  component={ShopGridWomenColumn}
+                />
+                <Route
+                  path={process.env.PUBLIC_URL + "/shop-grid-kids-column"}
+                  component={ShopGridKidsColumn}
+                />
+                <Route
                   path={process.env.PUBLIC_URL + "/shop-grid-no-sidebar"}
                   component={ShopGridNoSidebar}
                 />
@@ -416,10 +441,7 @@ const App = (props) => {
                   path={process.env.PUBLIC_URL + "/TermsOfUse"}
                   component={TermsOfUse}
                 />
-                <Route
-                  path={process.env.PUBLIC_URL + "/my-account"}
-                  component={MyAccount}
-                />
+
                 <Route
                   path={process.env.PUBLIC_URL + "/login-register"}
                   component={LoginRegister}
@@ -433,23 +455,51 @@ const App = (props) => {
                   path={process.env.PUBLIC_URL + "/Phone"}
                   component={Phone}
                 />
-                <Route path={process.env.PUBLIC_URL + "/Otp"} component={Otp} />
-                <Route
+                {/* <Route
                   path={process.env.PUBLIC_URL + "/cart"}
                   component={Cart}
-                />
+                /> */}
+                <Route path={process.env.PUBLIC_URL + "/Otp"} component={Otp} />
                 <Route
+                  render={() =>
+                    localStorage.getItem("token") ? (
+                      <>
+                        <Route
+                          path={process.env.PUBLIC_URL + "/cart"}
+                          component={Cart}
+                        />
+                        <Route
+                          path={process.env.PUBLIC_URL + "/wishlist"}
+                          component={Wishlist}
+                        />
+                        <Route
+                          path={process.env.PUBLIC_URL + "/checkout"}
+                          component={Checkout}
+                        />
+                        <Route
+                          path={process.env.PUBLIC_URL + "/my-account"}
+                          component={MyAccount}
+                        />
+                      </>
+                    ) : (
+                      <Redirect
+                        to={process.env.PUBLIC_URL + "/login-register"}
+                      />
+                    )
+                  }
+                />
+                {/* <Route
                   path={process.env.PUBLIC_URL + "/wishlist"}
                   component={Wishlist}
-                />
+                /> */}
                 <Route
                   path={process.env.PUBLIC_URL + "/compare"}
                   component={Compare}
                 />
-                <Route
+                {/* <Route
                   path={process.env.PUBLIC_URL + "/checkout"}
                   component={Checkout}
-                />
+                /> */}
 
                 <Route
                   path={process.env.PUBLIC_URL + "/not-found"}
