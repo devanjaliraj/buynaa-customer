@@ -13,13 +13,13 @@ import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
 import Rating from "../../components/product/sub-components/ProductRating";
 import Axios from "axios";
-import { Button } from "reactstrap";
+import { Button, Radio, ButtonGroup } from "reactstrap";
 
 const ProductImageDescriptionSticky = ({
   spaceTopClass,
   spaceBottomClass,
   wishlistItems,
-  productImage,
+  productImage
 }) => {
   // const wishlistItem = wishlistItems.filter(
   //   wishlistItem => wishlistItem.id === product.id
@@ -44,7 +44,7 @@ const ProductImageDescriptionSticky = ({
     var t = JSON.parse(productImage).product_img;
     if (t !== undefined && t !== null) setImgArr(t);
     setstate(JSON.parse(productImage));
-  });
+  }, [productImage]);
 
   return (
     <div
@@ -60,12 +60,12 @@ const ProductImageDescriptionSticky = ({
               <div className="">
                 <Carousel>
                   {imgArr?.map((single) => (
-                    <Carousel.Item>
+                    <Carousel.Item key={single}>
                       <img
                         src={single}
                         alt=""
                         className="img-fluid"
-                        style={{ width: "550px", height: "100vh" }}
+                        style={{ width: "550px" }}
                       />
                     </Carousel.Item>
                   ))}
@@ -74,12 +74,12 @@ const ProductImageDescriptionSticky = ({
             </div>
           </div>
           <div className="col-lg-6 col-md-6">
-            <Sticky
+            {/* <Sticky
               boundaryElement=".shop-area"
               style={{ position: "relative" }}
-            >
-              {/* product description info */}
-              {/* <ProductDescriptionInfo
+            > */}
+            {/* product description info */}
+            {/* <ProductDescriptionInfo
                 //product={product}
                 //discountedPrice={discountedPrice}
                 //currency={currency}
@@ -91,110 +91,133 @@ const ProductImageDescriptionSticky = ({
                 // addToast={addToast}
                 fullProductDesc={JSON.stringify(state)}
               /> */}
-              <div className="product-details-content ml-70 mt-5 mb-5">
-                <h2>{state?.product_name}</h2>
-                <div className="product-details-price">
-                  <Fragment>
-                    <span>₹{state?.sell_price}</span>{" "}
-                  </Fragment>
-                </div>
+            <div className="product-details-content ml-70 mt-5 mb-5">
+              <h4 style={{ color: "#a6a6a6", textTransform: "uppercase" }}>
+                {state?.brand?.name}
+              </h4>
+              <h2
+                className=""
+                style={{ textTransform: "capitalize", fontWeight: 500 }}
+              >
+                {state?.product_name} <span>({state?.material})</span>
+              </h2>
+              <div className="pro-details-list">
+                <p>
+                  {state?.short_desc},{state?.long_desc},
+                </p>
+                <p className=" w-25 shadow-none p-1 mb-5 bg-white rounded">
+                  #{state?.productsubcategory?.name}
+                </p>
+              </div>
+              <div className="product-details-price">
+                <Fragment>
+                  <span>
+                    ₹{state?.sell_price}
+                    <span> ({state?.discount_perc}% OFF)</span>
+                  </span>{" "}
+                </Fragment>
+              </div>
 
-                <div className="pro-details-rating-wrap">
-                  <div className="pro-details-rating">
-                    {rating.map((val, index) => (
-                      <span
-                        onClick={() => {
-                          var rat = [];
-                          for (var i = 0; i < 5; i++) {
-                            if (i <= index) rat.push(true);
-                            else rat.push(false);
-                          }
-                          allRating(rat);
-                        }}
-                      >
-                        {rating[index] ? (
-                          <i className="fa fa-star-o yellow" key={index}></i>
-                        ) : (
-                          <i className="fa fa-star-o" key={index}></i>
-                        )}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="pro-details-list">
-                  <p>{state?.short_desc}</p>
-                </div>
-                {/* section Color */}
-                <div className="pro-details-size-color">
-                  <div className="pro-details-color-wrap">
-                    <span>Color</span>
-                    <div
-                      className="pro-details-color-content"
-                      style={{ flexDirection: "row" }}
+              <div className="pro-details-rating-wrap">
+                <div className="pro-details-rating">
+                  {rating.map((val, index) => (
+                    <span
+                      key={index}
+                      onClick={() => {
+                        var rat = [];
+                        for (var i = 0; i < 5; i++) {
+                          if (i <= index) rat.push(true);
+                          else rat.push(false);
+                        }
+                        allRating(rat);
+                      }}
                     >
+                      {rating[index] ? (
+                        <i className="fa fa-star-o yellow" key={index}></i>
+                      ) : (
+                        <i className="fa fa-star-o" key={index}></i>
+                      )}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* section Color */}
+              <div className="pro-details-size-color">
+                <div className="pro-details-color-wrap">
+                  <span>Color</span>
+                  <div
+                    className="pro-details-color-content"
+                    style={{ flexDirection: "row" }}
+                  >
+                    <ButtonGroup>
                       {state
                         ? state.color
                           ? state.color.map((clr) => (
                               <Button
-                                outline
-                                color="primary"
-                                className="m-1"
+                                className="m-1 "
+                                style={{
+                                  backgroundColor: clr.colorName
+                                }}
+                                key={clr.colorName}
                                 onClick={() => {
                                   setSelectedColor(clr.colorName);
                                 }}
                               >
-                                <h5
+                                <h6
+                                  className="text-light mb-0"
                                   style={{
                                     backgroundColor:
-                                      selectedColor === clr.colorName,
+                                      selectedColor === clr.colorName
                                   }}
                                 >
                                   {clr.colorName}
-                                </h5>
+                                </h6>
                               </Button>
                             ))
                           : null
                         : null}
-                    </div>
+                    </ButtonGroup>
                   </div>
                 </div>
-                {/* Section Size */}
-                <div className="pro-details-size-color">
-                  <div className="pro-details-color-wrap">
-                    <span>Size</span>
-                    <div
-                      className="pro-details-color-content"
-                      style={{ flexDirection: "row" }}
-                    >
-                      {state
-                        ? state.size
-                          ? state.size.map((siz) => (
-                              <Button
-                                outline
-                                color="danger"
-                                className="m-1"
-                                onClick={() => {
-                                  setSelectedSize(siz.sizeName);
+              </div>
+              {/* Section Size */}
+              <div className="pro-details-size-color">
+                <div className="pro-details-color-wrap">
+                  <span>Size</span>
+                  <div
+                    className="pro-details-color-content"
+                    style={{ flexDirection: "row" }}
+                  >
+                    {state
+                      ? state.size
+                        ? state.size.map((siz) => (
+                            <Button
+                              outline
+                              color="danger"
+                              className="m-1"
+                              key={siz.sizeName}
+                              onClick={() => {
+                                setSelectedSize(siz.sizeName);
+                              }}
+                            >
+                              <h5
+                                className="mb-0"
+                                style={{
+                                  backgroundColor: selectedSize === siz.sizeName
                                 }}
                               >
-                                <h5
-                                  style={{
-                                    backgroundColor:
-                                      selectedSize === siz.sizeName,
-                                  }}
-                                >
-                                  {siz.sizeName}
-                                </h5>
-                              </Button>
-                            ))
-                          : null
-                        : null}
-                    </div>
+                                {siz.sizeName}
+                              </h5>
+                            </Button>
+                          ))
+                        : null
+                      : null}
                   </div>
                 </div>
+              </div>
 
-                {/* <div className="pro-details-quality">
+              {/* <div className="pro-details-quality">
                   <div className="pro-details-cart btn-hover ml-0">
                     <a href="##" target="_blank">
                       Buy Now
@@ -202,118 +225,127 @@ const ProductImageDescriptionSticky = ({
                   </div>
                 </div> */}
 
-                <div className="pro-details-quality">
-                  <div className="cart-plus-minus">
-                    <button
-                      onClick={() =>
-                        setQuantityCount(
-                          quantityCount > 1 ? quantityCount - 1 : 1
-                        )
-                      }
-                      className="dec qtybutton"
-                    >
-                      -
-                    </button>
-                    <input
-                      className="cart-plus-minus-box"
-                      type="text"
-                      value={quantityCount}
-                      readOnly
-                    />
-                    <button className="inc qtybutton">+</button>
-                  </div>
-                  <div className="pro-details-cart btn-hover">
-                    <button
-                      onClick={() => {
-                        Axios.post(
-                          "http://35.154.86.59/api/admin/add_ToCart",
-                          {
-                            product: state._id,
-                            product_qty: quantityCount,
-                            product_price: state.sell_price,
-                            colorName: selectedColor,
-                            size: selectedSize,
-                          },
-                          {
-                            headers: {
-                              "auth-token": localStorage.getItem("token"),
-                            },
+              <div className="pro-details-quality">
+                <div className="cart-plus-minus">
+                  <button
+                    onClick={() =>
+                      setQuantityCount(
+                        quantityCount > 1 ? quantityCount - 1 : 1
+                      )
+                    }
+                    className="dec qtybutton"
+                  >
+                    -
+                  </button>
+                  <input
+                    className="cart-plus-minus-box"
+                    type="text"
+                    value={quantityCount}
+                    readOnly
+                  />
+                  <button
+                    className="inc qtybutton"
+                    onClick={() =>
+                      setQuantityCount(
+                        quantityCount > 1 ? quantityCount + 1 : 1
+                      )
+                    }
+                  >
+                    +
+                  </button>
+                </div>
+                <div className="pro-details-cart btn-hover">
+                  <button
+                    onClick={() => {
+                      Axios.post(
+                        "http://35.154.86.59/api/admin/add_ToCart",
+                        {
+                          product: state._id,
+                          product_qty: quantityCount,
+                          product_price: state.sell_price,
+                          colorName: selectedColor,
+                          size: selectedSize
+                        },
+                        {
+                          headers: {
+                            "auth-token": localStorage.getItem("token")
                           }
-                        )
-                          .then((response) => {
-                            alert("Added To Cart");
-                            console.log(response);
-                            //pahucha dena
-                          })
-                          .catch(function (error) {
-                            if (error.response) {
-                              // Request made and server responded
-                              console.log(error.response.data);
-                              console.log(error.response.status);
-                              console.log(error.response.headers);
-                            } else if (error.request) {
-                              // The request was made but no response was received
-                              console.log(error.request);
-                            } else {
-                              // Something happened in setting up the request that triggered an Error
-                              console.log("Error", error.message);
-                            }
-                          });
-                      }}
-                    >
-                      Add To Cart
-                    </button>
-                  </div>
-                  <div className="pro-details-wishlist">
-                    <button
-                      className={wishlistItems !== undefined ? "active" : ""}
-                      disabled={wishlistItems !== undefined}
-                      title={
-                        wishlistItems !== undefined
-                          ? "Added to wishlist"
-                          : "Add to wishlist"
-                      }
-                      onClick={() => {
-                        Axios.post(
-                          "http://35.154.86.59/api/admin/addwishlist",
-                          {
-                            product: state._id,
-                            colorName: selectedColor,
-                            size: selectedSize,
-                          },
-                          {
-                            headers: {
-                              "auth-token": localStorage.getItem("token"),
-                            },
+                        }
+                      )
+                        .then((response) => {
+                          alert("Added To Cart");
+                          console.log(response);
+                          //pahucha dena
+                        })
+                        .catch(function (error) {
+                          if (error.response) {
+                            // Request made and server responded
+                            console.log(error.response.data);
+                            console.log(error.response.status);
+                            console.log(error.response.headers);
+                          } else if (error.request) {
+                            // The request was made but no response was received
+                            console.log(error.request);
+                          } else {
+                            // Something happened in setting up the request that triggered an Error
+                            console.log("Error", error.message);
                           }
-                        )
-                          .then((response) => {
-                            alert("Added To Wishlist");
-                            console.log(response);
-                            //pahucha dena
-                          })
-                          .catch(function (error) {
-                            if (error.response) {
-                              // Request made and server responded
-                              console.log(error.response.data);
-                              console.log(error.response.status);
-                              console.log(error.response.headers);
-                            } else if (error.request) {
-                              // The request was made but no response was received
-                              console.log(error.request);
-                            } else {
-                              // Something happened in setting up the request that triggered an Error
-                              console.log("Error", error.message);
-                            }
-                          });
-                      }}
-                    >
-                      <i className="pe-7s-like" />
-                    </button>
-                  </div>
+                        });
+                    }}
+                  >
+                    Add To Cart
+                  </button>
+                </div>
+                <div className="pro-details-wishlist">
+                  <button
+                    className={wishlistItems !== undefined ? "active" : ""}
+                    disabled={wishlistItems !== undefined}
+                    title={
+                      wishlistItems !== undefined
+                        ? "Added to wishlist"
+                        : "Add to wishlist"
+                    }
+                    onClick={() => {
+                      Axios.post(
+                        "http://35.154.86.59/api/admin/addwishlist",
+                        {
+                          product: state._id,
+                          colorName: selectedColor,
+                          size: selectedSize
+                        },
+                        {
+                          headers: {
+                            "auth-token": localStorage.getItem("token")
+                          }
+                        }
+                      )
+                        .then((response) => {
+                          alert("Added To Wishlist");
+                          console.log(response);
+                          //pahucha dena
+                        })
+                        .catch(function (error) {
+                          if (error.response) {
+                            // Request made and server responded
+                            console.log(error.response.data);
+                            console.log(error.response.status);
+                            console.log(error.response.headers);
+                          } else if (error.request) {
+                            // The request was made but no response was received
+                            console.log(error.request);
+                          } else {
+                            // Something happened in setting up the request that triggered an Error
+                            console.log("Error", error.message);
+                          }
+                        });
+                    }}
+                  >
+                    <i className="pe-7s-like" />
+                  </button>
                 </div>
               </div>
-            </Sticky>
+            </div>
+            {/* </Sticky> */}
           </div>
         </div>
       </div>
@@ -339,7 +371,7 @@ ProductImageDescriptionSticky.propTypes = {
   discountedPrice: PropTypes.number,
   finalDiscountedPrice: PropTypes.number,
   finalProductPrice: PropTypes.number,
-  wishlistItem: PropTypes.object,
+  wishlistItem: PropTypes.object
 };
 
 const mapStateToProps = (state) => {
@@ -347,7 +379,7 @@ const mapStateToProps = (state) => {
     currency: state.currencyData,
     cartItems: state.cartData,
     wishlistItems: state.wishlistData,
-    compareItems: state.compareData,
+    compareItems: state.compareData
   };
 };
 
@@ -375,7 +407,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     addToCompare: (item, addToast) => {
       dispatch(addToCompare(item, addToast));
-    },
+    }
   };
 };
 

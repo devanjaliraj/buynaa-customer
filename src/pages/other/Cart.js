@@ -12,7 +12,7 @@ import {
   decreaseQuantity,
   deleteFromCart,
   cartItemStock,
-  deleteAllFromCart,
+  deleteAllFromCart
 } from "../../redux/actions/cartActions";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
@@ -26,7 +26,7 @@ const Cart = ({
   decreaseQuantity,
   addToCart,
   deleteFromCart,
-  deleteAllFromCart,
+  deleteAllFromCart
 }) => {
   const [quantityCount] = useState(1);
   const { addToast } = useToasts();
@@ -39,8 +39,8 @@ const Cart = ({
       `http://35.154.86.59/api/admin/cartbycustomer`,
       {
         headers: {
-          "auth-token": localStorage.getItem("token"),
-        },
+          "auth-token": localStorage.getItem("token")
+        }
       }
     );
     const carts = data.data;
@@ -137,15 +137,10 @@ const Cart = ({
                                   >
                                     {cartItem.product.product_name}
                                   </Link>
-                                  {cartItem.selectedProductColor &&
-                                  cartItem.selectedProductSize ? (
+                                  {cartItem.size || cartItem.color ? (
                                     <div className="cart-item-variation">
-                                      <span>
-                                        Color: {cartItem.selectedProductColor}
-                                      </span>
-                                      <span>
-                                        Size: {cartItem.selectedProductSize}
-                                      </span>
+                                      <span>Color: {cartItem?.color}</span>
+                                      <span>Size: {cartItem?.size}</span>
                                     </div>
                                   ) : (
                                     ""
@@ -154,7 +149,7 @@ const Cart = ({
 
                                 <td className="product-price-cart">
                                   <span className="amount">
-                                    {cartItem.product_price}
+                                    {cartItem?.product_price}
                                   </span>
                                 </td>
 
@@ -369,13 +364,13 @@ Cart.propTypes = {
   decreaseQuantity: PropTypes.func,
   location: PropTypes.object,
   deleteAllFromCart: PropTypes.func,
-  deleteFromCart: PropTypes.func,
+  deleteFromCart: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
   return {
     cartItems: state.cartData,
-    currency: state.currencyData,
+    currency: state.currencyData
   };
 };
 
@@ -392,7 +387,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     deleteAllFromCart: (addToast) => {
       dispatch(deleteAllFromCart(addToast));
-    },
+    }
   };
 };
 

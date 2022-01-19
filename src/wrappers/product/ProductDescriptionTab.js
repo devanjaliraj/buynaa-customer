@@ -26,7 +26,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
     var t = JSON.parse(productFullDesc).product_img;
     if (t !== undefined && t !== null) setImgArr(t);
     setstate(JSON.parse(productFullDesc));
-  });
+  }, []);
   return (
     <div className={`description-review-area ${spaceBottomClass}`}>
       <div className="container">
@@ -92,8 +92,8 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                               <div className="review-left">
                                 <div className="review-name">
                                   <h4>
-                                    {rev.customer.first_name}{" "}
-                                    {rev.customer.last_name}
+                                    {rev?.customer?.first_name}{" "}
+                                    {rev?.customer?.last_name}
                                   </h4>
                                 </div>
                                 {/* <div className="review-rating">
@@ -106,7 +106,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                               </div>
                             </div>
                             <div className="review-bottom">
-                              <p>{rev.comment}</p>
+                              <p>{rev?.comment}</p>
                             </div>
                           </div>
                         </div>
@@ -166,7 +166,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
 
 ProductDescriptionTab.propTypes = {
   productFullDesc: PropTypes.string,
-  spaceBottomClass: PropTypes.string,
+  spaceBottomClass: PropTypes.string
 };
 
 export default ProductDescriptionTab;

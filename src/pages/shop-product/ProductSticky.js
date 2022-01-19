@@ -16,7 +16,7 @@ export class ProductSticky extends Component {
     super(props);
 
     this.state = {
-      detail: {},
+      detail: {}
     };
   }
 
@@ -33,7 +33,7 @@ export class ProductSticky extends Component {
   }
 
   render() {
-    console.log(this.state.detail);
+    //console.log(this.state.detail);
     return (
       <Fragment>
         <MetaTags>
