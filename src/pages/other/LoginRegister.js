@@ -43,7 +43,7 @@ export default class LoginRegister extends Component {
       .then((response) => {
         console.log(response);
         localStorage.setItem("user", response.data.data._id);
-        localStorage.setItem("token", this.state.token || "null");
+        // localStorage.setItem("authec", this.state.token);
         // const location = this.props.location;
         // if (location.state && location.state.nextPathname) {
         //   History.push("/login-register");
@@ -58,8 +58,7 @@ export default class LoginRegister extends Component {
         });
       })
       .catch((error) => {
-        console.log(error.status);
-        console.log(error.msg);
+        console.log(error.response);
         //this.setState({ errormsg: error });
       });
   };
@@ -71,16 +70,26 @@ export default class LoginRegister extends Component {
 
   loginHandler = (e) => {
     e.preventDefault();
+    
+  
+  
 
     axios
-      .post("http://35.154.86.59/api/user/login", this.state)
+      .post("http://35.154.86.59/api/user/login", {
+        mobile:parseInt(this.state.email) != NaN?parseInt(this.state.email):'null',
+        email:this.state.email,
+        password:this.state.password
+      })
       .then((response) => {
         console.log(response);
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("authec", response.data.token);
+        localStorage.setItem("abcd", response.data.token);
+        this.props.history.push('/cart');
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(error => {
+        console.log(error)
+        console.log(error.response)
+    });
   };
   // otp = true;
   changeHandler = (e) => {
@@ -101,7 +110,7 @@ export default class LoginRegister extends Component {
         //this.props.history.push("/");
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
       });
 
     axios
@@ -114,7 +123,7 @@ export default class LoginRegister extends Component {
         // this.props.history.push("/");
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
       });
   };
   render() {
@@ -157,19 +166,19 @@ export default class LoginRegister extends Component {
                               <div className="login-register-form">
                                 <form onSubmit={this.loginHandler}>
                                   <input
-                                    type="email"
+                                    type="text"
                                     name="email"
-                                    placeholder="Email"
+                                    placeholder="Email / Mobile"
                                     value={this.state.email}
                                     onChange={this.handlechange}
                                   />
-                                  <input
+                                  {/* <input
                                     type="number"
                                     name="mobile"
                                     placeholder="Mobile No"
                                     value={this.state.mobile}
                                     onChange={this.handlechange}
-                                  />
+                                  /> */}
                                   <input
                                     type="password"
                                     name="password"

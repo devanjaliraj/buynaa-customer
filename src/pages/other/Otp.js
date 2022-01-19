@@ -91,7 +91,7 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
               
               })
               .catch((error) => {
-                console.log(error)
+                console.log(error.response)
             });
         }
         

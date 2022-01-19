@@ -62,7 +62,7 @@ const ProductImageGallery = ({ product }) => {
 
 
     }).catch((error)=>{
-      console.log(error)      
+      console.log(error.response)      
     });
   // console.log(res);
   //setUsers(await res.json());

@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
 import React, { Fragment, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { connect } from "react-redux";
+import { Form } from "reactstrap";
 import { getDiscountPrice } from "../../helpers/product";
 import {
   addToCart,
@@ -30,26 +31,88 @@ const Cart = ({
 }) => {
   const [quantityCount] = useState(1);
   const { addToast } = useToasts();
+  const history = useHistory()
   const { pathname } = location;
   let cartTotalPrice = 0;
   const [carts, setCarts] = useState([]);
+  const [total, setTotal] = useState([]);
+  const [useraddress, setUseraddress] = useState([]);
   //const { id } = useParams();
-  const fetchcarts = async (token) => {
+  const fetchcarts = async () => {
     const { data } = await Axios.get(
       `http://35.154.86.59/api/admin/cartbycustomer`,
       {
         headers: {
-          "auth-token": localStorage.getItem("token")
+          "auth-token": localStorage.getItem("authec")
         }
       }
     );
     const carts = data.data;
+    // console.log(data.total);
     setCarts(carts);
     console.log(carts);
+    
+    setTotal(data.total)
+  };
+ 
+  const fetchaddress = async () => {
+    const { data } = await Axios.get(
+      `http://35.154.86.59/api/user/viewoneuseraddress`,
+      {
+        headers: {
+          "auth-token": localStorage.getItem("authec")
+        }
+      }
+    );
+    const address = data.data;
+    console.log(address);
+    setUseraddress(address)
+    
   };
   useEffect(() => {
-    fetchcarts();
+    //fetchcarts();
+    if(localStorage.getItem("authec")){
+      fetchcarts();
+      fetchaddress();
+    }
   }, []);
+
+  const removeItemfromcart=async (id)=>{
+    console.log(id)
+
+    try {
+      const response = await Axios.get(`http://35.154.86.59/api/admin/remove_cart/${id}`,
+      {
+        headers: {
+          "auth-token": localStorage.getItem("authec")
+        }
+      })  
+      if(response){
+        console.log(response);
+        fetchcarts()
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const deleteAllCartItems=async ()=>{
+    console.log("request remove all")
+
+    try {
+      const response = await Axios.get(`http://35.154.86.59/api/admin/clearCart`,
+      {
+        headers: {
+          "auth-token": localStorage.getItem("authec")
+        }
+      })  
+      if(response){
+        console.log(response);
+        fetchcarts()
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <Fragment>
@@ -195,21 +258,13 @@ const Cart = ({
                                   </div>
                                 </td>
                                 <td className="product-subtotal">
-                                  {discountedPrice !== null
-                                    ? currency.currencySymbol +
-                                      (
-                                        finalDiscountedPrice * cartItem.quantity
-                                      ).toFixed(2)
-                                    : currency.currencySymbol +
-                                      (
-                                        finalProductPrice * cartItem.quantity
-                                      ).toFixed(2)}
+                                ₹{cartItem?.product_qty * cartItem?.product_price}
                                 </td>
 
                                 <td className="product-remove">
                                   <button
                                     onClick={() =>
-                                      deleteFromCart(cartItem, addToast)
+                                      removeItemfromcart(cartItem.product._id)
                                     }
                                   >
                                     <i className="fa fa-times"></i>
@@ -234,7 +289,7 @@ const Cart = ({
                         </Link>
                       </div>
                       <div className="cart-clear">
-                        <button onClick={() => deleteAllFromCart(addToast)}>
+                        <button onClick={() => deleteAllCartItems()}>
                           Clear Shopping Cart
                         </button>
                       </div>
@@ -247,40 +302,19 @@ const Cart = ({
                     <div className="cart-tax">
                       <div className="title-wrap">
                         <h4 className="cart-bottom-title section-bg-gray">
-                          Estimate Shipping And Tax
+                          Shipping Address
                         </h4>
                       </div>
                       <div className="tax-wrapper">
-                        <p>
-                          Enter your destination to get a shipping estimate.
-                        </p>
+                        {/* <h5>
+                          {useraddress?.customer?.firstname} {useraddress?.customer?.lastname},{useraddress?.address},{useraddress?.locality},{useraddress?.state},{useraddress?.pincode},
+                        </h5> */}
                         <div className="tax-select-wrapper">
-                          <div className="tax-select">
-                            <label>* Country</label>
-                            <select className="email s-email s-wid">
-                              <option>Bangladesh</option>
-                              <option>Albania</option>
-                              <option>Åland Islands</option>
-                              <option>Afghanistan</option>
-                              <option>Belgium</option>
-                            </select>
-                          </div>
-                          <div className="tax-select">
-                            <label>* Region / State</label>
-                            <select className="email s-email s-wid">
-                              <option>Bangladesh</option>
-                              <option>Albania</option>
-                              <option>Åland Islands</option>
-                              <option>Afghanistan</option>
-                              <option>Belgium</option>
-                            </select>
-                          </div>
-                          <div className="tax-select">
-                            <label>* Zip/Postal Code</label>
-                            <input type="text" />
-                          </div>
-                          <button className="cart-btn-2" type="submit">
-                            Get A Quote
+                        <h5>
+                          <span style={{textTransform:'capitalize'}}>{useraddress?.customer?.firstname} {useraddress?.customer?.lastname}</span>,<br/>#{useraddress?.address},{useraddress?.locality},{useraddress?.state},{useraddress?.pincode}
+                        </h5>
+                          <button className="cart-btn-2" type="button" onClick={()=>history.push('/my-account')}>
+                            Change
                           </button>
                         </div>
                       </div>
@@ -316,17 +350,17 @@ const Cart = ({
                       <h5>
                         Total products{" "}
                         <span>
-                          {currency.currencySymbol + cartTotalPrice.toFixed(2)}
+                        ₹{total}
                         </span>
                       </h5>
 
                       <h4 className="grand-totall-title">
                         Grand Total{" "}
                         <span>
-                          {currency.currencySymbol + cartTotalPrice.toFixed(2)}
+                        ₹{total}
                         </span>
                       </h4>
-                      <Link to={process.env.PUBLIC_URL + "/checkout"}>
+                      <Link to={{ pathname: "https://pmny.in/AIRaJwzJjaAJ" }} target="_blank">
                         Proceed to Checkout
                       </Link>
                     </div>
@@ -342,9 +376,10 @@ const Cart = ({
                     </div>
                     <div className="item-empty-area__text">
                       No items found in cart <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/shop-grid-standard"}>
+                      <Link to={"/shop-grid-standard"}>
                         Shop Now
                       </Link>
+                      {/* <div> <a style=" width: 200px; background-color: #1065b7; text-align: center; font-weight: 800; padding: 11px 0px; color: white; font-size: 12px; display: inline-block; text-decoration: none; " href='https://pmny.in/AIRaJwzJjaAJ' > Pay Now </a> </div> */}
                     </div>
                   </div>
                 </div>

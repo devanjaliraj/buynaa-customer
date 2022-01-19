@@ -29,7 +29,7 @@ export class Product extends Component {
         this.setState({ detail: response.data.data });
       })
       .catch(error => {
-        console.log(error);
+        console.log(error.response);
       });
   }
 

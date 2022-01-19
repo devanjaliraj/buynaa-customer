@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
 import { deleteFromCart } from "../../redux/actions/cartActions";
@@ -32,7 +32,7 @@ const IconGroup = ({
       `http://35.154.86.59/api/admin/cartbycustomer`,
       {
         headers: {
-          "auth-token": localStorage.getItem("token"),
+          "auth-token": localStorage.getItem("authec"),
         },
       }
     );
@@ -41,8 +41,11 @@ const IconGroup = ({
     console.log(carts);
   };
   useEffect(() => {
-    fetchcarts();
+    if(localStorage.getItem("authec")){
+      fetchcarts();
+    }
   }, []);
+  const history = useHistory()
 
   const [wish, setWish] = useState([]);
   const fetchWish = async () => {
@@ -50,7 +53,7 @@ const IconGroup = ({
       "http://35.154.86.59/api/admin/getallwishlist",
       {
         headers: {
-          "auth-token": localStorage.getItem("token"),
+          "auth-token": localStorage.getItem("authec"),
         },
       }
     );
@@ -59,7 +62,9 @@ const IconGroup = ({
     console.log(wish);
   };
   useEffect(() => {
-    fetchWish();
+    if(localStorage.getItem("authec")){
+      fetchWish();
+    }
   }, []);
 
   return (
@@ -88,6 +93,8 @@ const IconGroup = ({
         </button>
         <div className="account-dropdown">
           <ul>
+          {!localStorage.getItem('authec')?
+          <>
             <li>
               <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
             </li>
@@ -96,11 +103,19 @@ const IconGroup = ({
                 Register
               </Link>
             </li>
+            </>:
+            <>
             <li>
               <Link to={process.env.PUBLIC_URL + "/my-account"}>
-                my account
+                My Account
+              </Link>
+            </li><li>
+              <Link to="#" onClick={localStorage.removeItem('authec')}>
+                Logout
               </Link>
             </li>
+            </>
+            }
           </ul>
         </div>
       </div>

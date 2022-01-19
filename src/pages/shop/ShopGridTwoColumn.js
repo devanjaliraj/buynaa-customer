@@ -13,6 +13,7 @@ import ShopTopbar from "../../wrappers/product/ShopTopbar";
 //import ShopProducts from "../../wrappers/product/ShopProducts";
 //import ProductModal from "../../components/product/ProductModal";
 import { useToasts } from "react-toast-notifications";
+import Axios from "axios";
 
 const ShopGridTwoColumn = ({
   location,
@@ -42,6 +43,10 @@ const ShopGridTwoColumn = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [currentData, setCurrentData] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
+  const [allcolors, setAllcolors] = useState([]);
+  const [allsizes, setAllsizes] = useState([]);
+  const [allcategory, setAllcategory] = useState([]);
+  const [alltags, setAlltags] = useState([]);
 
   const pageLimit = 16;
   const { pathname } = location;
@@ -74,6 +79,62 @@ const ShopGridTwoColumn = ({
 
   const [dress, setDress] = useState([]);
 
+  const allcolor = async () => {
+    const { data } = await Axios.get(
+      `http://35.154.86.59/api/admin/getcolor`,
+    );
+    //const address = data.data;
+    console.log(data.data)
+    setAllcolors(data.data)
+    // console.log(address);
+    // setUseraddress(address)
+    
+  };
+  const allsize = async () => {
+    const { data } = await Axios.get(
+      `http://35.154.86.59/api/admin/getsize`,
+    );
+    //const address = data.data;
+    console.log(data.data)
+    setAllsizes(data.data)
+    // console.log(address);
+    // setUseraddress(address)
+    
+  };
+  const getallcategory = async () => {
+    const { data } = await Axios.get(
+      `http://35.154.86.59/api/admin/getproductCategory`,
+    );
+    //const address = data.data;
+    console.log(data.data)
+    setAllcategory(data.data)
+    // console.log(address);
+    // setUseraddress(address)
+    
+  };
+  const getalltags = async () => {
+    const { data } = await Axios.get(
+      `http://35.154.86.59/api/admin/getuniquetag`,
+    );
+    //const address = data.data;
+    console.log(data.data)
+    setAlltags(data.data)
+    // console.log(address);
+    // setUseraddress(address)
+    
+  };
+  const getproductbytagname = async (name) => {
+    ////http://35.154.86.59/api/admin/getproductbytagname/Men
+    const { data } = await Axios.get(
+      `http://35.154.86.59/api/admin/getproductbytagname/${name}`,
+    );
+    //const address = data.data;
+    console.log(data.data)
+    //setAlltags(data.data)
+    // console.log(address);
+    // setUseraddress(address)
+    
+  };
   useEffect(() => {
     async function getData() {
       const response = await fetch("http://35.154.86.59/api/admin/getproduct");
@@ -84,6 +145,11 @@ const ShopGridTwoColumn = ({
       console.log(data.data);
     }
     getData();
+    allcolor();
+    allsize();
+    getallcategory();
+    getalltags();
+    getproductbytagname('Men')
     return;
   }, []);
 
@@ -113,11 +179,14 @@ const ShopGridTwoColumn = ({
                 className="col-lg-3 pt-2"
                 style={{ backgroundColor: "#E5E8E8" }}
               >
-                {/* shop sidebar */}
                 <ShopSidebar
                   products={products}
                   getSortParams={getSortParams}
                   sideSpaceClass="mr-30"
+                  colors={allcolors}
+                  sizes={allsizes}
+                  category={allcategory}
+                  tags={alltags}
                 />
               </div>
               <div className="col-lg-9">
@@ -125,8 +194,8 @@ const ShopGridTwoColumn = ({
                 <ShopTopbar
                   getLayout={getLayout}
                   getFilterSortParams={getFilterSortParams}
-                  productCount={products.length}
-                  sortedProductCount={currentData.length}
+                  productCount={dress.length}
+                  sortedProductCount={dress.length}
                 />
 
                 {/* shop page content default */}
@@ -186,7 +255,7 @@ const ShopGridTwoColumn = ({
               )} */}
 
                               <div className="product-action-2">
-                                {product.affiliateLink ? (
+                                {/* {product.affiliateLink ? (
                                   <a
                                     href={product.affiliateLink}
                                     rel="noopener noreferrer"
@@ -234,7 +303,7 @@ const ShopGridTwoColumn = ({
                                   >
                                     <i className="fa fa-shopping-cart"></i>
                                   </button>
-                                )}
+                                )} */}
                                 {/* 
                                 <button
                                   onClick={() => setModalShow(true)}
@@ -243,7 +312,7 @@ const ShopGridTwoColumn = ({
                                   <i className="fa fa-eye"></i>
                                 </button> */}
 
-                                <button
+                                {/* <button
                                   className={
                                     compareItem !== undefined ? "active" : ""
                                   }
@@ -258,7 +327,7 @@ const ShopGridTwoColumn = ({
                                   }
                                 >
                                   <i className="fa fa-retweet"></i>
-                                </button>
+                                </button> */}
                               </div>
                             </div>
                             <div className="product-content-2">

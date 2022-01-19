@@ -1,6 +1,13 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { setActiveSort } from "../../helpers/product";
+const dot = {
+    height: "25px",
+    width: "25px",
+    borderRadius: "50%",
+    display: "inline-block",
+  
+}
 
 const ShopColor = ({ colors, getSortParams }) => {
   return (
@@ -31,7 +38,8 @@ const ShopColor = ({ colors, getSortParams }) => {
                         setActiveSort(e);
                       }}
                     >
-                      <span className="checkmark" /> {color}{" "}
+                      <span className="checkmark" /><span style={{backgroundColor: color?.colorName,borderRadius: "50%",height: 25,
+    width: 25}}></span> {color?.colorName}{" "}
                     </button>
                   </div>
                 </li>

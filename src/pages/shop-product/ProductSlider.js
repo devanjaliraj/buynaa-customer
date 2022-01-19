@@ -43,7 +43,7 @@ export class ProductSlider extends Component {
         //console.log(this.state.rate[0]);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
       });
 
     //let { id } = this.props.match.params;
@@ -57,7 +57,7 @@ export class ProductSlider extends Component {
         //console.log(this.state.rate[0]);
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
       });
   }
   render() {

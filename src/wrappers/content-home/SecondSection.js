@@ -20,7 +20,7 @@ class SecondSection extends React.Component {
         this.setState({ storeL: response.data.data });
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
       });
   }
   render() {
@@ -67,7 +67,7 @@ class SecondSection extends React.Component {
             <div>
               <Swiper {...params} style={{ width: "10px" }}>
                 {this.state.storeL?.map((storeList) => (
-                  <div className="" style={{ width: "18rem" }}>
+                  <div className="" key={storeList._id} style={{ width: "18rem" }}>
                     <Link
                       to={
                         process.env.PUBLIC_URL +

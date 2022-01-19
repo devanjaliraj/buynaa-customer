@@ -14,6 +14,18 @@ import { addToCompare } from "../../redux/actions/compareActions";
 import Rating from "../../components/product/sub-components/ProductRating";
 import Axios from "axios";
 import { Button, Radio, ButtonGroup } from "reactstrap";
+import './ProductImageDescriptionStickycss.css'
+import { useHistory } from "react-router-dom";
+
+var buttonStyle = {
+  backgroundColor: "#229ac8",
+  backgroundImage: "linear-gradient(to bottom, #23a1d1, #1f90bb)",
+  backgroundRepeat: "repeat-x",
+  borderColor: "#1f90bb #1f90bb #145e7a",
+  color: "#ffffff",
+  textShadow: "0 -1px 0 rgba(0, 0, 0, 0.25)"
+  
+}
 
 const ProductImageDescriptionSticky = ({
   spaceTopClass,
@@ -40,11 +52,14 @@ const ProductImageDescriptionSticky = ({
   const [selectedColor, setSelectedColor] = useState("");
   const [state, setstate] = React.useState({});
   const [imgArr, setImgArr] = React.useState([]);
+  const [activeindex,setActiveindex] = React.useState([0])
   React.useEffect(() => {
     var t = JSON.parse(productImage).product_img;
     if (t !== undefined && t !== null) setImgArr(t);
     setstate(JSON.parse(productImage));
   }, [productImage]);
+
+  const history = useHistory()
 
   return (
     <div
@@ -103,19 +118,22 @@ const ProductImageDescriptionSticky = ({
               </h2>
               <div className="pro-details-list">
                 <p>
-                  {state?.short_desc},{state?.long_desc},
+                  {state?.short_desc}
                 </p>
-                <p className=" w-25 shadow-none p-1 mb-5 bg-white rounded">
+                <p>
+                {state?.long_desc}
+                </p>
+                <p className=" w-25 shadow-none p-1 mb-0 bg-white rounded">
                   #{state?.productsubcategory?.name}
                 </p>
               </div>
               <div className="product-details-price">
-                <Fragment>
-                  <span>
-                    ₹{state?.sell_price}
-                    <span> ({state?.discount_perc}% OFF)</span>
-                  </span>{" "}
-                </Fragment>
+                
+                  
+                    <h2>₹{state?.sell_price}&nbsp;&nbsp;
+                    <del> ₹{Math.floor(parseInt(state?.sell_price)*parseInt(state?.discount_perc)/100+parseInt(state?.sell_price))}&nbsp;&nbsp; </del>
+                    <span> &nbsp;&nbsp;({state?.discount_perc}% OFF)</span>
+                    </h2>
               </div>
 
               <div className="pro-details-rating-wrap">
@@ -150,21 +168,22 @@ const ProductImageDescriptionSticky = ({
                     className="pro-details-color-content"
                     style={{ flexDirection: "row" }}
                   >
-                    <ButtonGroup>
+                    <ButtonGroup style={{height:33}}>
                       {state
                         ? state.color
-                          ? state.color.map((clr) => (
+                          ? state.color.map((clr,i) => (
                               <Button
-                                className="m-1 "
+                                className={i === state.activeIndex ? 'active m-1' : 'm-1' }
                                 style={{
-                                  backgroundColor: clr.colorName
+                                  backgroundColor: clr.colorName, borderRadius:15
                                 }}
                                 key={clr.colorName}
                                 onClick={() => {
+                                  setActiveindex(i)
                                   setSelectedColor(clr.colorName);
                                 }}
                               >
-                                <h6
+                                {/* <h6
                                   className="text-light mb-0"
                                   style={{
                                     backgroundColor:
@@ -172,7 +191,7 @@ const ProductImageDescriptionSticky = ({
                                   }}
                                 >
                                   {clr.colorName}
-                                </h6>
+                                </h6> */}
                               </Button>
                             ))
                           : null
@@ -217,14 +236,6 @@ const ProductImageDescriptionSticky = ({
                 </div>
               </div>
 
-              {/* <div className="pro-details-quality">
-                  <div className="pro-details-cart btn-hover ml-0">
-                    <a href="##" target="_blank">
-                      Buy Now
-                    </a>
-                  </div>
-                </div> */}
-
               <div className="pro-details-quality">
                 <div className="cart-plus-minus">
                   <button
@@ -233,6 +244,8 @@ const ProductImageDescriptionSticky = ({
                         quantityCount > 1 ? quantityCount - 1 : 1
                       )
                     }
+                    // onClick={()=>
+                    // console.log(quantityCount)}
                     className="dec qtybutton"
                   >
                     -
@@ -241,13 +254,12 @@ const ProductImageDescriptionSticky = ({
                     className="cart-plus-minus-box"
                     type="text"
                     value={quantityCount}
-                    readOnly
                   />
                   <button
                     className="inc qtybutton"
                     onClick={() =>
                       setQuantityCount(
-                        quantityCount > 1 ? quantityCount + 1 : 1
+                        quantityCount >= 1 ? quantityCount + 1 : 1
                       )
                     }
                   >
@@ -257,40 +269,40 @@ const ProductImageDescriptionSticky = ({
                 <div className="pro-details-cart btn-hover">
                   <button
                     onClick={() => {
+                      console.log({
+                        product: state._id,
+                        product_qty: quantityCount,
+                        product_price: state.sell_price,
+                        color: selectedColor,
+                        size: selectedSize
+                      });
+                      if(localStorage.getItem("authec")){
                       Axios.post(
                         "http://35.154.86.59/api/admin/add_ToCart",
                         {
                           product: state._id,
                           product_qty: quantityCount,
                           product_price: state.sell_price,
-                          colorName: selectedColor,
+                          color: selectedColor,
                           size: selectedSize
                         },
                         {
                           headers: {
-                            "auth-token": localStorage.getItem("token")
+                            "auth-token": localStorage.getItem("authec")
                           }
                         }
                       )
                         .then((response) => {
-                          alert("Added To Cart");
+                          // alert("Added To Cart");
                           console.log(response);
                           //pahucha dena
                         })
                         .catch(function (error) {
-                          if (error.response) {
-                            // Request made and server responded
-                            console.log(error.response.data);
-                            console.log(error.response.status);
-                            console.log(error.response.headers);
-                          } else if (error.request) {
-                            // The request was made but no response was received
-                            console.log(error.request);
-                          } else {
-                            // Something happened in setting up the request that triggered an Error
-                            console.log("Error", error.message);
-                          }
+                          console.log(error.response)
                         });
+                      }else{
+                        history.push('/login-register')
+                      }
                     }}
                   >
                     Add To Cart
@@ -315,7 +327,7 @@ const ProductImageDescriptionSticky = ({
                         },
                         {
                           headers: {
-                            "auth-token": localStorage.getItem("token")
+                            "auth-token": localStorage.getItem("authec")
                           }
                         }
                       )
@@ -325,22 +337,13 @@ const ProductImageDescriptionSticky = ({
                           //pahucha dena
                         })
                         .catch(function (error) {
-                          if (error.response) {
-                            // Request made and server responded
-                            console.log(error.response.data);
-                            console.log(error.response.status);
-                            console.log(error.response.headers);
-                          } else if (error.request) {
-                            // The request was made but no response was received
-                            console.log(error.request);
-                          } else {
-                            // Something happened in setting up the request that triggered an Error
-                            console.log("Error", error.message);
-                          }
+                          console.log(error.response)
                         });
                     }}
                   >
-                    <i className="pe-7s-like" />
+                   {wishlistItems !== undefined
+                        ? "Added to wishlist"
+                        : "Add to wishlist"} <i className="pe-7s-like" />
                   </button>
                 </div>
               </div>

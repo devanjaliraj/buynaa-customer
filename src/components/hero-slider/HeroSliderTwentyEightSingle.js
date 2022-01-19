@@ -1,16 +1,22 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Input, Button } from "reactstrap";
 import banner from "../../assets/img/banner.jpg";
-import { axios } from "axios";
+import axios from "axios";
+import Select from 'react-select'
 
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' }
+]
 export class HeroSliderTwentyEightSingle extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      products: null,
+      products: [],
       loading: false,
       value: "",
     };
@@ -18,12 +24,23 @@ export class HeroSliderTwentyEightSingle extends Component {
 
   search = async (val) => {
     this.setState({ loading: true });
-    const res = await axios(
-      `http://http://35.154.86.59/api/admin/searchinputproduct`
-    );
-    const products = await res.data;
+    console.log(this.state);
+    axios.post(
+      `http://35.154.86.59/api/admin/searchinputproduct`,{
+        oneinput: this.state.value
+      }
+    ).then((response) => {
+      console.log(response.data.data);
+      this.setState({products:response.data.data})
+      console.log(this.state.products);
+    })
+    .catch(error => {
+      console.log(error)
+      console.log(error.response)
+  });
+    //const products = await res.data;
 
-    this.setState({ products, loading: false });
+    this.setState({ loading: false });
   };
   onChangeHandler = async (e) => {
     this.search(e.target.value);
@@ -31,15 +48,20 @@ export class HeroSliderTwentyEightSingle extends Component {
   };
 
   get renderMovies() {
-    let products = <h1>There's no products</h1>;
-    if (this.state.products) {
-      products = <div>list={this.state.products} </div>;
-    }
-
+    let products = <h4>There's no products</h4>;
+    // if (this.state.products !== 0) {
+    //   this.state.products.map(i=>{
+    //     // console.log(i?.product_name);
+    //     <h4>list={i.product_name} </h4>
+    //   })
+    //   // products = ;
+    // }
+    // console.log(products);
     return products;
   }
 
   render() {
+    
     return (
       <div
         className={`single-slider-2 slider-height-1 d-flex align-items-center bg-img ${
@@ -68,11 +90,27 @@ export class HeroSliderTwentyEightSingle extends Component {
                     onChange={(e) => this.onChangeHandler(e)}
                     placeholder="Type something to search"
                   />
-                  {this.renderdiv}
+                  {/* {this.renderMovies} */}
+                  
+                  
                   {/* <Button color="primary" className="ml-1">
                     Search
                   </Button> */}
                 </div>
+                <div style={{backgroundColor:'white',textTransform:'capitalize'}}>
+                {this.state.products.map(i=>{
+        return(
+        
+        <li className="p-1" key={i?._id}>
+          <Link to={process.env.PUBLIC_URL +
+                                  "/product-sticky/" +
+                                  i._id
+                                }> {i?.product_name}</Link> </li>
+        )
+      })}
+                </div>
+
+
                 {/* <div className="slider-btn-red btn-hover">
                 <Link
                   className="animated"

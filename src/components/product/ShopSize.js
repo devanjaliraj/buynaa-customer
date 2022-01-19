@@ -34,7 +34,7 @@ const ShopSize = ({ sizes, getSortParams }) => {
                     >
                       {" "}
                       <span className="checkmark" />
-                      {size}{" "}
+                      {size.sizeName}{" "}
                     </button>
                   </div>
                 </li>

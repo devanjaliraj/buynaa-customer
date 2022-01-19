@@ -19,7 +19,9 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
   };
 
   useEffect(() => {
-    fetchReview();
+    if(localStorage.getItem("authec")){
+      fetchReview();
+    }
   }, []);
   React.useEffect(() => {
     // console.log("Product Desc", productFullDesc);

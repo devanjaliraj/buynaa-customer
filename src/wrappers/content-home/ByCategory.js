@@ -79,7 +79,7 @@ class ByCategory extends React.Component {
                   console.log("ok");
                 }}
               >
-                Explore
+                Explore All
               </Button>
             </Col>
           </Row>
