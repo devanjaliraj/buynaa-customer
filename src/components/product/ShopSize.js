@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { setActiveSort } from "../../helpers/product";
 
-const ShopSize = ({ sizes, getSortParams }) => {
+const ShopSize = ({ sizes, getSortParams,getonesize }) => {
   return (
     <div className="sidebar-widget mt-40">
       <h4 className="pro-sidebar-title">Size </h4>
@@ -28,6 +28,8 @@ const ShopSize = ({ sizes, getSortParams }) => {
                     <button
                       className="text-uppercase"
                       onClick={e => {
+                        console.log(size._id);
+                        getonesize(size._id);
                         getSortParams("size", size);
                         setActiveSort(e);
                       }}

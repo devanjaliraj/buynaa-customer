@@ -24,7 +24,8 @@ const ShopSidebar = ({
   brand,
   callback,
   tagcallback,
-  colorcallback
+  colorcallback,
+  sizecallback
 }) => {
   const uniqueCategories = getIndividualCategories(products);
   const uniqueColors = getIndividualColors(products);
@@ -44,6 +45,10 @@ const ShopSidebar = ({
     colorcallback(id)
     console.log(id);;
   };
+  const sizecallbackMiddle = id => {
+    sizecallback(id)
+    console.log(id);;
+  };
   // const tag = fromchildtohere()
 
   return (
@@ -58,7 +63,7 @@ const ShopSidebar = ({
       <ShopColor colors={colors} getSortParams={getSortParams} getonecolor={colorcallbackMiddle}/>
 
       {/* filter by size */}
-      <ShopSize sizes={sizes} getSortParams={getSortParams} />
+      <ShopSize sizes={sizes} getSortParams={getSortParams} getonesize={sizecallbackMiddle}/>
 
       {/* filter by tag */}
       <ShopTag tags={tags} getSortParams={getSortParams} getonetag={tagcallbackMiddle} />
