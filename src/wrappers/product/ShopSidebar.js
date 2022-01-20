@@ -22,11 +22,29 @@ const ShopSidebar = ({
   category,
   tags,
   brand,
+  callback,
+  tagcallback,
+  colorcallback
 }) => {
   const uniqueCategories = getIndividualCategories(products);
   const uniqueColors = getIndividualColors(products);
   const uniqueSizes = getProductsIndividualSizes(products);
   const uniqueTags = getIndividualTags(products);
+  // const dataid = getIndividualTags(products);
+  const callbackFunction = childData => {
+    callback(childData)
+    console.log(childData);;
+  };
+
+  const tagcallbackMiddle = data => {
+    tagcallback(data)
+    console.log(data);;
+  };
+  const colorcallbackMiddle = id => {
+    colorcallback(id)
+    console.log(id);;
+  };
+  // const tag = fromchildtohere()
 
   return (
     <div className={`sidebar-style ${sideSpaceClass ? sideSpaceClass : ""}`}>
@@ -34,16 +52,16 @@ const ShopSidebar = ({
       <ShopSearch />
 
       {/* filter by categories */}
-      <ShopCategories categories={category} getSortParams={getSortParams} />
+      <ShopCategories categories={category} getSortParams={getSortParams} cb={callbackFunction} />
 
       {/* filter by color */}
-      <ShopColor colors={colors} getSortParams={getSortParams} />
+      <ShopColor colors={colors} getSortParams={getSortParams} getonecolor={colorcallbackMiddle}/>
 
       {/* filter by size */}
       <ShopSize sizes={sizes} getSortParams={getSortParams} />
 
       {/* filter by tag */}
-      <ShopTag tags={tags} getSortParams={getSortParams} />
+      <ShopTag tags={tags} getSortParams={getSortParams} getonetag={tagcallbackMiddle} />
       <ShopBrand brands={brand} getSortParams={getSortParams} />
     </div>
   );

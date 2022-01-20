@@ -1,8 +1,13 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import { setActiveSort } from "../../helpers/product";
 
-const ShopCategories = ({ categories, getSortParams }) => {
+const ShopCategories = ({ categories, getSortParams,cb }) => {
+
+  // const [selectedcategory, setSelectedcategory] = useState('')
+  // const sendData = () => {
+  //   cb(selectedcategory);
+  // };
   return (
     <div className="sidebar-widget">
       <h4 className="pro-sidebar-title">Categories </h4>
@@ -27,6 +32,8 @@ const ShopCategories = ({ categories, getSortParams }) => {
                   <div className="sidebar-widget-list-left">
                     <button
                       onClick={e => {
+                        console.log(category._id);
+                        cb(category._id)
                         getSortParams("category", category);
                         setActiveSort(e);
                       }}

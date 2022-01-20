@@ -30,11 +30,12 @@ const Wishlist = ({
   const { pathname } = location;
   const [wish, setWish] = useState([]);
   const fetchWish = async (token) => {
+    console.log(token);
     const { data } = await Axios.get(
       "http://35.154.86.59/api/admin/getallwishlist",
       {
         headers: {
-          "auth-token": localStorage.getItem("authec"),
+          "auth-token": localStorage.getItem("abcd"),
         },
       }
     );
@@ -43,8 +44,17 @@ const Wishlist = ({
     setWish(wish);
     console.log(wish);
   };
+
+  const removeitemfromwishlist = async (id) => {
+    const { data } = await Axios.get(`http://35.154.86.59/api/admin/deletewishlist/${id}`);
+    //const address = data.data;
+    console.log(data.data);
+    fetchWish();
+    // console.log(address);
+    // setUseraddress(address)
+  };
   useEffect(() => {
-    if(localStorage.getItem("authec")){
+    if(localStorage.getItem("abcd")){
       fetchWish();
     }
   }, []);
@@ -129,19 +139,22 @@ const Wishlist = ({
                                     <Button
                                       color="primary"
                                       onClick={() => {
+
+
+
                                         Axios.post(
                                           "http://35.154.86.59/api/admin/add_ToCart",
                                           {
                                             product: wishes.product._id,
                                             //product_qty: quantityCount,
                                             //product_price: state.sell_price,
-                                            colorName: wishes.color,
+                                            color: wishes.color,
                                             size: wishes.size,
                                           },
                                           {
                                             headers: {
                                               "auth-token":
-                                                localStorage.getItem("authec"),
+                                                localStorage.getItem("abcd"),
                                             },
                                           }
                                         )
@@ -149,6 +162,10 @@ const Wishlist = ({
                                             alert("Added To Cart");
                                             console.log(response);
                                             //pahucha dena
+                                            Axios.get(
+                                              `http://35.154.86.59/api/admin/deletewishlist/${wishes.product._id}`).then((data)=>
+                                              fetchWish(data)).catch(err=>console.log(err))
+
                                           })
                                           .catch(function (error) {
                                             console.log(error.response);
@@ -162,8 +179,10 @@ const Wishlist = ({
 
                                 <td className="product-remove">
                                   <button
-                                    onClick={() =>
-                                      deleteFromWishlist(wishes, addToast)
+                                    onClick={(e) =>
+                                      //console.log(wishes._id)
+                                      removeitemfromwishlist(wishes._id)
+                                      //  deleteFromWishlist(wishes, addToast)
                                     }
                                   >
                                     <i className="fa fa-times"></i>
@@ -183,7 +202,7 @@ const Wishlist = ({
                     <div className="cart-shiping-update-wrapper">
                       <div className="cart-shiping-update">
                         <Link
-                          to={process.env.PUBLIC_URL + "/shop-grid-standard"}
+                          to={process.env.PUBLIC_URL + "/shop-grid-two-column"}
                         >
                           Continue Shopping
                         </Link>

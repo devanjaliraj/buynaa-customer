@@ -119,16 +119,32 @@ const ShopGridTwoColumn = ({
     // setUseraddress(address)
   };
   const getproductbytagname = async (name) => {
-    ////http://35.154.86.59/api/admin/getproductbytagname/Men
     const { data } = await Axios.get(
       `http://35.154.86.59/api/admin/getproductbytagname/${name}`
     );
-    //const address = data.data;
     console.log(data.data);
-    //setAlltags(data.data)
-    // console.log(address);
-    // setUseraddress(address)
+    setDress(data.data);
   };
+
+  const getproductbycolor = async (id) => {
+    console.log(id);
+    const { data } = await Axios.get(
+      `http://35.154.86.59/api/admin/productbycolor/${id}`
+    );
+    console.log(data.data);
+    setDress(data.data);
+  };
+
+  const callbackfucntin = childData => {
+    // callback(childData)
+    console.log(childData);;
+  };
+  const tagcallbackfunction = tagname => {
+    // callback(childData)
+    console.log(tagname);
+    getproductbytagname(tagname)
+  };
+
   useEffect(() => {
     async function getData() {
       const response = await fetch("http://35.154.86.59/api/admin/getproduct");
@@ -144,7 +160,7 @@ const ShopGridTwoColumn = ({
     getallcategory();
     getalltags();
     getallbrand();
-    getproductbytagname("Men");
+    //getproductbytagname("Men");
     return;
   }, []);
 
@@ -183,6 +199,9 @@ const ShopGridTwoColumn = ({
                   category={allcategory}
                   tags={alltags}
                   brand={allbrand}
+                  callback={callbackfucntin}
+                  tagcallback={tagcallbackfunction}
+                  colorcallback={getproductbycolor}
                 />
               </div>
               <div className="col-lg-9">
@@ -349,7 +368,7 @@ const ShopGridTwoColumn = ({
                                   </Fragment>
                                 </div>
                               </div>
-                              <div className="pro-wishlist-2">
+                              {/* <div className="pro-wishlist-2">
                                 <button
                                   className={
                                     wishlistItem !== undefined ? "active" : ""
@@ -366,7 +385,7 @@ const ShopGridTwoColumn = ({
                                 >
                                   <i className="fa fa-heart-o" />
                                 </button>
-                              </div>
+                              </div> */}
                             </div>
                           </div>
                         </div>
@@ -394,7 +413,7 @@ const ShopGridTwoColumn = ({
                 {/* shop product pagination */}
                 <div className="pro-pagination-style text-center mt-30">
                   <Paginator
-                    totalRecords={sortedProducts.length}
+                    totalRecords={dress.length}
                     pageLimit={pageLimit}
                     pageNeighbours={2}
                     setOffset={setOffset}

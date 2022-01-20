@@ -19,7 +19,7 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
   };
 
   useEffect(() => {
-    if(localStorage.getItem("authec")){
+    if(localStorage.getItem("abcd")){
       fetchReview();
     }
   }, []);

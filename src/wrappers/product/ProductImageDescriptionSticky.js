@@ -318,20 +318,21 @@ const ProductImageDescriptionSticky = ({
                 </div>
                 <div className="pro-details-wishlist">
                   <button
-                    className={wishlistItems !== undefined ? "active" : ""}
-                    disabled={wishlistItems !== undefined}
                     title={
                       wishlistItems !== undefined
                         ? "Added to wishlist"
                         : "Add to wishlist"
                     }
                     onClick={() => {
+                      console.log("btn clicked");
                       Axios.post(
                         "http://35.154.86.59/api/admin/addwishlist",
                         {
                           product: state._id,
-                          colorName: selectedColor,
+                          color: selectedColor,
                           size: selectedSize,
+                          product_qty: quantityCount,
+                          product_price: state.sell_price,
                         },
                         {
                           headers: {

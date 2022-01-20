@@ -15,7 +15,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
       `http://35.154.86.59/api/admin/cartbycustomer`,
       {
         headers: {
-          "auth-token": localStorage.getItem("authec"),
+          "auth-token": localStorage.getItem("abcd"),
         },
       }
     );
@@ -24,7 +24,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
     console.log(carts);
   };
   useEffect(() => {
-    if(localStorage.getItem("authec")){
+    if(localStorage.getItem("abcd")){
       fetchcarts();
     }
     //fetchcarts();

@@ -9,7 +9,8 @@ const dot = {
   
 }
 
-const ShopColor = ({ colors, getSortParams }) => {
+const ShopColor = ({ colors, getSortParams,getonecolor }) => {
+  
   return (
     <div className="sidebar-widget mt-50">
       <h4 className="pro-sidebar-title">Color </h4>
@@ -34,6 +35,8 @@ const ShopColor = ({ colors, getSortParams }) => {
                   <div className="sidebar-widget-list-left">
                     <button
                       onClick={e => {
+                        getonecolor(color._id)
+                        console.log(color._id)
                         getSortParams("color", color);
                         setActiveSort(e);
                       }}
