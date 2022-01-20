@@ -13,7 +13,7 @@ import {
   decreaseQuantity,
   deleteFromCart,
   cartItemStock,
-  deleteAllFromCart
+  deleteAllFromCart,
 } from "../../redux/actions/cartActions";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
@@ -27,92 +27,96 @@ const Cart = ({
   decreaseQuantity,
   addToCart,
   deleteFromCart,
-  deleteAllFromCart
+  deleteAllFromCart,
 }) => {
   const [quantityCount] = useState(1);
   const { addToast } = useToasts();
-  const history = useHistory()
+  const history = useHistory();
   const { pathname } = location;
   let cartTotalPrice = 0;
   const [carts, setCarts] = useState([]);
   const [total, setTotal] = useState([]);
   const [useraddress, setUseraddress] = useState([]);
   //const { id } = useParams();
+
   const fetchcarts = async () => {
     const { data } = await Axios.get(
       `http://35.154.86.59/api/admin/cartbycustomer`,
       {
         headers: {
-          "auth-token": localStorage.getItem("authec")
-        }
+          "auth-token": localStorage.getItem("abcd"),
+        },
       }
     );
     const carts = data.data;
     // console.log(data.total);
     setCarts(carts);
     console.log(carts);
-    
-    setTotal(data.total)
+
+    setTotal(data.total);
   };
- 
+
   const fetchaddress = async () => {
     const { data } = await Axios.get(
       `http://35.154.86.59/api/user/viewoneuseraddress`,
       {
         headers: {
-          "auth-token": localStorage.getItem("authec")
-        }
+          "auth-token": localStorage.getItem("abcd"),
+        },
       }
     );
     const address = data.data;
     console.log(address);
-    setUseraddress(address)
-    
+    setUseraddress(address);
   };
   useEffect(() => {
     //fetchcarts();
-    if(localStorage.getItem("authec")){
+    if (localStorage.getItem("abcd")) {
       fetchcarts();
       fetchaddress();
     }
   }, []);
 
-  const removeItemfromcart=async (id)=>{
-    console.log(id)
+  const removeItemfromcart = async (id) => {
+    console.log(id);
 
     try {
-      const response = await Axios.get(`http://35.154.86.59/api/admin/remove_cart/${id}`,
-      {
-        headers: {
-          "auth-token": localStorage.getItem("authec")
+      const response = await Axios.get(
+        `http://35.154.86.59/api/admin/remove_cart/${id}`,
+        {
+          headers: {
+            "auth-token": localStorage.getItem("abcd"),
+          },
         }
-      })  
-      if(response){
+      );
+      if (response) {
         console.log(response);
-        fetchcarts()
+        fetchcarts();
       }
     } catch (error) {
       console.log(error);
     }
-  }
-  const deleteAllCartItems=async ()=>{
-    console.log("request remove all")
+  };
+  const deleteAllCartItems = async () => {
+    console.log("request remove all");
 
     try {
-      const response = await Axios.get(`http://35.154.86.59/api/admin/clearCart`,
-      {
-        headers: {
-          "auth-token": localStorage.getItem("authec")
+      const response = await Axios.get(
+        `http://35.154.86.59/api/admin/clearCart`,
+        {
+          headers: {
+            "auth-token": localStorage.getItem("abcd"),
+          },
         }
-      })  
-      if(response){
+      );
+      if (response) {
         console.log(response);
-        fetchcarts()
+        fetchcarts();
       }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <Fragment>
@@ -258,7 +262,9 @@ const Cart = ({
                                   </div>
                                 </td>
                                 <td className="product-subtotal">
-                                ₹{cartItem?.product_qty * cartItem?.product_price}
+                                  ₹
+                                  {cartItem?.product_qty *
+                                    cartItem?.product_price}
                                 </td>
 
                                 <td className="product-remove">
@@ -310,10 +316,20 @@ const Cart = ({
                           {useraddress?.customer?.firstname} {useraddress?.customer?.lastname},{useraddress?.address},{useraddress?.locality},{useraddress?.state},{useraddress?.pincode},
                         </h5> */}
                         <div className="tax-select-wrapper">
-                        <h5>
-                          <span style={{textTransform:'capitalize'}}>{useraddress?.customer?.firstname} {useraddress?.customer?.lastname}</span>,<br/>#{useraddress?.address},{useraddress?.locality},{useraddress?.state},{useraddress?.pincode}
-                        </h5>
-                          <button className="cart-btn-2" type="button" onClick={()=>history.push('/my-account')}>
+                          <h5>
+                            <span style={{ textTransform: "capitalize" }}>
+                              {useraddress?.customer?.firstname}{" "}
+                              {useraddress?.customer?.lastname}
+                            </span>
+                            ,<br />#{useraddress?.address},
+                            {useraddress?.locality},{useraddress?.state},
+                            {useraddress?.pincode}
+                          </h5>
+                          <button
+                            className="cart-btn-2"
+                            type="button"
+                            onClick={() => history.push("/my-account")}
+                          >
                             Change
                           </button>
                         </div>
@@ -348,19 +364,16 @@ const Cart = ({
                         </h4>
                       </div>
                       <h5>
-                        Total products{" "}
-                        <span>
-                        ₹{total}
-                        </span>
+                        Total products <span>₹{total}</span>
                       </h5>
 
                       <h4 className="grand-totall-title">
-                        Grand Total{" "}
-                        <span>
-                        ₹{total}
-                        </span>
+                        Grand Total <span>₹{total}</span>
                       </h4>
-                      <Link to={{ pathname: "https://pmny.in/AIRaJwzJjaAJ" }} target="_blank">
+                      <Link
+                        to={{ pathname: "https://pmny.in/AIRaJwzJjaAJ" }}
+                        target="_blank"
+                      >
                         Proceed to Checkout
                       </Link>
                     </div>
@@ -376,9 +389,7 @@ const Cart = ({
                     </div>
                     <div className="item-empty-area__text">
                       No items found in cart <br />{" "}
-                      <Link to={"/shop-grid-standard"}>
-                        Shop Now
-                      </Link>
+                      <Link to={"/shop-grid-standard"}>Shop Now</Link>
                       {/* <div> <a style=" width: 200px; background-color: #1065b7; text-align: center; font-weight: 800; padding: 11px 0px; color: white; font-size: 12px; display: inline-block; text-decoration: none; " href='https://pmny.in/AIRaJwzJjaAJ' > Pay Now </a> </div> */}
                     </div>
                   </div>
@@ -399,13 +410,13 @@ Cart.propTypes = {
   decreaseQuantity: PropTypes.func,
   location: PropTypes.object,
   deleteAllFromCart: PropTypes.func,
-  deleteFromCart: PropTypes.func
+  deleteFromCart: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
   return {
     cartItems: state.cartData,
-    currency: state.currencyData
+    currency: state.currencyData,
   };
 };
 
@@ -422,7 +433,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     deleteAllFromCart: (addToast) => {
       dispatch(deleteAllFromCart(addToast));
-    }
+    },
   };
 };
 

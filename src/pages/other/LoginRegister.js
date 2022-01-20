@@ -34,7 +34,6 @@ export default class LoginRegister extends Component {
   otpHandler = (e) => {
     e.preventDefault();
     console.log(this.state);
-    //http://35.154.86.59/api/user/verifyotp
     axios
       .post("http://35.154.86.59/api/user/verifyotp", {
         customer_email: this.state.email,
@@ -43,7 +42,7 @@ export default class LoginRegister extends Component {
       .then((response) => {
         console.log(response);
         localStorage.setItem("user", response.data.data._id);
-        // localStorage.setItem("authec", this.state.token);
+        localStorage.setItem("abcd", this.state.token);
         // const location = this.props.location;
         // if (location.state && location.state.nextPathname) {
         //   History.push("/login-register");
@@ -70,26 +69,26 @@ export default class LoginRegister extends Component {
 
   loginHandler = (e) => {
     e.preventDefault();
-    
-  
-  
 
     axios
       .post("http://35.154.86.59/api/user/login", {
-        mobile:parseInt(this.state.email) != NaN?parseInt(this.state.email):'null',
-        email:this.state.email,
-        password:this.state.password
+        mobile:
+          parseInt(this.state.email) != NaN
+            ? parseInt(this.state.email)
+            : "null",
+        email: this.state.email,
+        password: this.state.password,
       })
       .then((response) => {
         console.log(response);
         localStorage.setItem("authec", response.data.token);
         localStorage.setItem("abcd", response.data.token);
-        this.props.history.push('/cart');
+        this.props.history.push("/cart");
       })
-      .catch(error => {
-        console.log(error)
-        console.log(error.response)
-    });
+      .catch((error) => {
+        console.log(error);
+        console.log(error.response);
+      });
   };
   // otp = true;
   changeHandler = (e) => {

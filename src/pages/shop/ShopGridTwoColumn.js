@@ -45,6 +45,7 @@ const ShopGridTwoColumn = ({
   const [sortedProducts, setSortedProducts] = useState([]);
   const [allcolors, setAllcolors] = useState([]);
   const [allsizes, setAllsizes] = useState([]);
+  const [allbrand, setAllbrand] = useState([]);
   const [allcategory, setAllcategory] = useState([]);
   const [alltags, setAlltags] = useState([]);
 
@@ -80,60 +81,53 @@ const ShopGridTwoColumn = ({
   const [dress, setDress] = useState([]);
 
   const allcolor = async () => {
-    const { data } = await Axios.get(
-      `http://35.154.86.59/api/admin/getcolor`,
-    );
+    const { data } = await Axios.get(`http://35.154.86.59/api/admin/getcolor`);
     //const address = data.data;
-    console.log(data.data)
-    setAllcolors(data.data)
+    console.log(data.data);
+    setAllcolors(data.data);
     // console.log(address);
     // setUseraddress(address)
-    
   };
   const allsize = async () => {
-    const { data } = await Axios.get(
-      `http://35.154.86.59/api/admin/getsize`,
-    );
-    //const address = data.data;
-    console.log(data.data)
-    setAllsizes(data.data)
-    // console.log(address);
-    // setUseraddress(address)
-    
+    const { data } = await Axios.get(`http://35.154.86.59/api/admin/getsize`);
+    console.log(data.data);
+    setAllsizes(data.data);
+  };
+  const getallbrand = async () => {
+    const { data } = await Axios.get(`http://35.154.86.59/api/admin/allbrand`);
+    console.log(data.data);
+    setAllbrand(data.data);
   };
   const getallcategory = async () => {
     const { data } = await Axios.get(
-      `http://35.154.86.59/api/admin/getproductCategory`,
+      `http://35.154.86.59/api/admin/getproductCategory`
     );
     //const address = data.data;
-    console.log(data.data)
-    setAllcategory(data.data)
+    console.log(data.data);
+    setAllcategory(data.data);
     // console.log(address);
     // setUseraddress(address)
-    
   };
   const getalltags = async () => {
     const { data } = await Axios.get(
-      `http://35.154.86.59/api/admin/getuniquetag`,
+      `http://35.154.86.59/api/admin/getuniquetag`
     );
     //const address = data.data;
-    console.log(data.data)
-    setAlltags(data.data)
+    console.log(data.data);
+    setAlltags(data.data);
     // console.log(address);
     // setUseraddress(address)
-    
   };
   const getproductbytagname = async (name) => {
     ////http://35.154.86.59/api/admin/getproductbytagname/Men
     const { data } = await Axios.get(
-      `http://35.154.86.59/api/admin/getproductbytagname/${name}`,
+      `http://35.154.86.59/api/admin/getproductbytagname/${name}`
     );
     //const address = data.data;
-    console.log(data.data)
+    console.log(data.data);
     //setAlltags(data.data)
     // console.log(address);
     // setUseraddress(address)
-    
   };
   useEffect(() => {
     async function getData() {
@@ -149,7 +143,8 @@ const ShopGridTwoColumn = ({
     allsize();
     getallcategory();
     getalltags();
-    getproductbytagname('Men')
+    getallbrand();
+    getproductbytagname("Men");
     return;
   }, []);
 
@@ -187,6 +182,7 @@ const ShopGridTwoColumn = ({
                   sizes={allsizes}
                   category={allcategory}
                   tags={alltags}
+                  brand={allbrand}
                 />
               </div>
               <div className="col-lg-9">

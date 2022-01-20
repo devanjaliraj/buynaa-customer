@@ -14,7 +14,7 @@ import { addToCompare } from "../../redux/actions/compareActions";
 import Rating from "../../components/product/sub-components/ProductRating";
 import Axios from "axios";
 import { Button, Radio, ButtonGroup } from "reactstrap";
-import './ProductImageDescriptionStickycss.css'
+import "./ProductImageDescriptionStickycss.css";
 import { useHistory } from "react-router-dom";
 
 var buttonStyle = {
@@ -23,15 +23,14 @@ var buttonStyle = {
   backgroundRepeat: "repeat-x",
   borderColor: "#1f90bb #1f90bb #145e7a",
   color: "#ffffff",
-  textShadow: "0 -1px 0 rgba(0, 0, 0, 0.25)"
-  
-}
+  textShadow: "0 -1px 0 rgba(0, 0, 0, 0.25)",
+};
 
 const ProductImageDescriptionSticky = ({
   spaceTopClass,
   spaceBottomClass,
   wishlistItems,
-  productImage
+  productImage,
 }) => {
   // const wishlistItem = wishlistItems.filter(
   //   wishlistItem => wishlistItem.id === product.id
@@ -52,14 +51,14 @@ const ProductImageDescriptionSticky = ({
   const [selectedColor, setSelectedColor] = useState("");
   const [state, setstate] = React.useState({});
   const [imgArr, setImgArr] = React.useState([]);
-  const [activeindex,setActiveindex] = React.useState([0])
+  const [activeindex, setActiveindex] = React.useState([0]);
   React.useEffect(() => {
     var t = JSON.parse(productImage).product_img;
     if (t !== undefined && t !== null) setImgArr(t);
     setstate(JSON.parse(productImage));
   }, [productImage]);
 
-  const history = useHistory()
+  const history = useHistory();
 
   return (
     <div
@@ -117,23 +116,28 @@ const ProductImageDescriptionSticky = ({
                 {state?.product_name} <span>({state?.material})</span>
               </h2>
               <div className="pro-details-list">
-                <p>
-                  {state?.short_desc}
-                </p>
-                <p>
-                {state?.long_desc}
-                </p>
+                <p>{state?.short_desc}</p>
+                <p>{state?.long_desc}</p>
                 <p className=" w-25 shadow-none p-1 mb-0 bg-white rounded">
                   #{state?.productsubcategory?.name}
                 </p>
               </div>
               <div className="product-details-price">
-                
-                  
-                    <h2>₹{state?.sell_price}&nbsp;&nbsp;
-                    <del> ₹{Math.floor(parseInt(state?.sell_price)*parseInt(state?.discount_perc)/100+parseInt(state?.sell_price))}&nbsp;&nbsp; </del>
-                    <span> &nbsp;&nbsp;({state?.discount_perc}% OFF)</span>
-                    </h2>
+                <h2>
+                  ₹{state?.sell_price}&nbsp;&nbsp;
+                  <del>
+                    {" "}
+                    ₹
+                    {Math.floor(
+                      (parseInt(state?.sell_price) *
+                        parseInt(state?.discount_perc)) /
+                        100 +
+                        parseInt(state?.sell_price)
+                    )}
+                    &nbsp;&nbsp;{" "}
+                  </del>
+                  <span> &nbsp;&nbsp;({state?.discount_perc}% OFF)</span>
+                </h2>
               </div>
 
               <div className="pro-details-rating-wrap">
@@ -168,18 +172,21 @@ const ProductImageDescriptionSticky = ({
                     className="pro-details-color-content"
                     style={{ flexDirection: "row" }}
                   >
-                    <ButtonGroup style={{height:33}}>
+                    <ButtonGroup style={{ height: 33 }}>
                       {state
                         ? state.color
-                          ? state.color.map((clr,i) => (
+                          ? state.color.map((clr, i) => (
                               <Button
-                                className={i === state.activeIndex ? 'active m-1' : 'm-1' }
+                                className={
+                                  i === state.activeIndex ? "active m-1" : "m-1"
+                                }
                                 style={{
-                                  backgroundColor: clr.colorName, borderRadius:15
+                                  backgroundColor: clr.colorName,
+                                  borderRadius: 15,
                                 }}
                                 key={clr.colorName}
                                 onClick={() => {
-                                  setActiveindex(i)
+                                  setActiveindex(i);
                                   setSelectedColor(clr.colorName);
                                 }}
                               >
@@ -223,7 +230,8 @@ const ProductImageDescriptionSticky = ({
                               <h5
                                 className="mb-0"
                                 style={{
-                                  backgroundColor: selectedSize === siz.sizeName
+                                  backgroundColor:
+                                    selectedSize === siz.sizeName,
                                 }}
                               >
                                 {siz.sizeName}
@@ -274,34 +282,34 @@ const ProductImageDescriptionSticky = ({
                         product_qty: quantityCount,
                         product_price: state.sell_price,
                         color: selectedColor,
-                        size: selectedSize
+                        size: selectedSize,
                       });
-                      if(localStorage.getItem("authec")){
-                      Axios.post(
-                        "http://35.154.86.59/api/admin/add_ToCart",
-                        {
-                          product: state._id,
-                          product_qty: quantityCount,
-                          product_price: state.sell_price,
-                          color: selectedColor,
-                          size: selectedSize
-                        },
-                        {
-                          headers: {
-                            "auth-token": localStorage.getItem("authec")
+                      if (localStorage.getItem("abcd")) {
+                        Axios.post(
+                          "http://35.154.86.59/api/admin/add_ToCart",
+                          {
+                            product: state._id,
+                            product_qty: quantityCount,
+                            product_price: state.sell_price,
+                            color: selectedColor,
+                            size: selectedSize,
+                          },
+                          {
+                            headers: {
+                              "auth-token": localStorage.getItem("abcd"),
+                            },
                           }
-                        }
-                      )
-                        .then((response) => {
-                          // alert("Added To Cart");
-                          console.log(response);
-                          //pahucha dena
-                        })
-                        .catch(function (error) {
-                          console.log(error.response)
-                        });
-                      }else{
-                        history.push('/login-register')
+                        )
+                          .then((response) => {
+                            alert("Added To Cart");
+                            console.log(response);
+                            //pahucha dena
+                          })
+                          .catch(function (error) {
+                            console.log(error.response);
+                          });
+                      } else {
+                        history.push("/login-register");
                       }
                     }}
                   >
@@ -323,12 +331,12 @@ const ProductImageDescriptionSticky = ({
                         {
                           product: state._id,
                           colorName: selectedColor,
-                          size: selectedSize
+                          size: selectedSize,
                         },
                         {
                           headers: {
-                            "auth-token": localStorage.getItem("authec")
-                          }
+                            "auth-token": localStorage.getItem("abcd"),
+                          },
                         }
                       )
                         .then((response) => {
@@ -337,13 +345,14 @@ const ProductImageDescriptionSticky = ({
                           //pahucha dena
                         })
                         .catch(function (error) {
-                          console.log(error.response)
+                          console.log(error.response);
                         });
                     }}
                   >
-                   {wishlistItems !== undefined
-                        ? "Added to wishlist"
-                        : "Add to wishlist"} <i className="pe-7s-like" />
+                    {wishlistItems !== undefined
+                      ? "Added to wishlist"
+                      : "Add to wishlist"}{" "}
+                    <i className="pe-7s-like" />
                   </button>
                 </div>
               </div>
@@ -374,7 +383,7 @@ ProductImageDescriptionSticky.propTypes = {
   discountedPrice: PropTypes.number,
   finalDiscountedPrice: PropTypes.number,
   finalProductPrice: PropTypes.number,
-  wishlistItem: PropTypes.object
+  wishlistItem: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
@@ -382,7 +391,7 @@ const mapStateToProps = (state) => {
     currency: state.currencyData,
     cartItems: state.cartData,
     wishlistItems: state.wishlistData,
-    compareItems: state.compareData
+    compareItems: state.compareData,
   };
 };
 
@@ -410,7 +419,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     addToCompare: (item, addToast) => {
       dispatch(addToCompare(item, addToast));
-    }
+    },
   };
 };
 

@@ -32,7 +32,7 @@ const IconGroup = ({
       `http://35.154.86.59/api/admin/cartbycustomer`,
       {
         headers: {
-          "auth-token": localStorage.getItem("authec"),
+          "auth-token": localStorage.getItem("abcd"),
         },
       }
     );
@@ -41,11 +41,11 @@ const IconGroup = ({
     console.log(carts);
   };
   useEffect(() => {
-    if(localStorage.getItem("authec")){
+    if (localStorage.getItem("abcd")) {
       fetchcarts();
     }
   }, []);
-  const history = useHistory()
+  const history = useHistory();
 
   const [wish, setWish] = useState([]);
   const fetchWish = async () => {
@@ -53,7 +53,7 @@ const IconGroup = ({
       "http://35.154.86.59/api/admin/getallwishlist",
       {
         headers: {
-          "auth-token": localStorage.getItem("authec"),
+          "auth-token": localStorage.getItem("abcd"),
         },
       }
     );
@@ -62,7 +62,7 @@ const IconGroup = ({
     console.log(wish);
   };
   useEffect(() => {
-    if(localStorage.getItem("authec")){
+    if (localStorage.getItem("abcd")) {
       fetchWish();
     }
   }, []);
@@ -93,29 +93,31 @@ const IconGroup = ({
         </button>
         <div className="account-dropdown">
           <ul>
-          {!localStorage.getItem('authec')?
-          <>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/login-register"}>
-                Register
-              </Link>
-            </li>
-            </>:
-            <>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/my-account"}>
-                My Account
-              </Link>
-            </li><li>
-              <Link to="#" onClick={localStorage.removeItem('authec')}>
-                Logout
-              </Link>
-            </li>
-            </>
-            }
+            {!localStorage.getItem("abcd") ? (
+              <>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/login-register"}>
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/login-register"}>
+                    Register
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/my-account"}>
+                    My Account
+                  </Link>
+                </li>
+                <li>
+                  <Link to="#">Logout</Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
