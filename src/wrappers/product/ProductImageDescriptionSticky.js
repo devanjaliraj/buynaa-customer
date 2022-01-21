@@ -26,6 +26,10 @@ var buttonStyle = {
   textShadow: "0 -1px 0 rgba(0, 0, 0, 0.25)",
 };
 
+let heart = {
+  margin: "-4px 8px"
+}
+
 const ProductImageDescriptionSticky = ({
   spaceTopClass,
   spaceBottomClass,
@@ -106,12 +110,12 @@ const ProductImageDescriptionSticky = ({
                 fullProductDesc={JSON.stringify(state)}
               /> */}
             <div className="product-details-content ml-70 mt-5 mb-5">
-              <h4 style={{ color: "#a6a6a6", textTransform: "uppercase" }}>
+              <h4 style={{ color: "#282c3f", textTransform: "uppercase",fontWeight:700,fontSize:24 }}>
                 {state?.brand?.name}
               </h4>
               <h2
                 className=""
-                style={{ textTransform: "capitalize", fontWeight: 500 }}
+                style={{ textTransform: "capitalize",fontSize:20,fontWeight:400, fontWeight: 500,color:'#535665' }}
               >
                 {state?.product_name} <span>({state?.material})</span>
               </h2>
@@ -136,7 +140,7 @@ const ProductImageDescriptionSticky = ({
                     )}
                     &nbsp;&nbsp;{" "}
                   </del>
-                  <span> &nbsp;&nbsp;({state?.discount_perc}% OFF)</span>
+                  <span style={{color:'#ffa500'}}> &nbsp;&nbsp;({state?.discount_perc}% OFF)</span>
                 </h2>
               </div>
 
@@ -220,8 +224,8 @@ const ProductImageDescriptionSticky = ({
                         ? state.size.map((siz) => (
                             <Button
                               outline
-                              color="danger"
-                              className="m-1"
+                              color="primary"
+                              className="m-1 "
                               key={siz.sizeName}
                               onClick={() => {
                                 setSelectedSize(siz.sizeName);
@@ -316,7 +320,7 @@ const ProductImageDescriptionSticky = ({
                     Add To Cart
                   </button>
                 </div>
-                <div className="pro-details-wishlist">
+                <div className="pro-details-cart btn-hover">
                   <button
                     title={
                       wishlistItems !== undefined
@@ -331,8 +335,8 @@ const ProductImageDescriptionSticky = ({
                           product: state._id,
                           color: selectedColor,
                           size: selectedSize,
-                          product_qty: quantityCount,
-                          product_price: state.sell_price,
+                          qty: quantityCount,
+                          price: state.sell_price,
                         },
                         {
                           headers: {
@@ -350,10 +354,10 @@ const ProductImageDescriptionSticky = ({
                         });
                     }}
                   >
-                    {wishlistItems !== undefined
-                      ? "Added to wishlist"
-                      : "Add to wishlist"}{" "}
-                    <i className="pe-7s-like" />
+                    <i className="pe-7s-like"  style={heart}/> 
+                    
+                    Wishlist
+                    
                   </button>
                 </div>
               </div>

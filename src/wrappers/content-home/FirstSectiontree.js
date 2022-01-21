@@ -14,7 +14,7 @@ export class FirstSectiontree extends Component {
             <Col lg="2" style={{ textAlign: "center" }}>
               <img
                 src={store1}
-                style={{ width: "10rem", height: "20vh" }}
+                style={{ width: "10rem" }}
                 alt=""
               />
               <h4 className="fw-bold">Find A Shop</h4>
@@ -36,7 +36,7 @@ export class FirstSectiontree extends Component {
             <Col lg="2" style={{ textAlign: "center" }}>
               <img
                 src={store2}
-                style={{ width: "10rem", height: "20vh" }}
+                style={{ width: "10rem", }}
                 alt=""
               />
               <h4 className="fw-bold">Check Shop Profile</h4>
@@ -58,7 +58,7 @@ export class FirstSectiontree extends Component {
             <Col lg="2" style={{ textAlign: "center" }}>
               <img
                 src={store3}
-                style={{ width: "10rem", height: "20vh" }}
+                style={{ width: "10rem",}}
                 alt=""
               />
               <h4 className="fw-bold">Visit the Shop</h4>

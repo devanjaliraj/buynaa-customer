@@ -122,8 +122,7 @@ export class ProductSlider extends Component {
                           src={i}
                           alt=""
                           className=""
-                          width="100%"
-                          height="550vh"
+                          
                         />
                       </Carousel.Item>
                     ))}

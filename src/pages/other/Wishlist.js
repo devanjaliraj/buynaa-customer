@@ -45,8 +45,27 @@ const Wishlist = ({
     console.log(wish);
   };
 
+  const clearWishList = async () => {
+    const { data } = await Axios.get(
+      "http://35.154.86.59/api/admin/clrwishlist",
+      {
+        headers: {
+          "auth-token": localStorage.getItem("abcd"),
+        },
+      }
+    );
+
+    console.log(data.data);
+    fetchWish();
+  };
+
   const removeitemfromwishlist = async (id) => {
-    const { data } = await Axios.get(`http://35.154.86.59/api/admin/deletewishlist/${id}`);
+    console.log(id);
+    const { data } = await Axios.get(`http://35.154.86.59/api/admin/delonewishlist/${id}`,{
+      headers: {
+        "auth-token": localStorage.getItem("abcd"),
+      },
+    });
     //const address = data.data;
     console.log(data.data);
     fetchWish();
@@ -146,8 +165,8 @@ const Wishlist = ({
                                           "http://35.154.86.59/api/admin/add_ToCart",
                                           {
                                             product: wishes.product._id,
-                                            //product_qty: quantityCount,
-                                            //product_price: state.sell_price,
+                                            product_qty: wishes.qty,
+                                            product_price: wishes.price,
                                             color: wishes.color,
                                             size: wishes.size,
                                           },
@@ -181,7 +200,7 @@ const Wishlist = ({
                                   <button
                                     onClick={(e) =>
                                       //console.log(wishes._id)
-                                      removeitemfromwishlist(wishes._id)
+                                      removeitemfromwishlist(wishes.product._id)
                                       //  deleteFromWishlist(wishes, addToast)
                                     }
                                   >
@@ -208,7 +227,7 @@ const Wishlist = ({
                         </Link>
                       </div>
                       <div className="cart-clear">
-                        <button onClick={() => deleteAllFromWishlist(addToast)}>
+                        <button onClick={() => clearWishList()}>
                           Clear Wishlist
                         </button>
                       </div>

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Input, Button } from "reactstrap";
-import banner from "../../assets/img/banner.jpg";
+import banner from "../../assets/img/myimg.jpg";
 import axios from "axios";
 import Select from 'react-select'
 
@@ -103,8 +103,8 @@ export class HeroSliderTwentyEightSingle extends Component {
         
         <li className="p-1" key={i?._id}>
           <Link to={process.env.PUBLIC_URL +
-                                  "/product-sticky/" +
-                                  i._id
+                                  "/product-slider/" +
+                                  i.store
                                 }> {i?.product_name}</Link> </li>
         )
       })}

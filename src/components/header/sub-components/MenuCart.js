@@ -9,7 +9,29 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
   let cartTotalPrice = 0;
   const { addToast } = useToasts();
   const [carts, setCarts] = useState([]);
+  const [total, setTotal] = useState([]);
   const { id } = useParams();
+
+  const removeItemfromcart = async (id) => {
+    console.log(id);
+
+    try {
+      const response = await Axios.get(
+        `http://35.154.86.59/api/admin/remove_cart/${id}`,
+        {
+          headers: {
+            "auth-token": localStorage.getItem("abcd"),
+          },
+        }
+      );
+      if (response) {
+        console.log(response);
+        fetchcarts();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const fetchcarts = async (token) => {
     const { data } = await Axios.get(
       `http://35.154.86.59/api/admin/cartbycustomer`,
@@ -20,6 +42,10 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
       }
     );
     const carts = data.data;
+    const sum = data.total;
+    setTotal(sum)
+    //console.log(sum)
+
     setCarts(carts);
     console.log(carts);
   };
@@ -33,7 +59,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
     <div className="shopping-cart-content">
       {carts && carts?.length > 0 ? (
         <Fragment>
-          <ul>
+          <ul style={{height:150}}>
             {carts.map((single, key) => {
               const discountedPrice = getDiscountPrice(
                 single.price,
@@ -83,10 +109,13 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
                       </Link>
                     </h4>
                     <h6>Qty: {single.product_qty}</h6>
+                    <h6>Color: {single.color}</h6>
+                    <h6>Size: {single.size}</h6>
+                    <h6>Price: {single.product_price*single.product_qty}</h6>
                     <span></span>
                   </div>
                   <div className="shopping-cart-delete">
-                    <button onClick={() => deleteFromCart(single, addToast)}>
+                    <button onClick={() => removeItemfromcart(single.product._id)}>
                       <i className="fa fa-times-circle" />
                     </button>
                   </div>
@@ -96,9 +125,9 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
           </ul>
           <div className="shopping-cart-total">
             <h4>
-              Total :{" "}
+              Total :
               <span className="shop-total">
-                {currency.currencySymbol + cartTotalPrice.toFixed(2)}
+                {currency.currencySymbol + total.toFixed(2)}
               </span>
             </h4>
           </div>
@@ -106,12 +135,12 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
             <Link className="default-btn" to={process.env.PUBLIC_URL + "/cart"}>
               view cart
             </Link>
-            <Link
+            {/* <Link
               className="default-btn"
               to={process.env.PUBLIC_URL + "/checkout"}
             >
               checkout
-            </Link>
+            </Link> */}
           </div>
         </Fragment>
       ) : (

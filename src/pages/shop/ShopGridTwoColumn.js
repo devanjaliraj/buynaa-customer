@@ -142,6 +142,14 @@ const ShopGridTwoColumn = ({
     console.log(data.data);
     setDress(data.data);
   };
+  const getproductbybrand = async (id) => {
+    console.log(id);
+    const { data } = await Axios.get(
+      `http://35.154.86.59/api/admin/productbybrand/${id}`
+    );
+    console.log(data.data);
+    setDress(data.data);
+  };
 
   const callbackfucntin = childData => {
     // callback(childData)
@@ -152,6 +160,7 @@ const ShopGridTwoColumn = ({
     console.log(tagname);
     getproductbytagname(tagname)
   };
+  
 
   useEffect(() => {
     async function getData() {
@@ -211,6 +220,7 @@ const ShopGridTwoColumn = ({
                   tagcallback={tagcallbackfunction}
                   colorcallback={getproductbycolor}
                   sizecallback={getproductbysize}
+                  brandcallback={getproductbybrand}
                 />
               </div>
               <div className="col-lg-9">
