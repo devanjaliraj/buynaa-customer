@@ -78,7 +78,7 @@ class SecondSection extends React.Component {
                       <img
                         src={storeList.storeImg[0]}
                         alt="swiper 1"
-                        style={{ width: "15rem", height: "40vh" }}
+                        style={{ width: "15rem" }}
                       />
                     </Link>
                   </div>

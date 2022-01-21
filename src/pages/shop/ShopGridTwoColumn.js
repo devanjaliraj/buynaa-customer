@@ -150,6 +150,18 @@ const ShopGridTwoColumn = ({
     console.log(data.data);
     setDress(data.data);
   };
+  const getproductbypricerange = async (min,max) => {
+    console.log(min,max);
+    //http://35.154.86.59/api/admin/productbypricerange
+    const { data } = await Axios.post(
+      `http://35.154.86.59/api/admin/productbypricerange`,{
+        minamt:min,
+        maxamt:max
+      }
+    );
+    console.log(data.data);
+    setDress(data.data);
+  };
 
   const callbackfucntin = childData => {
     // callback(childData)
@@ -159,6 +171,12 @@ const ShopGridTwoColumn = ({
     // callback(childData)
     console.log(tagname);
     getproductbytagname(tagname)
+  };
+  const getproductrangeval = value => {
+    // callback(childData)
+    console.log(value);
+    
+    getproductbypricerange(value.min,value.max)//getproductbyvalue(tagname)
   };
   
 
@@ -221,6 +239,7 @@ const ShopGridTwoColumn = ({
                   colorcallback={getproductbycolor}
                   sizecallback={getproductbysize}
                   brandcallback={getproductbybrand}
+                  pricerange={getproductrangeval}
                 />
               </div>
               <div className="col-lg-9">

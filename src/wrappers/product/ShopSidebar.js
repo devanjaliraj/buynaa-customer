@@ -12,6 +12,7 @@ import ShopColor from "../../components/product/ShopColor";
 import ShopSize from "../../components/product/ShopSize";
 import ShopTag from "../../components/product/ShopTag";
 import ShopBrand from "../../components/product/ShopBrand";
+import ShopPrice from "../../components/product/ShopPrice";
 
 const ShopSidebar = ({
   products,
@@ -26,7 +27,8 @@ const ShopSidebar = ({
   tagcallback,
   colorcallback,
   sizecallback,
-  brandcallback
+  brandcallback,
+  pricerange
 }) => {
   const uniqueCategories = getIndividualCategories(products);
   const uniqueColors = getIndividualColors(products);
@@ -54,12 +56,28 @@ const ShopSidebar = ({
     brandcallback(id)
     console.log(id);;
   };
+  // const minratecallbackMiddle = value => {
+  //   minratecallback(value)
+  //   console.log(value);;
+  // };
+  // const maxratecallbackMiddle = value => {
+  //   maxratecallback(value)
+  //   console.log(value);;
+  // };
+  const pricerangecallbackmiddle = value => {
+    // maxratecallback(value)
+    pricerange(value)
+    console.log(value);;
+  };
   // const tag = fromchildtohere()
 
   return (
     <div className={`sidebar-style ${sideSpaceClass ? sideSpaceClass : ""}`}>
       {/* shop search */}
       <ShopSearch />
+
+      {/* filter by price range */}
+    <ShopPrice tags={tags} getSortParams={getSortParams} priceobj={pricerangecallbackmiddle} />
 
     {/* filter by tag */}
     <ShopTag tags={tags} getSortParams={getSortParams} getonetag={tagcallbackMiddle} />

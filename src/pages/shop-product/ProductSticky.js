@@ -16,7 +16,8 @@ export class ProductSticky extends Component {
     super(props);
 
     this.state = {
-      detail: {}
+      detail: {},
+      pid:''
     };
   }
 
@@ -25,7 +26,7 @@ export class ProductSticky extends Component {
     Axios.get(`http://35.154.86.59/api/admin/getoneproduct/${id}`)
       .then((response) => {
         console.log(response.data.data);
-        this.setState({ detail: response.data.data });
+        this.setState({ detail: response.data.data,pid:response.data.data._id });
       })
       .catch((error) => {
         console.log(error.response);
@@ -66,6 +67,7 @@ export class ProductSticky extends Component {
           <ProductDescriptionTab
             spaceBottomclass="pb-90"
             productFullDesc={JSON.stringify(this.state.detail)}
+            productid={this.state.pid}
           />
 
           {/* related product slider */}

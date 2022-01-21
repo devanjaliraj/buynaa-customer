@@ -3,26 +3,72 @@ import React, { useEffect, useState } from "react";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import Axios from "axios";
+import Rating from '@mui/material/Rating';
+import LinearProgress from '@mui/material/LinearProgress';
+import Card from '@mui/material/Card';
 
-const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
+const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc,productid }) => {
   const [state, setstate] = React.useState({});
   const [imgArr, setImgArr] = React.useState([]);
   const [review, setReview] = useState([]);
+  const [average, setAverage] = useState([]);
+  const [value, setValue] = useState([]);
+  const [comment, setComment] = useState([]);
+  const [rating, allRating] = useState([true, true, false, false, false]);
 
-  const fetchReview = async () => {
+  console.log(productid)
+  const fetchReview = async (productid) => {
+    //http://35.154.86.59/api/admin/getonereviewproduct/61dbf6b0ee74df56dae2627c
+    //let k = JSON.parse(productFullDesc)._id
+    console.log(productid)
     const { data } = await Axios.get(
-      "http://35.154.86.59/api/admin/getallreview"
+      `http://35.154.86.59/api/admin/getonereviewproduct/${productid}`
     );
+    console.log(data)
     const review = data.data;
-    setReview(review);
+    var averagerating =  0;
+    for (let i = 0; i < review.length; i++) {
+      const value = review[i].rating;
+      averagerating = averagerating + value
+      }
+    console.log(averagerating)
+    var newaverage = averagerating/review.length
+    console.log(newaverage)
+    setAverage(newaverage)
     console.log(review);
+    setReview(review);
+    
   };
+
+  const changehandler=(e)=>{
+   // console.log(e.target.value)
+    //e.target.value = setComment()
+    setComment(e.target.value)
+  }
+
+  const submitrating=(e)=>{
+    e.preventDefault()
+    console.log(value)
+
+    // Axios.post(`http://35.154.86.59/api/admin/addreview`,{
+
+    // })
+    //   .then((response) => {
+    //     console.log(response.data.data);
+    //     this.setState({ detail: response.data.data,pid:response.data.data._id });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.response);
+    //   });
+  }
 
   useEffect(() => {
     if(localStorage.getItem("abcd")){
-      fetchReview();
+      if(productid){
+        fetchReview(productid);
+      }
     }
-  }, []);
+  }, [productid]);
   React.useEffect(() => {
     // console.log("Product Desc", productFullDesc);
     var t = JSON.parse(productFullDesc).product_img;
@@ -75,12 +121,30 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                 {state?.long_desc}
               </Tab.Pane>
               <Tab.Pane eventKey="productReviews">
+                <h3>RATINGS <i class="fa fa-star"></i></h3>
                 <div className="row">
-                  <div className="col-lg-7">
+                <div className="col-lg-7">
+                  <div className="row">
+                <div className="col-md-4">
+                  <h1 style={{fontSize:96,marginTop:39,marginRight:15,marginBottom:20,marginLeft:0}}>
+                    {parseFloat(average).toFixed(1)} 
+                  </h1>
+                  <p>{review.length} Verified Buyers</p>
+                </div>
+                <div className="col-md-6">
+                <LinearProgress className="m-1 mb-3 " style={{color:'#14958f'}} variant="determinate" value={70}/>
+                <LinearProgress className="m-1 mb-3 " style={{color:'#ff'}} variant="determinate" value={30}/>
+                <LinearProgress className="m-1 mb-3 " style={{color:'#14958f'}} variant="determinate" value={30}/>
+                <LinearProgress className="m-1 mb-3 " style={{color:'#14958f'}} variant="determinate" value={30}/>
+                <LinearProgress className="m-1 mb-3 " style={{color:'#14958f'}} variant="determinate" value={10}/>
+                </div>
+              </div>
+              <hr/>
                     {review?.map((rev) => (
+                      
                       <div className="review-wrapper" key={rev._id}>
                         <div className="single-review">
-                          <div className="review-img">
+                          {/* <div className="review-img">
                             <img
                               src={
                                 process.env.PUBLIC_URL +
@@ -88,27 +152,49 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                               }
                               alt=""
                             />
-                          </div>
+                          </div> */}
                           <div className="review-content">
                             <div className="review-top-wrap">
                               <div className="review-left">
                                 <div className="review-name">
-                                  <h4>
-                                    {rev?.customer?.first_name}{" "}
-                                    {rev?.customer?.last_name}
+                                  <h4 style={{textTransform:'capitalize',margin:5}}>
+                                  {rev?.comment} 
+                                    
                                   </h4>
                                 </div>
-                                {/* <div className="review-rating">
+                                <div className="review-rating">
+                                {/* <i className="fa fa-star" />
                                 <i className="fa fa-star" />
                                 <i className="fa fa-star" />
                                 <i className="fa fa-star" />
-                                <i className="fa fa-star" />
-                                <i className="fa fa-star" />
-                              </div> */}
+                                <i className="fa fa-star" /> */}
+                                <Rating name="disabled" style={{opacity:1}} value={rev?.rating} disabled />
+                              </div>
                               </div>
                             </div>
                             <div className="review-bottom">
-                              <p>{rev?.comment}</p>
+                            {/* {rating.map((val, index) => (
+                    <span
+                      key={index}
+                      onClick={() => {
+                        var rat = [];
+                        for (var i = 0; i < 5; i++) {
+                          if (i <= index) rat.push(true);
+                          else rat.push(false);
+                        }
+                        allRating(rat);
+                      }}
+                    >
+                      {rating[index] ? (
+                        <i className="fa fa-star-o yellow" key={index}></i>
+                      ) : (
+                        <i className="fa fa-star-o" key={index}></i>
+                      )}
+                    </span>
+                  ))} */}
+                              <p style={{display:'inline',textTransform:'capitalize'}}>{rev?.customer?.firstname}{" "}
+                                    {rev?.customer?.lastname} | {rev.createdAt.split('T')[0]
+}</p>
                             </div>
                           </div>
                         </div>
@@ -117,9 +203,9 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                   </div>
                   <div className="col-lg-5">
                     <div className="ratting-form-wrapper pl-50">
-                      <h3>Add a Review</h3>
+                      <h3>Write a Review</h3>
                       <div className="ratting-form">
-                        <form action="#">
+                        <form action="#" onSubmit={submitrating}>
                           <div className="star-box">
                             {/* <span>Your rating:</span> */}
                             {/* <div className="ratting-star">
@@ -131,22 +217,29 @@ const ProductDescriptionTab = ({ spaceBottomClass, productFullDesc }) => {
                             </div> */}
                           </div>
                           <div className="row">
-                            <div className="col-md-6">
+                            
                               <div className="rating-form-style mb-10">
-                                <input placeholder="Name" type="text" />
+                              <Rating
+  name="simple-controlled"
+  value={1}
+  onChange={(event, newValue) => {
+    setValue(newValue);
+  }}
+/>
                               </div>
-                            </div>
-                            <div className="col-md-6">
+                            
+                            {/* <div className="col-md-6">
                               <div className="rating-form-style mb-10">
                                 <input placeholder="Email" type="email" />
                               </div>
-                            </div>
+                            </div> */}
                             <div className="col-md-12">
                               <div className="rating-form-style form-submit">
                                 <textarea
-                                  name="Your Review"
-                                  placeholder="Message"
+                                  name="comment"
+                                  placeholder="Comment"
                                   defaultValue={""}
+                                  onChange={changehandler} style={{height:'auto'}} rows={3}
                                 />
                                 <input type="submit" defaultValue="Submit" />
                               </div>

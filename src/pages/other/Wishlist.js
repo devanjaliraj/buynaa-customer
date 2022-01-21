@@ -180,10 +180,16 @@ const Wishlist = ({
                                           .then((response) => {
                                             alert("Added To Cart");
                                             console.log(response);
+                                            console.log(wishes.product._id);
                                             //pahucha dena
                                             Axios.get(
-                                              `http://35.154.86.59/api/admin/deletewishlist/${wishes.product._id}`).then((data)=>
-                                              fetchWish(data)).catch(err=>console.log(err))
+                                              `http://35.154.86.59/api/admin/delonewishlist/${wishes.product._id}`,{
+                                                headers: {
+                                                  "auth-token":
+                                                    localStorage.getItem("abcd"),
+                                                },
+                                              }).then((data)=>
+                                              fetchWish(data)).catch((err)=>console.log(err.response))
 
                                           })
                                           .catch(function (error) {
