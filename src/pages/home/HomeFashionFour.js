@@ -25,7 +25,7 @@ const HomeFashionFour = () => {
           category="accessories"
         />
         {/* newsletter */}
-        <NewsletterTwo spaceBottomClass="pb-100" />
+        {/* <NewsletterTwo spaceBottomClass="pb-100" /> */}
       </LayoutFive>
     </Fragment>
   );

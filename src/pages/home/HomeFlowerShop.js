@@ -34,10 +34,10 @@ const HomeFlowerShop = () => {
         {/* banner */}
         <BannerSeven spaceTopClass="pt-95" spaceBottomClass="pb-70" />
         {/* newsletter */}
-        <NewsletterTwo
+        {/* <NewsletterTwo
           spaceBottomClass="pb-100"
           subscribeBtnClass="pink-subscribe"
-        />
+        /> */}
       </LayoutTwo>
     </Fragment>
   );

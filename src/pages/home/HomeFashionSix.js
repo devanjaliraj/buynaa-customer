@@ -29,7 +29,7 @@ const HomeFashionSix = () => {
           sectionTitle={false}
         />
         {/* newsletter */}
-        <NewsletterTwo spaceBottomClass="pb-100" />
+        {/* <NewsletterTwo spaceBottomClass="pb-100" /> */}
         {/* image slider */}
         <ImageSliderOne />
       </LayoutSeven>

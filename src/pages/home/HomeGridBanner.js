@@ -229,7 +229,7 @@ const HomeGridBanner = () => {
         </div>
 
         {/* newsletter */}
-        <NewsletterTwo spaceBottomClass="pb-100" />
+        {/* <NewsletterTwo spaceBottomClass="pb-100" /> */}
       </LayoutThree>
     </Fragment>
   );
