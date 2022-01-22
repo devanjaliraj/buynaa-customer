@@ -13,7 +13,7 @@ const HeaderThree = ({
   currency,
   setCurrency,
   currentLanguageCode,
-  dispatch
+  dispatch,
 }) => {
   const [scroll, setScroll] = useState(0);
   const [headerTop, setHeaderTop] = useState(0);
@@ -37,12 +37,12 @@ const HeaderThree = ({
         <div className="container-fluid">
           <div className="header-top-wap">
             {/* language currency changer */}
-            <LanguageCurrencyChanger
+            {/* <LanguageCurrencyChanger
               currency={currency}
               setCurrency={setCurrency}
               currentLanguageCode={currentLanguageCode}
               dispatch={dispatch}
-            />
+            /> */}
             {/* Icon group */}
             <IconGroup />
           </div>
@@ -82,20 +82,20 @@ HeaderThree.propTypes = {
   setCurrency: PropTypes.func,
   currency: PropTypes.object,
   currentLanguageCode: PropTypes.string,
-  dispatch: PropTypes.func
+  dispatch: PropTypes.func,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    currency: state.currencyData
+    currency: state.currencyData,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    setCurrency: currencyName => {
+    setCurrency: (currencyName) => {
       dispatch(setCurrency(currencyName));
-    }
+    },
   };
 };
 

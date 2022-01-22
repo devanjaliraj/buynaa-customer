@@ -3,7 +3,7 @@ import React from "react";
 const MobileWidgets = () => {
   return (
     <div className="offcanvas-widget-area">
-      <div className="off-canvas-contact-widget">
+      {/* <div className="off-canvas-contact-widget">
         <div className="header-contact-info">
           <ul className="header-contact-info__list">
             <li>
@@ -18,7 +18,7 @@ const MobileWidgets = () => {
         </div>
       </div>
       {/*Off Canvas Widget Social Start*/}
-      <div className="off-canvas-widget-social">
+      {/* <div className="off-canvas-widget-social">
         <a href="//twitter.com" title="Twitter">
           <i className="fa fa-twitter"></i>
         </a>
@@ -31,7 +31,7 @@ const MobileWidgets = () => {
         <a href="//pinterest.com" title="Pinterest">
           <i className="fa fa-pinterest"></i>
         </a>
-      </div>
+      </div> */}
       {/*Off Canvas Widget Social End*/}
     </div>
   );

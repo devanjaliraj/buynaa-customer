@@ -8,14 +8,14 @@ const MobileLangCurrChange = ({
   currency,
   setCurrency,
   currentLanguageCode,
-  dispatch
+  dispatch,
 }) => {
-  const changeLanguageTrigger = e => {
+  const changeLanguageTrigger = (e) => {
     const languageCode = e.target.value;
     dispatch(changeLanguage(languageCode));
   };
 
-  const setCurrencyTrigger = e => {
+  const setCurrencyTrigger = (e) => {
     const currencyName = e.target.value;
     setCurrency(currencyName);
   };
@@ -29,7 +29,7 @@ const MobileLangCurrChange = ({
 
   return (
     <div className="mobile-menu-middle">
-      <div className="lang-curr-style">
+      {/* <div className="lang-curr-style">
         <span className="title mb-2">Choose Language </span>
         <select
           value={currentLanguageCode}
@@ -56,7 +56,7 @@ const MobileLangCurrChange = ({
           <option value="EUR">EUR</option>
           <option value="GBP">GBP</option>
         </select>
-      </div>
+      </div> */}
     </div>
   );
 };
@@ -65,20 +65,20 @@ MobileLangCurrChange.propTypes = {
   setCurrency: PropTypes.func,
   currency: PropTypes.object,
   currentLanguageCode: PropTypes.string,
-  dispatch: PropTypes.func
+  dispatch: PropTypes.func,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    currency: state.currencyData
+    currency: state.currencyData,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    setCurrency: currencyName => {
+    setCurrency: (currencyName) => {
       dispatch(setCurrency(currencyName));
-    }
+    },
   };
 };
 
