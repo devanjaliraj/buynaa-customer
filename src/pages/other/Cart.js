@@ -110,6 +110,7 @@ const Cart = ({
         }
       );
       if (response) {
+        window.location.reload();
         console.log(response);
         fetchcarts();
       }
@@ -270,7 +271,9 @@ const Cart = ({
                                 <td className="product-remove">
                                   <button
                                     onClick={() =>
-                                      removeItemfromcart(cartItem.product._id)
+                                      removeItemfromcart(cartItem.product._id)(
+                                        window.location.reload()
+                                      )
                                     }
                                   >
                                     <i className="fa fa-times"></i>
@@ -295,7 +298,11 @@ const Cart = ({
                         </Link>
                       </div>
                       <div className="cart-clear">
-                        <button onClick={() => deleteAllCartItems()}>
+                        <button
+                          onClick={() =>
+                            deleteAllCartItems()(window.location.reload())
+                          }
+                        >
                           Clear Shopping Cart
                         </button>
                       </div>
@@ -389,7 +396,7 @@ const Cart = ({
                     </div>
                     <div className="item-empty-area__text">
                       No items found in cart <br />{" "}
-                      <Link to={"/shop-grid-standard"}>Shop Now</Link>
+                      <Link to={"/shop-grid-two-column"}>Shop Now</Link>
                       {/* <div> <a style=" width: 200px; background-color: #1065b7; text-align: center; font-weight: 800; padding: 11px 0px; color: white; font-size: 12px; display: inline-block; text-decoration: none; " href='https://pmny.in/AIRaJwzJjaAJ' > Pay Now </a> </div> */}
                     </div>
                   </div>

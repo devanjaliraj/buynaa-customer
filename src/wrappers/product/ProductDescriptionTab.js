@@ -83,14 +83,14 @@ const ProductDescriptionTab = ({
     }
   }, [productid]);
   React.useEffect(() => {
-    // console.log("Product Desc", productFullDesc);
+    //console.log("Product Desc", productFullDesc);
     var t = JSON.parse(productFullDesc).product_img;
     if (t !== undefined && t !== null) setImgArr(t);
     setstate(JSON.parse(productFullDesc));
   }, []);
   return (
     <div className={`description-review-area ${spaceBottomClass}`}>
-      <div className="container">
+      <div className="container mt-5 mb-5">
         <div className="description-review-wrapper">
           <Tab.Container defaultActiveKey="productDescription">
             <Nav variant="pills" className="description-review-topbar">
@@ -120,9 +120,6 @@ const ProductDescriptionTab = ({
                       {state?.material?.materialname}
                     </li>
 
-                    <li>
-                      <span>Materials</span> 60% cotton, 40% polyester
-                    </li>
                     <li>
                       <span>Other Info</span> American heirloom jean shorts pug
                       seitan letterpress

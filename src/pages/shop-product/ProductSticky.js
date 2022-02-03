@@ -17,7 +17,7 @@ export class ProductSticky extends Component {
 
     this.state = {
       detail: {},
-      pid:''
+      pid: "",
     };
   }
 
@@ -26,7 +26,10 @@ export class ProductSticky extends Component {
     Axios.get(`http://35.154.86.59/api/admin/getoneproduct/${id}`)
       .then((response) => {
         console.log(response.data.data);
-        this.setState({ detail: response.data.data,pid:response.data.data._id });
+        this.setState({
+          detail: response.data.data,
+          pid: response.data.data._id,
+        });
       })
       .catch((error) => {
         console.log(error.response);
@@ -48,9 +51,7 @@ export class ProductSticky extends Component {
         <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>
           Home
         </BreadcrumbsItem>
-        <BreadcrumbsItem to={process.env.PUBLIC_URL}>
-          Shop Product
-        </BreadcrumbsItem>
+        <BreadcrumbsItem>/ Shop Product</BreadcrumbsItem>
 
         <LayoutOne headerTop="visible">
           {/* breadcrumb */}

@@ -17,7 +17,7 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import Axios from "axios";
 
-const Wishlist = ({
+const MyOrder = ({
   location,
   cartItems,
   currency,
@@ -231,29 +231,6 @@ const Wishlist = ({
                     </div>
                   </div>
                 </div>
-
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="cart-shiping-update-wrapper">
-                      <div className="cart-shiping-update">
-                        <Link
-                          to={process.env.PUBLIC_URL + "/shop-grid-two-column"}
-                        >
-                          Continue Shopping
-                        </Link>
-                      </div>
-                      <div className="cart-clear">
-                        <button
-                          onClick={() =>
-                            clearWishList()(window.location.reload())
-                          }
-                        >
-                          Clear Wishlist
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
               </Fragment>
             ) : (
               <div className="row">
@@ -263,8 +240,8 @@ const Wishlist = ({
                       <i className="pe-7s-like"></i>
                     </div>
                     <div className="item-empty-area__text">
-                      No items found in wishlist <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/"}>Add Items</Link>
+                      No Product Found <br />{" "}
+                      <Link to={process.env.PUBLIC_URL + "/"}>Shop Now</Link>
                     </div>
                   </div>
                 </div>
@@ -277,7 +254,7 @@ const Wishlist = ({
   );
 };
 
-Wishlist.propTypes = {
+MyOrder.propTypes = {
   addToCart: PropTypes.func,
   cartItems: PropTypes.array,
   currency: PropTypes.object,
@@ -312,4 +289,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Wishlist);
+export default connect(mapStateToProps, mapDispatchToProps)(MyOrder);

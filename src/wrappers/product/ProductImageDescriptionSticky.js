@@ -27,8 +27,8 @@ var buttonStyle = {
 };
 
 let heart = {
-  margin: "-4px 8px"
-}
+  margin: "-4px 8px",
+};
 
 const ProductImageDescriptionSticky = ({
   spaceTopClass,
@@ -110,12 +110,25 @@ const ProductImageDescriptionSticky = ({
                 fullProductDesc={JSON.stringify(state)}
               /> */}
             <div className="product-details-content ml-70 mt-5 mb-5">
-              <h4 style={{ color: "#282c3f", textTransform: "uppercase",fontWeight:700,fontSize:24 }}>
+              <h4
+                style={{
+                  color: "#282c3f",
+                  textTransform: "uppercase",
+                  fontWeight: 700,
+                  fontSize: 24,
+                }}
+              >
                 {state?.brand?.name}
               </h4>
               <h2
                 className=""
-                style={{ textTransform: "capitalize",fontSize:20,fontWeight:400, fontWeight: 500,color:'#535665' }}
+                style={{
+                  textTransform: "capitalize",
+                  fontSize: 20,
+                  fontWeight: 400,
+                  fontWeight: 500,
+                  color: "#535665",
+                }}
               >
                 {state?.product_name} <span>({state?.material})</span>
               </h2>
@@ -140,7 +153,10 @@ const ProductImageDescriptionSticky = ({
                     )}
                     &nbsp;&nbsp;{" "}
                   </del>
-                  <span style={{color:'#ffa500'}}> &nbsp;&nbsp;({state?.discount_perc}% OFF)</span>
+                  <span style={{ color: "#ffa500" }}>
+                    {" "}
+                    &nbsp;&nbsp;({state?.discount_perc}% OFF)
+                  </span>
                 </h2>
               </div>
 
@@ -306,6 +322,7 @@ const ProductImageDescriptionSticky = ({
                         )
                           .then((response) => {
                             alert("Added To Cart");
+                            window.location.reload();
                             console.log(response);
                             //pahucha dena
                           })
@@ -346,6 +363,7 @@ const ProductImageDescriptionSticky = ({
                       )
                         .then((response) => {
                           alert("Added To Wishlist");
+                          window.location.reload();
                           console.log(response);
                           //pahucha dena
                         })
@@ -354,10 +372,8 @@ const ProductImageDescriptionSticky = ({
                         });
                     }}
                   >
-                    <i className="pe-7s-like"  style={heart}/> 
-                    
+                    <i className="pe-7s-like" style={heart} />
                     Wishlist
-                    
                   </button>
                 </div>
               </div>
