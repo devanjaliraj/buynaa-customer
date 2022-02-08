@@ -10,7 +10,7 @@ import Card from "@mui/material/Card";
 const ProductDescriptionTab = ({
   spaceBottomClass,
   productFullDesc,
-  productid,
+  productid
 }) => {
   const [state, setstate] = React.useState({});
   const [imgArr, setImgArr] = React.useState([]);
@@ -57,12 +57,12 @@ const ProductDescriptionTab = ({
       {
         rating: value,
         comment: comment,
-        product: productid,
+        product: productid
       },
       {
         headers: {
-          "auth-token": localStorage.getItem("abcd"),
-        },
+          "auth-token": localStorage.getItem("abcd")
+        }
       }
     )
       .then((response) => {
@@ -74,6 +74,7 @@ const ProductDescriptionTab = ({
         console.log(error.response);
       });
   };
+  //console.log("Product Desc", JSON.parse(productFullDesc));
 
   useEffect(() => {
     if (localStorage.getItem("abcd")) {
@@ -87,7 +88,8 @@ const ProductDescriptionTab = ({
     var t = JSON.parse(productFullDesc).product_img;
     if (t !== undefined && t !== null) setImgArr(t);
     setstate(JSON.parse(productFullDesc));
-  }, []);
+  }, [productFullDesc]);
+  console.log(state);
   return (
     <div className={`description-review-area ${spaceBottomClass}`}>
       <div className="container mt-5 mb-5">
@@ -117,18 +119,17 @@ const ProductDescriptionTab = ({
                     </li>
                     <li>
                       <span>Material</span>
-                      {state?.material?.materialname}
+                      {state?.material}
                     </li>
 
                     <li>
-                      <span>Other Info</span> American heirloom jean shorts pug
-                      seitan letterpress
+                      <span>Other Info</span> {state?.short_desc}
                     </li>
                   </ul>
                 </div>
               </Tab.Pane>
               <Tab.Pane eventKey="productDescription">
-                {state?.long_desc}
+                <h5>{state?.long_desc}</h5>
               </Tab.Pane>
               <Tab.Pane eventKey="productReviews">
                 <h3>
@@ -144,7 +145,7 @@ const ProductDescriptionTab = ({
                             marginTop: 39,
                             marginRight: 15,
                             marginBottom: 20,
-                            marginLeft: 0,
+                            marginLeft: 0
                           }}
                         >
                           {parseFloat(average).toFixed(1)}
@@ -204,7 +205,7 @@ const ProductDescriptionTab = ({
                                   <h4
                                     style={{
                                       textTransform: "capitalize",
-                                      margin: 5,
+                                      margin: 5
                                     }}
                                   >
                                     {rev?.comment}
@@ -248,7 +249,7 @@ const ProductDescriptionTab = ({
                               <p
                                 style={{
                                   display: "inline",
-                                  textTransform: "capitalize",
+                                  textTransform: "capitalize"
                                 }}
                               >
                                 {rev?.customer?.firstname}{" "}
@@ -323,7 +324,7 @@ const ProductDescriptionTab = ({
 
 ProductDescriptionTab.propTypes = {
   productFullDesc: PropTypes.string,
-  spaceBottomClass: PropTypes.string,
+  spaceBottomClass: PropTypes.string
 };
 
 export default ProductDescriptionTab;

@@ -23,18 +23,18 @@ var buttonStyle = {
   backgroundRepeat: "repeat-x",
   borderColor: "#1f90bb #1f90bb #145e7a",
   color: "#ffffff",
-  textShadow: "0 -1px 0 rgba(0, 0, 0, 0.25)",
+  textShadow: "0 -1px 0 rgba(0, 0, 0, 0.25)"
 };
 
 let heart = {
-  margin: "-4px 8px",
+  margin: "-4px 8px"
 };
 
 const ProductImageDescriptionSticky = ({
   spaceTopClass,
   spaceBottomClass,
   wishlistItems,
-  productImage,
+  productImage
 }) => {
   // const wishlistItem = wishlistItems.filter(
   //   wishlistItem => wishlistItem.id === product.id
@@ -115,7 +115,7 @@ const ProductImageDescriptionSticky = ({
                   color: "#282c3f",
                   textTransform: "uppercase",
                   fontWeight: 700,
-                  fontSize: 24,
+                  fontSize: 24
                 }}
               >
                 {state?.brand?.name}
@@ -127,7 +127,7 @@ const ProductImageDescriptionSticky = ({
                   fontSize: 20,
                   fontWeight: 400,
                   fontWeight: 500,
-                  color: "#535665",
+                  color: "#535665"
                 }}
               >
                 {state?.product_name} <span>({state?.material})</span>
@@ -192,7 +192,7 @@ const ProductImageDescriptionSticky = ({
                     className="pro-details-color-content"
                     style={{ flexDirection: "row" }}
                   >
-                    <ButtonGroup style={{ height: 33 }}>
+                    {/* <ButtonGroup style={{ height: 33 }}>
                       {state
                         ? state.color
                           ? state.color.map((clr, i) => (
@@ -210,20 +210,67 @@ const ProductImageDescriptionSticky = ({
                                   setSelectedColor(clr.colorName);
                                 }}
                               >
-                                {/* <h6
-                                  className="text-light mb-0"
-                                  style={{
-                                    backgroundColor:
-                                      selectedColor === clr.colorName
-                                  }}
-                                >
-                                  {clr.colorName}
-                                </h6> */}
                               </Button>
                             ))
                           : null
                         : null}
-                    </ButtonGroup>
+                    </ButtonGroup> */}
+                    {/* <h1>Radio Color Picker</h1> */}
+                    {/* {state?.color?.map((clr, i) => (
+                      <>
+                        <input
+                          style={{ display: "inline-block" }}
+                          key={clr.colorName}
+                          type="radio"
+                          name="color"
+                          onClick={() => {
+                            setActiveindex(i);
+                            setSelectedColor(clr.colorName);
+                          }}
+                        />
+                        <label for="red">
+                          <span
+                            style={{ backgroundColor: clr.colorName }}
+                          ></span>
+                        </label>
+                      </>
+                    ))} */}
+
+                    <div class="colors">
+                      <ul>
+                        {/* <li>
+                          <label>
+                            <input type="radio" name="color" checked />
+                            <span
+                              class="swatch"
+                              style={{
+                                backgroundColor: state?.color?.[0].colorName
+                              }}
+                            ></span>{" "}
+                          </label>
+                        </li> */}
+                        {state?.color?.map((clr, i) => (
+                          <li>
+                            <label>
+                              <input
+                                type="radio"
+                                name="color"
+                                checked={i == 0 ? true : false}
+                                onClick={() => {
+                                  setActiveindex(i);
+                                  console.log(clr.colorName);
+                                  setSelectedColor(clr.colorName);
+                                }}
+                              />
+                              <span
+                                class="swatch"
+                                style={{ backgroundColor: clr.colorName }}
+                              ></span>{" "}
+                            </label>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -250,8 +297,7 @@ const ProductImageDescriptionSticky = ({
                               <h5
                                 className="mb-0"
                                 style={{
-                                  backgroundColor:
-                                    selectedSize === siz.sizeName,
+                                  backgroundColor: selectedSize === siz.sizeName
                                 }}
                               >
                                 {siz.sizeName}
@@ -302,7 +348,7 @@ const ProductImageDescriptionSticky = ({
                         product_qty: quantityCount,
                         product_price: state.sell_price,
                         color: selectedColor,
-                        size: selectedSize,
+                        size: selectedSize
                       });
                       if (localStorage.getItem("abcd")) {
                         Axios.post(
@@ -312,12 +358,12 @@ const ProductImageDescriptionSticky = ({
                             product_qty: quantityCount,
                             product_price: state.sell_price,
                             color: selectedColor,
-                            size: selectedSize,
+                            size: selectedSize
                           },
                           {
                             headers: {
-                              "auth-token": localStorage.getItem("abcd"),
-                            },
+                              "auth-token": localStorage.getItem("abcd")
+                            }
                           }
                         )
                           .then((response) => {
@@ -353,19 +399,18 @@ const ProductImageDescriptionSticky = ({
                           color: selectedColor,
                           size: selectedSize,
                           qty: quantityCount,
-                          price: state.sell_price,
+                          price: state.sell_price
                         },
                         {
                           headers: {
-                            "auth-token": localStorage.getItem("abcd"),
-                          },
+                            "auth-token": localStorage.getItem("abcd")
+                          }
                         }
                       )
                         .then((response) => {
                           alert("Added To Wishlist");
                           window.location.reload();
                           console.log(response);
-                          //pahucha dena
                         })
                         .catch(function (error) {
                           console.log(error.response);
@@ -404,7 +449,7 @@ ProductImageDescriptionSticky.propTypes = {
   discountedPrice: PropTypes.number,
   finalDiscountedPrice: PropTypes.number,
   finalProductPrice: PropTypes.number,
-  wishlistItem: PropTypes.object,
+  wishlistItem: PropTypes.object
 };
 
 const mapStateToProps = (state) => {
@@ -412,7 +457,7 @@ const mapStateToProps = (state) => {
     currency: state.currencyData,
     cartItems: state.cartData,
     wishlistItems: state.wishlistData,
-    compareItems: state.compareData,
+    compareItems: state.compareData
   };
 };
 
@@ -440,7 +485,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     addToCompare: (item, addToast) => {
       dispatch(addToCompare(item, addToast));
-    },
+    }
   };
 };
 
