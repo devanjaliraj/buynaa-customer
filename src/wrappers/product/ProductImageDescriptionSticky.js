@@ -23,18 +23,18 @@ var buttonStyle = {
   backgroundRepeat: "repeat-x",
   borderColor: "#1f90bb #1f90bb #145e7a",
   color: "#ffffff",
-  textShadow: "0 -1px 0 rgba(0, 0, 0, 0.25)"
+  textShadow: "0 -1px 0 rgba(0, 0, 0, 0.25)",
 };
 
 let heart = {
-  margin: "-4px 8px"
+  margin: "-4px 8px",
 };
 
 const ProductImageDescriptionSticky = ({
   spaceTopClass,
   spaceBottomClass,
   wishlistItems,
-  productImage
+  productImage,
 }) => {
   // const wishlistItem = wishlistItems.filter(
   //   wishlistItem => wishlistItem.id === product.id
@@ -83,7 +83,7 @@ const ProductImageDescriptionSticky = ({
                         src={single}
                         alt=""
                         className="img-fluid"
-                        style={{ width: "550px" }}
+                        style={{ width: "550px", height: "105vh" }}
                       />
                     </Carousel.Item>
                   ))}
@@ -115,7 +115,7 @@ const ProductImageDescriptionSticky = ({
                   color: "#282c3f",
                   textTransform: "uppercase",
                   fontWeight: 700,
-                  fontSize: 24
+                  fontSize: 24,
                 }}
               >
                 {state?.brand?.name}
@@ -127,7 +127,7 @@ const ProductImageDescriptionSticky = ({
                   fontSize: 20,
                   fontWeight: 400,
                   fontWeight: 500,
-                  color: "#535665"
+                  color: "#535665",
                 }}
               >
                 {state?.product_name} <span>({state?.material})</span>
@@ -275,7 +275,7 @@ const ProductImageDescriptionSticky = ({
                 </div>
               </div>
               {/* Section Size */}
-              <div className="pro-details-size-color">
+              <div className="pro-details-size-color mt-5">
                 <div className="pro-details-color-wrap">
                   <span>Size</span>
                   <div
@@ -297,7 +297,8 @@ const ProductImageDescriptionSticky = ({
                               <h5
                                 className="mb-0"
                                 style={{
-                                  backgroundColor: selectedSize === siz.sizeName
+                                  backgroundColor:
+                                    selectedSize === siz.sizeName,
                                 }}
                               >
                                 {siz.sizeName}
@@ -348,7 +349,7 @@ const ProductImageDescriptionSticky = ({
                         product_qty: quantityCount,
                         product_price: state.sell_price,
                         color: selectedColor,
-                        size: selectedSize
+                        size: selectedSize,
                       });
                       if (localStorage.getItem("abcd")) {
                         Axios.post(
@@ -358,12 +359,12 @@ const ProductImageDescriptionSticky = ({
                             product_qty: quantityCount,
                             product_price: state.sell_price,
                             color: selectedColor,
-                            size: selectedSize
+                            size: selectedSize,
                           },
                           {
                             headers: {
-                              "auth-token": localStorage.getItem("abcd")
-                            }
+                              "auth-token": localStorage.getItem("abcd"),
+                            },
                           }
                         )
                           .then((response) => {
@@ -399,12 +400,12 @@ const ProductImageDescriptionSticky = ({
                           color: selectedColor,
                           size: selectedSize,
                           qty: quantityCount,
-                          price: state.sell_price
+                          price: state.sell_price,
                         },
                         {
                           headers: {
-                            "auth-token": localStorage.getItem("abcd")
-                          }
+                            "auth-token": localStorage.getItem("abcd"),
+                          },
                         }
                       )
                         .then((response) => {
@@ -449,7 +450,7 @@ ProductImageDescriptionSticky.propTypes = {
   discountedPrice: PropTypes.number,
   finalDiscountedPrice: PropTypes.number,
   finalProductPrice: PropTypes.number,
-  wishlistItem: PropTypes.object
+  wishlistItem: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
@@ -457,7 +458,7 @@ const mapStateToProps = (state) => {
     currency: state.currencyData,
     cartItems: state.cartData,
     wishlistItems: state.wishlistData,
-    compareItems: state.compareData
+    compareItems: state.compareData,
   };
 };
 
@@ -485,7 +486,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     addToCompare: (item, addToast) => {
       dispatch(addToCompare(item, addToast));
-    }
+    },
   };
 };
 
