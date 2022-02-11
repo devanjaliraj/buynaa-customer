@@ -29,7 +29,7 @@ const HomeFurnitureTwo = () => {
       {/* Browse by category */}
       <ByCategory />
       {/* newsletter */}
-      {/* <NewsletterTwo spaceBottomClass="pb-100" /> */}
+      <NewsletterTwo spaceBottomClass="pb-100" />
     </LayoutOne>
   );
 };

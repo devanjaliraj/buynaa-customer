@@ -8,7 +8,7 @@ import store3 from "../../assets/img/buynaa3.gif";
 export class FirstSectiontree extends Component {
   render() {
     return (
-      <div className="mt-5 mb-5">
+      <div className="mt-1 mb-3">
         <Container>
           <Row className="justify-content-center">
             <Col lg="2" style={{ textAlign: "center" }}>

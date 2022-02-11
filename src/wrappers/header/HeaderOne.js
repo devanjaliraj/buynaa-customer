@@ -12,7 +12,7 @@ const HeaderOne = ({
   borderStyle,
   headerPaddingClass,
   headerPositionClass,
-  headerBgClass
+  headerBgClass,
 }) => {
   const [scroll, setScroll] = useState(0);
   const [headerTop, setHeaderTop] = useState(0);
@@ -57,12 +57,11 @@ const HeaderOne = ({
         }`}
       >
         <div className={layout === "container-fluid" ? layout : "container"}>
-          <div className="row">
+          <div className="row" style={{ marginBottom: "-10px" }}>
             <div className="col-xl-2 col-lg-2 col-md-6 col-4">
               {/* header logo */}
-              <div style={{padding:15}}>
-              <Logo imageUrl="/assets/img/logo/logo.png"  />
-              {/* <h1 style={{padding:20,fontWeight:800,}}>Buynaa</h1> */}
+              <div style={{ padding: 15 }}>
+                <Logo imageUrl="/assets/img/logo/logo.png" />
               </div>
             </div>
             <div className="col-xl-8 col-lg-8 d-none d-lg-block">
@@ -87,7 +86,7 @@ HeaderOne.propTypes = {
   headerPaddingClass: PropTypes.string,
   headerPositionClass: PropTypes.string,
   layout: PropTypes.string,
-  top: PropTypes.string
+  top: PropTypes.string,
 };
 
 export default HeaderOne;

@@ -26,11 +26,11 @@ class SecondSection extends React.Component {
   render() {
     var params = {
       slidesPerView: 5,
-      spaceBetween: 10,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
+      spaceBetween: 5,
+      // pagination: {
+      //   el: ".swiper-pagination",
+      //   clickable: true,
+      // },
       breakpoints: {
         1024: {
           slidesPerView: 4,
@@ -54,7 +54,7 @@ class SecondSection extends React.Component {
     return (
       <Container fluid>
         <Card className="mt-4">
-          <Container className="mb-4">
+          <Container className="d-flex justify-content-center align-items-center">
             <Row>
               <Col className="mt-5" style={{ marginLeft: "5rem" }}>
                 <h2 className="fw-bolder" style={{ color: "#1877f2" }}>
@@ -67,7 +67,11 @@ class SecondSection extends React.Component {
             <div>
               <Swiper {...params} style={{ width: "10px" }}>
                 {this.state.storeL?.map((storeList) => (
-                  <div className="" key={storeList._id} style={{ width: "18rem" }}>
+                  <div
+                    className=""
+                    key={storeList._id}
+                    style={{ width: "15rem" }}
+                  >
                     <Link
                       to={
                         process.env.PUBLIC_URL +
@@ -78,7 +82,7 @@ class SecondSection extends React.Component {
                       <img
                         src={storeList.storeImg[0]}
                         alt="swiper 1"
-                        style={{ width: "15rem" }}
+                        style={{ width: "200px", height: "35vh" }}
                       />
                     </Link>
                   </div>

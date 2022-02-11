@@ -10,12 +10,12 @@ export class FirstSectiontwo extends Component {
           style={{
             textAlign: "center",
             color: "#1877f2",
-            margin: 15,
+            marginTop: 15,
           }}
         >
           How Buynaa Works?
         </h2>
-        <h6 style={{ textAlign: "center", margin: 20 }}>
+        <h6 style={{ textAlign: "center" }}>
           quis qui ex in qui non reprehenderit
         </h6>
       </div>

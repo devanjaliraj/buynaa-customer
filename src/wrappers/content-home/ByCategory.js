@@ -46,7 +46,7 @@ class ByCategory extends React.Component {
             <Link to={`/shop-list-standard/${data.data?._id}`}>
               <img
                 src={data?.product_img}
-                alt="img"
+                alt="store"
                 height="320vh"
                 width="250px"
               />
@@ -58,9 +58,9 @@ class ByCategory extends React.Component {
     });
 
     return (
-      <Container className="main mb-5">
-        <Jumbotron className="mb-5  ">
-          <Row className="m-5">
+      <Container className="main mb-2">
+        <Jumbotron className="mb-5">
+          <Row className="m-2">
             <Col>
               <h1
                 sm="6"
@@ -89,17 +89,17 @@ class ByCategory extends React.Component {
           <Row>
             <Col lg="4">
               <Link to="/shop-grid-men-column">
-                <img src={men} alt="img" height="320vh" width="300px" />
+                <img src={men} alt="img" height="300vh" width="300px" />
               </Link>
             </Col>
             <Col lg="4">
               <Link to="/shop-grid-women-column">
-                <img src={women} alt="img" height="320vh" width="300px" />
+                <img src={women} alt="img" height="300vh" width="300px" />
               </Link>
             </Col>
             <Col lg="4">
               <Link to="/shop-grid-kids-column">
-                <img src={kid} alt="img" height="320vh" width="300px" />
+                <img src={kid} alt="img" height="300vh" width="300px" />
               </Link>
             </Col>
           </Row>
