@@ -35,7 +35,7 @@ const Wishlist = ({
       "http://35.154.86.59/api/admin/getallwishlist",
       {
         headers: {
-          "auth-token": localStorage.getItem("abcd"),
+          "auth-token": localStorage.getItem("auth-token"),
         },
       }
     );
@@ -50,7 +50,7 @@ const Wishlist = ({
       "http://35.154.86.59/api/admin/clrwishlist",
       {
         headers: {
-          "auth-token": localStorage.getItem("abcd"),
+          "auth-token": localStorage.getItem("auth-token"),
         },
       }
     );
@@ -65,7 +65,7 @@ const Wishlist = ({
       `http://35.154.86.59/api/admin/delonewishlist/${id}`,
       {
         headers: {
-          "auth-token": localStorage.getItem("abcd"),
+          "auth-token": localStorage.getItem("auth-token"),
         },
       }
     );
@@ -76,7 +76,7 @@ const Wishlist = ({
     // setUseraddress(address)
   };
   useEffect(() => {
-    if (localStorage.getItem("abcd")) {
+    if (localStorage.getItem("auth-token")) {
       fetchWish();
     }
   }, []);
@@ -173,7 +173,9 @@ const Wishlist = ({
                                           {
                                             headers: {
                                               "auth-token":
-                                                localStorage.getItem("abcd"),
+                                                localStorage.getItem(
+                                                  "auth-token"
+                                                ),
                                             },
                                           }
                                         )
@@ -188,7 +190,7 @@ const Wishlist = ({
                                                 headers: {
                                                   "auth-token":
                                                     localStorage.getItem(
-                                                      "abcd"
+                                                      "auth-token"
                                                     ),
                                                 },
                                               }

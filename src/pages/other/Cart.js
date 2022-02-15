@@ -44,7 +44,7 @@ const Cart = ({
       `http://35.154.86.59/api/admin/cartbycustomer`,
       {
         headers: {
-          "auth-token": localStorage.getItem("abcd"),
+          "auth-token": localStorage.getItem("auth-token"),
         },
       }
     );
@@ -61,7 +61,7 @@ const Cart = ({
       `http://35.154.86.59/api/user/viewoneuseraddress`,
       {
         headers: {
-          "auth-token": localStorage.getItem("abcd"),
+          "auth-token": localStorage.getItem("auth-token"),
         },
       }
     );
@@ -71,7 +71,7 @@ const Cart = ({
   };
   useEffect(() => {
     //fetchcarts();
-    if (localStorage.getItem("abcd")) {
+    if (localStorage.getItem("auth-token")) {
       fetchcarts();
       fetchaddress();
     }
@@ -85,7 +85,7 @@ const Cart = ({
         `http://35.154.86.59/api/admin/remove_cart/${id}`,
         {
           headers: {
-            "auth-token": localStorage.getItem("abcd"),
+            "auth-token": localStorage.getItem("auth-token"),
           },
         }
       );
@@ -105,7 +105,7 @@ const Cart = ({
         `http://35.154.86.59/api/admin/clearCart`,
         {
           headers: {
-            "auth-token": localStorage.getItem("abcd"),
+            "auth-token": localStorage.getItem("auth-token"),
           },
         }
       );

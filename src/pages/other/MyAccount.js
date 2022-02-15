@@ -31,7 +31,7 @@ export default class MyAccount extends Component {
     axios
       .get("http://35.154.86.59/api/user/getonecustomer", {
         headers: {
-          "auth-token": localStorage.getItem("abcd"),
+          "auth-token": localStorage.getItem("auth-token"),
         },
       })
       .then((response) => {
@@ -58,7 +58,7 @@ export default class MyAccount extends Component {
     axios
       .get("http://35.154.86.59/api/user/viewoneuseraddress", {
         headers: {
-          "auth-token": localStorage.getItem("abcd"),
+          "auth-token": localStorage.getItem("auth-token"),
         },
       })
       .then((response) => {
@@ -84,7 +84,7 @@ export default class MyAccount extends Component {
     axios
       .post("http://35.154.86.59/api/user/addcus_address", this.state, {
         headers: {
-          "auth-token": localStorage.getItem("abcd"),
+          "auth-token": localStorage.getItem("auth-token"),
         },
       })
       .then((response) => {
@@ -111,7 +111,7 @@ export default class MyAccount extends Component {
     axios
       .post(`http://35.154.86.59/api/user/editcustomer`, this.state, {
         headers: {
-          "auth-token": localStorage.getItem("abcd"),
+          "auth-token": localStorage.getItem("auth-token"),
         },
       })
       .then((response) => {

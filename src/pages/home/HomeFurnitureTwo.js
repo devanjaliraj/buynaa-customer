@@ -4,7 +4,7 @@ import FirstSectiontwo from "../../wrappers/content-home/FirstSectiontwo";
 import FirstSectiontree from "../../wrappers/content-home/FirstSectiontree";
 import SecondSection from "../../wrappers/content-home/SecondSection";
 import ByCategory from "../../wrappers/content-home/ByCategory";
-import NewsletterTwo from "../../wrappers/newsletter/NewsletterTwo";
+// import NewsletterTwo from "../../wrappers/newsletter/NewsletterTwo";
 import LayoutOne from "../../layouts/LayoutOne";
 // import CategoryTwoSlider from "../../wrappers/category/CategoryTwoSlider";
 // import TabProductSix from "../../wrappers/product/TabProductSix";
@@ -29,7 +29,7 @@ const HomeFurnitureTwo = () => {
       {/* Browse by category */}
       <ByCategory />
       {/* newsletter */}
-      <NewsletterTwo spaceBottomClass="pb-100" />
+      {/* <NewsletterTwo spaceBottomClass="pb-100" /> */}
     </LayoutOne>
   );
 };

@@ -10,7 +10,7 @@ import Card from "@mui/material/Card";
 const ProductDescriptionTab = ({
   spaceBottomClass,
   productFullDesc,
-  productid
+  productid,
 }) => {
   const [state, setstate] = React.useState({});
   const [imgArr, setImgArr] = React.useState([]);
@@ -57,12 +57,12 @@ const ProductDescriptionTab = ({
       {
         rating: value,
         comment: comment,
-        product: productid
+        product: productid,
       },
       {
         headers: {
-          "auth-token": localStorage.getItem("abcd")
-        }
+          "auth-token": localStorage.getItem("auth-token"),
+        },
       }
     )
       .then((response) => {
@@ -77,7 +77,7 @@ const ProductDescriptionTab = ({
   //console.log("Product Desc", JSON.parse(productFullDesc));
 
   useEffect(() => {
-    if (localStorage.getItem("abcd")) {
+    if (localStorage.getItem("auth-token")) {
       if (productid) {
         fetchReview(productid);
       }
@@ -145,7 +145,7 @@ const ProductDescriptionTab = ({
                             marginTop: 39,
                             marginRight: 15,
                             marginBottom: 20,
-                            marginLeft: 0
+                            marginLeft: 0,
                           }}
                         >
                           {parseFloat(average).toFixed(1)}
@@ -205,7 +205,7 @@ const ProductDescriptionTab = ({
                                   <h4
                                     style={{
                                       textTransform: "capitalize",
-                                      margin: 5
+                                      margin: 5,
                                     }}
                                   >
                                     {rev?.comment}
@@ -249,7 +249,7 @@ const ProductDescriptionTab = ({
                               <p
                                 style={{
                                   display: "inline",
-                                  textTransform: "capitalize"
+                                  textTransform: "capitalize",
                                 }}
                               >
                                 {rev?.customer?.firstname}{" "}
@@ -324,7 +324,7 @@ const ProductDescriptionTab = ({
 
 ProductDescriptionTab.propTypes = {
   productFullDesc: PropTypes.string,
-  spaceBottomClass: PropTypes.string
+  spaceBottomClass: PropTypes.string,
 };
 
 export default ProductDescriptionTab;

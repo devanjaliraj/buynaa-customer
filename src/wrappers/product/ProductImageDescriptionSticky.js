@@ -351,7 +351,7 @@ const ProductImageDescriptionSticky = ({
                         color: selectedColor,
                         size: selectedSize,
                       });
-                      if (localStorage.getItem("abcd")) {
+                      if (localStorage.getItem("auth-token")) {
                         Axios.post(
                           "http://35.154.86.59/api/admin/add_ToCart",
                           {
@@ -363,7 +363,7 @@ const ProductImageDescriptionSticky = ({
                           },
                           {
                             headers: {
-                              "auth-token": localStorage.getItem("abcd"),
+                              "auth-token": localStorage.getItem("auth-token"),
                             },
                           }
                         )
@@ -404,7 +404,7 @@ const ProductImageDescriptionSticky = ({
                         },
                         {
                           headers: {
-                            "auth-token": localStorage.getItem("abcd"),
+                            "auth-token": localStorage.getItem("auth-token"),
                           },
                         }
                       )

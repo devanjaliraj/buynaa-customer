@@ -20,7 +20,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
         `http://35.154.86.59/api/admin/remove_cart/${id}`,
         {
           headers: {
-            "auth-token": localStorage.getItem("abcd"),
+            "auth-token": localStorage.getItem("auth-token"),
           },
         }
       );
@@ -37,20 +37,20 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
       `http://35.154.86.59/api/admin/cartbycustomer`,
       {
         headers: {
-          "auth-token": localStorage.getItem("abcd"),
+          "auth-token": localStorage.getItem("auth-token"),
         },
       }
     );
     const carts = data.data;
     const sum = data.total;
-    setTotal(sum)
+    setTotal(sum);
     //console.log(sum)
 
     setCarts(carts);
     console.log(carts);
   };
   useEffect(() => {
-    if(localStorage.getItem("abcd")){
+    if (localStorage.getItem("auth-token")) {
       fetchcarts();
     }
     //fetchcarts();
@@ -59,7 +59,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
     <div className="shopping-cart-content">
       {carts && carts?.length > 0 ? (
         <Fragment>
-          <ul style={{height:150}}>
+          <ul style={{ height: 150 }}>
             {carts.map((single, key) => {
               const discountedPrice = getDiscountPrice(
                 single.price,
@@ -80,11 +80,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
                 <li className="single-shopping-cart" key={key}>
                   <div className="shopping-cart-img">
                     <Link
-                      to={
-                        process.env.PUBLIC_URL +
-                        "/product-sticky/" +
-                        single.product._id
-                      }
+                      to={`${process.env.PUBLIC_URL}/product-sticky/${single.product._id}`}
                     >
                       <img
                         alt=""
@@ -111,11 +107,13 @@ const MenuCart = ({ cartData, currency, deleteFromCart }) => {
                     <h6>Qty: {single.product_qty}</h6>
                     <h6>Color: {single.color}</h6>
                     <h6>Size: {single.size}</h6>
-                    <h6>Price: {single.product_price*single.product_qty}</h6>
+                    <h6>Price: {single.product_price * single.product_qty}</h6>
                     <span></span>
                   </div>
                   <div className="shopping-cart-delete">
-                    <button onClick={() => removeItemfromcart(single.product._id)}>
+                    <button
+                      onClick={() => removeItemfromcart(single.product._id)}
+                    >
                       <i className="fa fa-times-circle" />
                     </button>
                   </div>

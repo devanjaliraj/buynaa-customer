@@ -462,7 +462,7 @@ const App = (props) => {
                 <Route path={process.env.PUBLIC_URL + "/Otp"} component={Otp} />
                 <Route
                   render={() =>
-                    localStorage.getItem("abcd") ? (
+                    localStorage.getItem("auth-token") ? (
                       <>
                         <Route
                           path={process.env.PUBLIC_URL + "/cart"}

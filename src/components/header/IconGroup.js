@@ -32,7 +32,7 @@ const IconGroup = ({
       `http://35.154.86.59/api/admin/cartbycustomer`,
       {
         headers: {
-          "auth-token": localStorage.getItem("abcd"),
+          "auth-token": localStorage.getItem("auth-token"),
         },
       }
     );
@@ -41,7 +41,7 @@ const IconGroup = ({
     console.log(carts);
   };
   useEffect(() => {
-    if (localStorage.getItem("abcd")) {
+    if (localStorage.getItem("auth-token")) {
       fetchcarts();
     }
   }, []);
@@ -53,7 +53,7 @@ const IconGroup = ({
       "http://35.154.86.59/api/admin/getallwishlist",
       {
         headers: {
-          "auth-token": localStorage.getItem("abcd"),
+          "auth-token": localStorage.getItem("auth-token"),
         },
       }
     );
@@ -62,7 +62,7 @@ const IconGroup = ({
     console.log(wish);
   };
   useEffect(() => {
-    if (localStorage.getItem("abcd")) {
+    if (localStorage.getItem("auth-token")) {
       fetchWish();
     }
   }, []);
@@ -93,7 +93,7 @@ const IconGroup = ({
         </button>
         <div className="account-dropdown">
           <ul>
-            {!localStorage.getItem("abcd") ? (
+            {!localStorage.getItem("auth-token") ? (
               <>
                 <li>
                   <Link to={process.env.PUBLIC_URL + "/login-register"}>

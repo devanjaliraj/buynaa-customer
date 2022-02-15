@@ -42,7 +42,7 @@ export default class LoginRegister extends Component {
       .then((response) => {
         console.log(response);
         localStorage.setItem("user", response.data.data._id);
-        localStorage.setItem("abcd", this.state.token);
+        localStorage.setItem("auth-token", this.state.token);
         // const location = this.props.location;
         // if (location.state && location.state.nextPathname) {
         //   History.push("/login-register");
@@ -81,8 +81,8 @@ export default class LoginRegister extends Component {
       })
       .then((response) => {
         console.log(response);
-        localStorage.setItem("authec", response.data.token);
-        localStorage.setItem("abcd", response.data.token);
+        //localStorage.setItem("authec", response.data.token);
+        localStorage.setItem("auth-token", response.data.token);
         this.props.history.push("/cart");
       })
       .catch((error) => {
