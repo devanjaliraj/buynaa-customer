@@ -109,6 +109,9 @@ const IconGroup = ({
             ) : (
               <>
                 <li>
+                  <Link to={process.env.PUBLIC_URL + "/myOrder"}>My Order</Link>
+                </li>
+                <li>
                   <Link to={process.env.PUBLIC_URL + "/my-account"}>
                     My Account
                   </Link>
@@ -137,6 +140,7 @@ const IconGroup = ({
           </span>
         </Link>
       </div>
+
       <div className="same-style cart-wrap d-none d-lg-block">
         <button className="icon-cart" onClick={(e) => handleClick(e)}>
           <i className="pe-7s-shopbag" />
@@ -159,6 +163,7 @@ const IconGroup = ({
           </span>
         </Link>
       </div>
+
       <div className="same-style mobile-off-canvas d-block d-lg-none">
         <button
           className="mobile-aside-button"

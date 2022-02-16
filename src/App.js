@@ -122,6 +122,7 @@ const Phone = lazy(() => import("./pages/other/Phone"));
 const Otp = lazy(() => import("./pages/other/Otp"));
 
 const Cart = lazy(() => import("./pages/other/Cart"));
+const MyOrder = lazy(() => import("./pages/other/MyOrder"));
 const Wishlist = lazy(() => import("./pages/other/Wishlist"));
 const Compare = lazy(() => import("./pages/other/Compare"));
 const Checkout = lazy(() => import("./pages/other/Checkout"));
@@ -467,6 +468,10 @@ const App = (props) => {
                         <Route
                           path={process.env.PUBLIC_URL + "/cart"}
                           component={Cart}
+                        />
+                        <Route
+                          path={process.env.PUBLIC_URL + "/myOrder"}
+                          component={MyOrder}
                         />
                         <Route
                           path={process.env.PUBLIC_URL + "/wishlist"}

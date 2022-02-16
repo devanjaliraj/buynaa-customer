@@ -32,7 +32,7 @@ const MyOrder = ({
   const fetchWish = async (token) => {
     console.log(token);
     const { data } = await Axios.get(
-      "http://35.154.86.59/api/admin/getallwishlist",
+      "http://35.154.86.59/api/admin/orderbycustomer",
       {
         headers: {
           "auth-token": localStorage.getItem("auth-token"),
@@ -93,7 +93,7 @@ const MyOrder = ({
 
       <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
       <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Wishlist
+        My Order
       </BreadcrumbsItem>
 
       <LayoutOne headerTop="visible">
@@ -103,7 +103,7 @@ const MyOrder = ({
           <div className="container">
             {wish && wish.length >= 1 ? (
               <Fragment>
-                <h3 className="cart-page-title">Your wishlist items</h3>
+                <h3 className="cart-page-title">Your Order Items</h3>
                 <div className="row">
                   <div className="col-12">
                     <div className="table-content table-responsive cart-table-content">
@@ -239,7 +239,7 @@ const MyOrder = ({
                 <div className="col-lg-12">
                   <div className="item-empty-area text-center">
                     <div className="item-empty-area__icon mb-30">
-                      <i className="pe-7s-like"></i>
+                      <i className="pe-7s-cart"></i>
                     </div>
                     <div className="item-empty-area__text">
                       No Product Found <br />{" "}
