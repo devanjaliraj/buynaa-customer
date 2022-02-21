@@ -14,6 +14,7 @@ import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 import TermsOfUse from "./wrappers/myPage/TermsOfUse";
 import { Component } from "react";
 
+
 // home pages
 // const HomeFashion = lazy(() => import("./pages/home/HomeFashion"));
 //const HomeFashionTwo = lazy(() => import("./pages/home/HomeFashionTwo"));
@@ -123,6 +124,10 @@ const Otp = lazy(() => import("./pages/other/Otp"));
 
 const Cart = lazy(() => import("./pages/other/Cart"));
 const MyOrder = lazy(() => import("./pages/other/MyOrder"));
+const KYCForm = lazy(() => import("./pages/other/KYCForm"));
+const Wallet = lazy(() => import("./pages/other/Wallet"));
+const Deposite =lazy(() => import("./pages/wallet/Deposite"));
+const Withdrow =lazy(() => import("./pages/wallet/Withdrow"));
 const Wishlist = lazy(() => import("./pages/other/Wishlist"));
 const Compare = lazy(() => import("./pages/other/Compare"));
 const Checkout = lazy(() => import("./pages/other/Checkout"));
@@ -465,13 +470,30 @@ const App = (props) => {
                   render={() =>
                     localStorage.getItem("auth-token") ? (
                       <>
+                      
+<Route
+                          path={process.env.PUBLIC_URL + "/deposite"}
+                          component={Deposite}
+                        />
+                        <Route
+                          path={process.env.PUBLIC_URL + "/withdrow"}
+                          component={Withdrow}
+                        />
                         <Route
                           path={process.env.PUBLIC_URL + "/cart"}
                           component={Cart}
                         />
                         <Route
-                          path={process.env.PUBLIC_URL + "/myOrder"}
+                          path={process.env.PUBLIC_URL + "/my-order"}
                           component={MyOrder}
+                        />
+                         <Route
+                          path={process.env.PUBLIC_URL + "/kyc-form"}
+                          component={KYCForm}
+                        />
+                           <Route
+                          path={process.env.PUBLIC_URL + "/my-wallet"}
+                          component={Wallet}
                         />
                         <Route
                           path={process.env.PUBLIC_URL + "/wishlist"}

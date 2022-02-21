@@ -21,7 +21,7 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
       <p>
         &copy; {new Date().getFullYear()}{" "}
         <a href="/" rel="noopener noreferrer" target="">
-          Buynaa
+          Agricoin
         </a>
         .<br /> All Rights Reserved
       </p>

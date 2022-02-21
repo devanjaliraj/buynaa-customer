@@ -170,6 +170,11 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
               {strings["about_us"]}
             </Link>
           </li>
+          <li>
+            <Link to={process.env.PUBLIC_URL + "/mobile"}>
+              {strings["mobile"]}
+            </Link>
+          </li>
           {/* {sidebarMenu ? (
                 <span>
                    <i className="fa fa-angle-right"></i> 

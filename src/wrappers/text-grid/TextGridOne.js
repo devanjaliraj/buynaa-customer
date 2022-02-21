@@ -17,14 +17,14 @@ const TextGridOne = ({ spaceBottomClass }) => {
             <div className="col-sm-12">
               <h2>About us</h2>
               <p>
-                Buynaa – Your one-stop solution to quench your shopping needs!
+              Agricoin – Your one-stop solution to quench your shopping needs!
               </p>
               <p>
                 Say goodbye to the days of perpetually waiting for the apparel
                 you set your eyes on! Festival, dates, weddings, or simply a
                 casual get-away, be at your best from the purely desi lanes! We
                 are a cutting-edge platform for customers to rediscover the
-                local Indian apparel markets. True to our name, “Buynaa”, we
+                local Indian apparel markets. True to our name, “Agricoin”, we
                 also deliver an e-commerce marketplace for you to shop online
                 seamlessly and get your clothes delivered to you on the same day
                 or the next! The essence of buying clothes is much better when
@@ -75,7 +75,7 @@ const TextGridOne = ({ spaceBottomClass }) => {
               </p>
               <p>
                 We think this can be changed only through some disruption in the
-                system! Buynaa steps in as a group of young people from the
+                system! Agricoin steps in as a group of young people from the
                 “City of Joy – Kolkata” to alter the condition of the local
                 Indian apparel stores. We aim to make an impact by
                 revolutionizing the customer’s shopping experience by

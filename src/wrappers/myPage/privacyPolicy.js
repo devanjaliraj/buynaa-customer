@@ -27,7 +27,7 @@ export default class privacyPolicy extends Component {
               <ListGroup>
                 <h2 style={{ fontWeight: "500" }}>Privacy Policy</h2>
                 <p>
-                  Buynaa, C/O, Brizebond Technologies Private Limited (“Buynaa”)
+                Agricoin, C/O, Brizebond Technologies Private Limited (“Agricoin”)
                   takes your privacy very seriously. This Privacy Policy
                   (“Privacy Policy”) explains the details of our collection, use
                   and disclosure of information, including your personal
@@ -46,13 +46,13 @@ export default class privacyPolicy extends Component {
                   communications, or services.
                 </li>
                 <li>
-                  By accessing, or using the Buynaa website (“Website”), and/or
+                  By accessing, or using the Agricoin website (“Website”), and/or
                   its applications (“App/Application”) you expressly agree and
                   consent to be bound by the terms of this Privacy Policy.
                 </li>
                 <li>
-                  The terms "WE", "OUR" and "US" refer to Buynaa and the terms "
-                  YOU", "YOUR" and "USER" refer to you, as a user of Buynaa.
+                  The terms "WE", "OUR" and "US" refer to Agricoin and the terms "
+                  YOU", "YOUR" and "USER" refer to you, as a user of Agricoin.
                 </li>
                 <li>
                   Personal Information refers to any information about a living
@@ -99,7 +99,7 @@ export default class privacyPolicy extends Component {
                   Scope of Policy and Terms{" "}
                 </h2>
                 <p>
-                  1. This Privacy Policy applies to the Buynaa Website, or any
+                  1. This Privacy Policy applies to the Agricoin Website, or any
                   online/web application that refers to or links to this Privacy
                   Policy. This Privacy Policy applies regardless of whether you
                   have downloaded or accessed the Website or Application onto
@@ -112,12 +112,12 @@ export default class privacyPolicy extends Component {
                   group of individuals.{" "}
                 </p>
                 <p>
-                  3. This Privacy Policy governs the use of any and all Buynaa
+                  3. This Privacy Policy governs the use of any and all Agricoin
                   Services availed by you.{" "}
                 </p>
                 <h2 style={{ fontWeight: "500" }}>Information We Collect</h2>
                 <p>
-                  4. Buynaa collects, processes and retains information, i.e.
+                  4. Agricoin collects, processes and retains information, i.e.
                   Personal Information (including Sensitive Personal
                   Information) about you when you visit “www.buynaa.com”. In
                   course of your use and transactions on the Website and
@@ -133,7 +133,7 @@ export default class privacyPolicy extends Component {
                   your date of birth.
                 </p>
                 <p>
-                  3. Your correspondence with Buynaa, including but not limited
+                  3. Your correspondence with Agricoin, including but not limited
                   to customer support.
                 </p>
                 <p>
@@ -180,7 +180,7 @@ export default class privacyPolicy extends Component {
                 </p>
                 <p>b) Information we collect about you</p>
                 <p>
-                  Buynaa collects your Device information, including but not
+                Agricoin collects your Device information, including but not
                   limited to, IP address, browsing data, Device ID or Unique
                   identifier, device type, geo-location, computer and internet
                   information, mobile network information, statistics on page
@@ -202,7 +202,7 @@ export default class privacyPolicy extends Component {
                   Why We Collect Information{" "}
                 </h3>
                 <p>
-                  5. Buynaa collects information (including Sensitive Personal
+                  5. Agricoin collects information (including Sensitive Personal
                   Information) to provide the services and for the purposes as
                   outlined below:-
                 </p>
@@ -211,7 +211,7 @@ export default class privacyPolicy extends Component {
                   Website/App.
                 </p>
                 <p>
-                  2. To provide you with access to Buynaa Services and Customer
+                  2. To provide you with access to Agricoin Services and Customer
                   Support.
                 </p>
                 <p>3. To process and notify you of your transactions.</p>
@@ -241,21 +241,21 @@ export default class privacyPolicy extends Component {
                   Disclosure of your Information{" "}
                 </h3>
                 <p>
-                  6. Buynaa does not share, sell, rent or trade personal
+                  6. Agricoin does not share, sell, rent or trade personal
                   information collected through “www.buynaa.com” with third
                   parties for their sole promotional purposes or otherwise than
                   as outlined in this Privacy Policy.
                 </p>
                 <p>
-                  7. Buynaa may share the Personal Information (and other
+                  7. Agricoin may share the Personal Information (and other
                   information including Sensitive Personal Information) with
                   selected third parties as described below:-
                 </p>
                 <p>
-                  1. Members of the Buynaa corporate family, affiliates, group
+                  1. Members of the Agricoin corporate family, affiliates, group
                   companies.
                 </p>
-                <p>2. Service providers under contract with Buynaa.</p>
+                <p>2. Service providers under contract with Agricoin.</p>
                 <p>
                   8. We may also disclose your Personal Information (and other
                   information including Sensitive Personal Information):-
@@ -266,12 +266,12 @@ export default class privacyPolicy extends Component {
                   authority, or by other legal process.
                 </p>
                 <p>
-                  2. When Buynaa believes in good faith that disclosure is
+                  2. When Agricoin believes in good faith that disclosure is
                   necessary to protect our legal rights, protect your safety or
                   the safety of others, or investigate fraud or crime.
                 </p>
                 <p>
-                  3. If Buynaa (or any of our affiliates) is involved in a
+                  3. If Agricoin (or any of our affiliates) is involved in a
                   merger, acquisition, or sale of all or substantially all its
                   assets or equity.{" "}
                 </p>
@@ -290,7 +290,7 @@ export default class privacyPolicy extends Component {
                 <p>
                   10. At times, express written consent from the individual may
                   be required based on the information processing activity.
-                  Buynaa receives consent from individuals prior to:
+                  Agricoin receives consent from individuals prior to:
                 </p>
                 <p>
                   1. collecting, using, or processing their personal
@@ -326,19 +326,19 @@ export default class privacyPolicy extends Component {
                 </p>
                 <h3 style={{ fontWeight: "500" }}>Marketing and Analytics </h3>
                 <p>
-                  14. Buynaa will send you messages and e-mails or contact you
+                  14. Agricoin will send you messages and e-mails or contact you
                   through voice call or robotic calling to carry to your
                   promotional offers.{" "}
                 </p>
                 <p>
-                  15. Buynaa and our third-party service providers, including
+                  15. Agricoin and our third-party service providers, including
                   our marketing partners and analytics providers, may use mobile
                   tracking technologies and/or website cookies to distinguish
                   and/or identify you from other users of the Website or
                   Application.
                 </p>
                 <p>
-                  16. This helps Buynaa to improve the Website and Application
+                  16. This helps Agricoin to improve the Website and Application
                   thereby providing you with a good experience. We may use the
                   analytics tools and software in order to develop and analyse
                   use of the Service.
@@ -372,9 +372,9 @@ export default class privacyPolicy extends Component {
                 </p>
                 <h3 style={{ fontWeight: "500" }}>Data Storage </h3>
                 <p>
-                  19. Buynaa may transfer your information from “www.
-                  buynaa.com” to other databases and store it on Buynaa or other
-                  supplier systems. Buynaa ensures appropriate security controls
+                  19. Agricoin may transfer your information from “www.
+                  buynaa.com” to other databases and store it on Agricoin or other
+                  supplier systems. Agricoin ensures appropriate security controls
                   while storing data on its or its suppliers’ systems.
                 </p>
                 <h3 style={{ fontWeight: "500" }}>Retention Policy</h3>
@@ -441,14 +441,14 @@ export default class privacyPolicy extends Component {
                 </p>
                 <h3 style={{ fontWeight: "500" }}>Changes</h3>
                 <p>
-                  28.Buynaa reserves the right to change this policy from time
+                  28.Agricoin reserves the right to change this policy from time
                   to time. Any changes shall be effective immediately upon the
                   posting of the revised Privacy Policy. We encourage you to
                   periodically review this page for latest information on our
                   privacy practices.
                 </p>
                 <p>
-                  29.Buynaa trusts you to be conscious of the Policy and any
+                  29.Agricoin trusts you to be conscious of the Policy and any
                   changes to it at all time, thus maintaining that it cannot be
                   made liable if you misunderstand or ignore the Privacy Policy.
                 </p>

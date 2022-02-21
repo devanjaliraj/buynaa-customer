@@ -65,6 +65,11 @@ const FooterThree = ({
                       </Link>
                     </li>
                     <li>
+                      <Link to={process.env.PUBLIC_URL + "/mobile"}>
+                        Mobile
+                      </Link>
+                    </li>
+                    <li>
                       <Link to={process.env.PUBLIC_URL + "/contact"}>
                         Contact
                       </Link>

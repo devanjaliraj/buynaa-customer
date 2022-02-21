@@ -8,11 +8,10 @@ import LocationMap from "../../components/contact/LocationMap";
 
 const Contact = ({ location }) => {
   const { pathname } = location;
-
   return (
     <Fragment>
       <MetaTags>
-        <title>Flone | Contact</title>
+        <title>Agricoin | Contact</title>
         <meta
           name="description"
           content="Contact of flone react minimalist eCommerce template."

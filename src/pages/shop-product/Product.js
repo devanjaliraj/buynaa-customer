@@ -37,7 +37,7 @@ export class Product extends Component {
     return (
       <Fragment>
         <MetaTags>
-          <title>Flone | Product Page</title>
+          <title>Agricoin | Product Page</title>
           <meta
             name="description"
             content="Product page of flone react minimalist eCommerce template."
