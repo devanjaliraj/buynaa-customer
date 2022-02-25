@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useCallback } from "react";
+import useRazorpay from "react-razorpay";
 import { Link, useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
@@ -118,6 +119,88 @@ const Cart = ({
       console.log(error);
     }
   };
+
+  const [key, setKey] = useState("rzp_live_dX052iXb0Is1yu");
+  const Razorpay = useRazorpay();
+  const [orderId, setOrderId] = useState("");
+  useEffect(() => {
+    console.log("useEffect");
+    Axios.get(`http://35.154.86.59/api/admin/rapay/${total}`)
+      .then((response) => {
+        console.log(response.data);
+        setOrderId(response.data?.order.id);
+        // setAmount(response.data?.order.amount);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }, []);
+  const handlePayment = useCallback(
+    async (
+      amount,
+      description,
+      name,
+      email,
+      contact,
+      sub_plan,
+      status,
+      duration
+    ) => {
+      const RazorpayOptions = {
+        key: key,
+        amount: amount,
+        currency: "INR",
+        name: "YOUR ORDER",
+        description: description,
+        //order_id: "1234567890",
+        handler: (res) => {
+          var data = {
+            duration,
+            sub_plan,
+            status,
+            sortorder: "",
+            amount,
+            description,
+            name,
+            email,
+            contact,
+          };
+          console.log("gaurav", res);
+          Axios.post("http://35.154.86.59/api/admin/addordersample", data, {
+            headers: {
+              "auth-token": localStorage.getItem("auth-token"),
+            },
+          })
+            .then((response) => {
+              console.log("pranay", response);
+
+              history.push("/cart");
+            })
+            .catch((error) => {
+              console.log(error.response);
+            });
+          //api call
+        },
+        prefill: {
+          name: name,
+          email: email,
+          contact: contact,
+        },
+        notes: {
+          address: "BuyNaa Corporate Office",
+        },
+        theme: { color: "#3399cc" },
+      };
+
+      const rzpay = new Razorpay(RazorpayOptions);
+
+      rzpay.on("payment.failure", function (resp) {
+        alert("Remains on same page");
+      });
+      rzpay.open();
+    },
+    [Razorpay]
+  );
 
   return (
     <Fragment>
@@ -378,8 +461,18 @@ const Cart = ({
                         Grand Total <span>₹{total}</span>
                       </h4>
                       <Link
-                        to={{ pathname: "https://pmny.in/AIRaJwzJjaAJ" }}
-                        target="_blank"
+                        onClick={() =>
+                          handlePayment(
+                            total * 100,
+                            "checkout",
+                            "Pranay Kumar",
+                            "P.kumar@gmail.com",
+                            "9876543210",
+                            total * 100,
+                            true,
+                            ""
+                          )
+                        }
                       >
                         Proceed to Checkout
                       </Link>

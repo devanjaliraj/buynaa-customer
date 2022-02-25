@@ -164,14 +164,14 @@ const ShopGridMenColumn = ({
                                   className="default-img"
                                   src={product.product_img[0]}
                                   alt=""
-                                  //   style={{ width: "250px", height: "300px" }}
+                                  style={{ width: "250px", height: "300px" }}
                                 />
 
                                 <img
                                   className="hover-img"
                                   src={product.product_img[1]}
                                   alt=""
-                                  //   style={{ width: "200px", height: "250px" }}
+                                  style={{ width: "250px", height: "300px" }}
                                 />
                               </Link>
 

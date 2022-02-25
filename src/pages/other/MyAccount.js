@@ -78,6 +78,23 @@ export default class MyAccount extends Component {
       });
   }
 
+  submitHandler = (e) => {
+    e.preventDefault();
+    let { id } = this.props.match.params;
+    axios
+      .post(`http://35.154.86.59/api/user/editcustomer`, this.state, {
+        headers: {
+          "auth-token": localStorage.getItem("auth-token"),
+        },
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  };
+
   addAddress = (e) => {
     e.preventDefault();
     console.log(this.state);
@@ -103,23 +120,6 @@ export default class MyAccount extends Component {
   };
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-  };
-
-  submitHandler = (e) => {
-    e.preventDefault();
-    let { id } = this.props.match.params;
-    axios
-      .post(`http://35.154.86.59/api/user/editcustomer`, this.state, {
-        headers: {
-          "auth-token": localStorage.getItem("auth-token"),
-        },
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
   };
 
   render() {
