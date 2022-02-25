@@ -16,7 +16,7 @@ export class Checkout extends Component {
     return (
       <Fragment>
         <MetaTags>
-          <title>Flone | Checkout</title>
+          <title>Agricoin | Checkout</title>
           <meta
             name="description"
             content="Checkout page of flone react minimalist eCommerce template."

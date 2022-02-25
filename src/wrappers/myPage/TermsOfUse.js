@@ -38,7 +38,7 @@ export default class TermsOfUse extends Component {
                   is owned by Brizebond Technologies Private Limited, a company
                   incorporated under the Companies Act, 1956 with its registered
                   office at 1/18, East Mall Road, Dum Dum, Kolkata-700080
-                  (hereinafter referred to as "Company/BUYNAA").
+                  (hereinafter referred to as "Company/AGRICOIN").
                 </p>
                 <p>
                   We are the operators of the Website, associated web
@@ -54,9 +54,9 @@ export default class TermsOfUse extends Component {
                   the following terms and conditions ("Terms of Use") as
                   applicable to the Website including the applicable policies
                   which are incorporated herein by way of reference. By mere use
-                  of the Website, You shall be contracting with BUYNAA"). and
+                  of the Website, You shall be contracting with AGRICOIN"). and
                   these terms and conditions including the policies constitute
-                  Your binding obligations, with BUYNAA")..
+                  Your binding obligations, with AGRICOIN")..
                 </p>
                 <p>
                   For the purpose of these Terms of Use, wherever the context so
@@ -77,9 +77,9 @@ export default class TermsOfUse extends Component {
                 <h3 style={{ fontWeight: "500" }}>
                   License and Website Access
                 </h3>
-                ●General: BUYNAA grants you a limited license to access and make
+                ●General: AGRICOIN grants you a limited license to access and make
                 personal use of this Website and not to modify it, or any
-                portion of it, except with express written consent of BUYNAA.
+                portion of it, except with express written consent of AGRICOIN.
                 <br />
                 ● No license for commercial sale: This license does not include
                 any resale or commercial use of this Website or its content
@@ -90,7 +90,7 @@ export default class TermsOfUse extends Component {
                 reproduction: This Website or any portion of this Website may
                 not be reproduced, duplicated, copied, sold, visited, or
                 otherwise exploited for any commercial purpose without express
-                written consent of BUYNAA.
+                written consent of AGRICOIN.
               </ListGroup>
             </Row>
             <Row>
@@ -102,9 +102,9 @@ export default class TermsOfUse extends Component {
                 register as a User of the Website and shall not transact on or
                 use the Website. As a minor if you wish to use or transact on
                 the Website, such use or transaction may be made by your legal
-                guardian or parents on the Website. BUYNAA reserves the right to
+                guardian or parents on the Website. AGRICOIN reserves the right to
                 terminate your membership and / or refuse to provide you with
-                access to the Website if it is brought to BUYNAA 's notice or if
+                access to the Website if it is brought to AGRICOIN 's notice or if
                 it is discovered that you are under the age of 18 years.
               </ListGroup>
             </Row>
@@ -114,7 +114,7 @@ export default class TermsOfUse extends Component {
                   Your Account and Registration Obligations
                 </h3>
                 ●You need to create a primary account to avail the Services by
-                Buynaa. Accurate and complete registration is required to use
+                Agricoin. Accurate and complete registration is required to use
                 our Service.
                 <br />
                 ●You are mandatorily required to submit the following details
@@ -171,13 +171,13 @@ export default class TermsOfUse extends Component {
                   account.
                 </p>
                 <p>
-                  You are mandatorily required to notify Buynaa immediately of
+                  You are mandatorily required to notify Agricoin immediately of
                   any unauthorized use of your applicable account or password,
                   or any other breach in security, including suspected or actual
                   account of “phishing” incidents.{" "}
                 </p>
                 <p>
-                  You may be held liable for losses incurred by Buynaa or any
+                  You may be held liable for losses incurred by Agricoin or any
                   other user of/visitor to the Website and/or App and its allied
                   Platforms due to someone else using your applicable username,
                   password or account.
@@ -196,16 +196,16 @@ export default class TermsOfUse extends Component {
                   to provide You with access to the Website.
                 </p>
                 <p>
-                  BUYNAA will not be responsible for any financial loss,
+                AGRICOIN will not be responsible for any financial loss,
                   inconvenience or mental agony resulting from misuse of User's
                   ID/password/credit card number/account details number for
-                  using BUYNAA’s services.
+                  using AGRICOIN’s services.
                 </p>
                 <p>
                   The User also agrees and undertakes to immediately notify
-                  BUYNAA of any unauthorized use of the User's password or User
+                  AGRICOIN of any unauthorized use of the User's password or User
                   ID and to ensure that the User logs off at the end of each
-                  session at the website. BUYNAA shall not be responsible for
+                  session at the website. AGRICOIN shall not be responsible for
                   any, direct or indirect, loss or damage arising out of the
                   User's failure to comply with this requirement.
                 </p>
@@ -252,7 +252,7 @@ export default class TermsOfUse extends Component {
                     Platform for Listing and Information
                   </h3>
                   <p>
-                    1.BUYNAA is not and cannot be a party to or control in
+                    1.AGRICOIN is not and cannot be a party to or control in
                     any manner any transaction between the Website's Users.
                   </p>
                   <p>
@@ -265,10 +265,10 @@ export default class TermsOfUse extends Component {
                     and services.
                   </p>
                   <p>
-                    3.BUYNAA is only a facilitator, an intermediary and is not
+                    3.AGRICOIN is only a facilitator, an intermediary and is not
                     and cannot be a party to or control in any manner any
                     transactions between the Vendor/Seller and the Customer.
-                    BUYNAA shall neither be responsible nor liable to mediate or
+                    AGRICOIN shall neither be responsible nor liable to mediate or
                     resolve any disputes or disagreements between the Users.
                   </p>
                   <p>
@@ -278,7 +278,7 @@ export default class TermsOfUse extends Component {
                     into any transactions.
                   </p>
                   <p>
-                    5.BUYNAA does not sell or retail any products and does not
+                    5.AGRICOIN does not sell or retail any products and does not
                     ensure that the Users shall perform their obligations in
                     respect of the transaction concluded on this Site and
                     further expressly disclaims any warranties or
@@ -287,16 +287,16 @@ export default class TermsOfUse extends Component {
                     or legality of the products listed on the Website.
                   </p>
                   <p>
-                    6.BUYNAA is not responsible for any non-performance or
+                    6.AGRICOIN is not responsible for any non-performance or
                     breach of any contract entered into between Customers and
-                    Sellers. BUYNAA cannot and does not guarantee that the
+                    Sellers. AGRICOIN cannot and does not guarantee that the
                     concerned Customers and/or Sellers will perform any
-                    transaction concluded on the Website. BUYNAA shall not and
+                    transaction concluded on the Website. AGRICOIN shall not and
                     is not required to mediate or resolve any dispute or
                     disagreement between Customers and Sellers.
                   </p>
                   <p>
-                    7.BUYNAA does not make any representation or warranty as to
+                    7.AGRICOIN does not make any representation or warranty as to
                     the item-specifics (such as legal title, creditworthiness,
                     identity, etc.) of any of its Users. You are advised to
                     independently verify the bona fides of any particular User
@@ -304,7 +304,7 @@ export default class TermsOfUse extends Component {
                     best judgment in that behalf.
                   </p>
                   <p>
-                    8.BUYNAA does not at any point of time during any
+                    8.AGRICOIN does not at any point of time during any
                     transaction between Customer and Seller on the Website come
                     into or take possession of any of the products or services
                     offered by Seller nor does it at any point gain title to or
@@ -312,19 +312,19 @@ export default class TermsOfUse extends Component {
                     offered by Seller to Customer.
                   </p>
                   <p>
-                    9.BUYNAA is not responsible for unsatisfactory or delayed
+                    9.AGRICOIN is not responsible for unsatisfactory or delayed
                     performance of services or damages or delays as a result of
                     products which are out of stock, unavailable or back
                     ordered.
                   </p>
                   <p>
-                    10.You release and indemnify BUYNAA and/or any of its
+                    10.You release and indemnify AGRICOIN and/or any of its
                     officers and representatives from any cost, damage,
                     liability or other consequence of any of the actions of the
                     Users of the Website and specifically waive any claims that
                     you may have in this behalf under any applicable law.
                     Notwithstanding its reasonable efforts in that behalf,
-                    BUYNAA cannot take responsibility or control the
+                    AGRICOIN cannot take responsibility or control the
                     information provided by other Users which is made available
                     on the Website. You may find other User's information to be
                     offensive, harmful, inconsistent, inaccurate, or deceptive.
@@ -389,8 +389,8 @@ export default class TermsOfUse extends Component {
                     statement(s) or comment(s) about Us or the brand name or
                     domain name used by Us, or otherwise engage in any conduct
                     or action that might tarnish the image or reputation, of
-                    BUYNAA or sellers on platform or otherwise tarnish or dilute
-                    any BUYNAA's trade or service marks, trade name and/or
+                    AGRICOIN or sellers on platform or otherwise tarnish or dilute
+                    any AGRICOIN's trade or service marks, trade name and/or
                     goodwill associated with such trade or service marks, as may
                     be owned or used by Us.
                   </p>
@@ -419,11 +419,11 @@ export default class TermsOfUse extends Component {
                   </p>
                   <p>
                     6.We reserve the right, but have no obligation, to monitor
-                    the materials posted on the Website. BUYNAA shall have the
+                    the materials posted on the Website. AGRICOIN shall have the
                     right to remove or edit any Content that in its sole
                     discretion violates, or is alleged to violate, any
                     applicable law or either the spirit or letter of these Terms
-                    of Use. In no event shall BUYNAA assume or have any
+                    of Use. In no event shall AGRICOIN assume or have any
                     responsibility or liability for any Content posted or for
                     any claims, damages or losses resulting from use of Content
                     and/or appearance of Content on the Website. You hereby
@@ -436,7 +436,7 @@ export default class TermsOfUse extends Component {
                   <p>
                     7.You are advised to independently verify the bona fides of
                     any particular seller that you choose to deal with on the
-                    Website and use your best judgment in that behalf. BUYNAA,
+                    Website and use your best judgment in that behalf. AGRICOIN,
                     accepts no liability for any errors or omissions, whether on
                     behalf of itself or its Sellers or third parties.
                   </p>
@@ -450,7 +450,7 @@ export default class TermsOfUse extends Component {
                   <p>
                     9.You agree not to access (or attempt to access) the Website
                     and the materials or services by any means other than
-                    through the interface that is provided by BUYNAA. You shall
+                    through the interface that is provided by AGRICOIN. You shall
                     not use any deep-link, robot, spider or other automatic
                     device, program, algorithm or methodology, or any similar or
                     equivalent manual process, to access, acquire, copy or
@@ -469,7 +469,7 @@ export default class TermsOfUse extends Component {
                   <p>
                     11.This Website may contain links to other sites on the
                     internet that are owned and operated by third parties. You
-                    acknowledge that BUYNAA is not responsible for the operation
+                    acknowledge that AGRICOIN is not responsible for the operation
                     of or content located on or through any such site.
                   </p>
                 </ListGroup>
@@ -496,7 +496,7 @@ export default class TermsOfUse extends Component {
                     site are provided on "as is" and "as available" basis
                     without any representation or warranties, express or implied
                     except otherwise specified in writing. Without prejudice to
-                    the forgoing paragraph, BUYNAA does not warrant that:
+                    the forgoing paragraph, AGRICOIN does not warrant that:
                   </p>
                   <p>
                     • This Website will be constantly available, or available at
@@ -505,9 +505,9 @@ export default class TermsOfUse extends Component {
                     accurate or non-misleading.
                   </p>
                   <p>
-                    BUYNAA will not be liable to You in any way or in relation
+                    AGRICOIN will not be liable to You in any way or in relation
                     to the Contents of, or use of, or otherwise in connection
-                    with, the Website. BUYNAA does not warrant that this site;
+                    with, the Website. AGRICOIN does not warrant that this site;
                     information, Content, materials, product (including
                     software) or services included on or otherwise made
                     available to You through the Website; their servers; or
@@ -518,7 +518,7 @@ export default class TermsOfUse extends Component {
                   <p>
                     As a registered seller, you are allowed to list item(s) for
                     sale on the Website in accordance with the agreement which
-                    BUYNAA has entered with you, which are incorporated by way
+                    AGRICOIN has entered with you, which are incorporated by way
                     of reference in this Terms of Use. You must be legally able
                     to sell the item(s) you list for sale on our Website. You
                     must ensure that the listed items do not infringe upon the
@@ -537,7 +537,7 @@ export default class TermsOfUse extends Component {
                     item, you agree to refund any amounts that you may have
                     received from the Customer. You agree not to list a single
                     product in multiple quantities across various categories on
-                    the Website. BUYNAA reserves the right to delete such
+                    the Website. AGRICOIN reserves the right to delete such
                     multiple listings of the same product listed by you in
                     various categories.
                   </p>
@@ -560,7 +560,7 @@ export default class TermsOfUse extends Component {
                     relations with foreign States; or objectionable or otherwise
                     unlawful in any manner whatsoever; or which consists of or
                     contains software viruses, (" Objectionable Content "),
-                    please notify us immediately. BUYNAA will make all
+                    please notify us immediately. AGRICOIN will make all
                     reasonable endeavours to remove such Objectionable Content
                     complained about within a reasonable time.
                   </p>
@@ -569,7 +569,7 @@ export default class TermsOfUse extends Component {
                     Trademark, Copyright and Restriction
                   </h3>
                   <p>
-                    This site is controlled and operated by BUYNAA and products
+                    This site is controlled and operated by AGRICOIN and products
                     are sold by respective Sellers. All material on this site,
                     including images, illustrations, audio clips, and video
                     clips, are protected by copyrights, trademarks, and
@@ -588,7 +588,7 @@ export default class TermsOfUse extends Component {
                   </p>
                   <h3 style={{ fontWeight: "500" }}>Indemnity</h3>
                   <p>
-                    You shall indemnify and hold harmless BUYNAA, its licensee,
+                    You shall indemnify and hold harmless AGRICOIN, its licensee,
                     affiliates, subsidiaries, group companies (as applicable)
                     and their respective officers, directors, agents, and
                     employees, from any claim or demand, or actions
@@ -612,7 +612,7 @@ export default class TermsOfUse extends Component {
                   </p>
                   <h3 style={{ fontWeight: "500" }}>Termination:</h3>
                   <p>
-                    BUYNAA reserves its right to limit, refuse service,
+                  AGRICOIN reserves its right to limit, refuse service,
                     restrict, suspend, prohibit access to the Website, terminate
                     your account and services; (or remove any product or service
                     that is available on or through the services; deactivate or
@@ -624,7 +624,7 @@ export default class TermsOfUse extends Component {
                     cease. Once the User's registration or the services are
                     terminated, cancelled or suspended, any data that the User
                     has stored on the Website may not be retrieved later. The
-                    User agrees that BUYNAA may under certain circumstances and
+                    User agrees that AGRICOIN may under certain circumstances and
                     without prior notice, immediately terminate the User's user
                     ID and access to the Website. Causes for termination may
                     include, but shall not be limited to requests by enforcement

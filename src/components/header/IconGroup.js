@@ -108,14 +108,38 @@ const IconGroup = ({
               </>
             ) : (
               <>
-                <li>
-                  <Link to={process.env.PUBLIC_URL + "/myOrder"}>My Order</Link>
-                </li>
+               
                 <li>
                   <Link to={process.env.PUBLIC_URL + "/my-account"}>
                     My Account
                   </Link>
                 </li>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/my-wallet"}>
+                   My Wallet
+                  </Link>
+                </li>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/bank-account"}>
+                    My Bank Account
+                  </Link>
+                </li>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/my-order"}>
+                    My Order</Link>
+                </li>
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/kyc-form"}>
+                    KYC Form
+                  </Link>
+                </li>
+             
+                <li>
+                  <Link to={process.env.PUBLIC_URL + "/payment-subscription"}>
+                    Payment Subscription
+                  </Link>
+                </li>
+              
                 <li>
                   <Link to="#">Logout</Link>
                 </li>

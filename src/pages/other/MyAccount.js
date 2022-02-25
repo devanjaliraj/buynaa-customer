@@ -126,7 +126,7 @@ export default class MyAccount extends Component {
     return (
       <Fragment>
         <MetaTags>
-          <title>Flone | My Account</title>
+          <title>Agricoin | My Account</title>
           <meta
             name="description"
             content="Compare page of flone react minimalist eCommerce template."

@@ -13,7 +13,7 @@ export class FirstSectiontwo extends Component {
             marginTop: 15,
           }}
         >
-          How Buynaa Works?
+          How Agricoin Works?
         </h2>
         <h6 style={{ textAlign: "center" }}>
           quis qui ex in qui non reprehenderit

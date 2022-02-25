@@ -105,9 +105,18 @@
 //                                     />
 //                                   </Link>
 //                                 </td>
+//   return (
+//     <Fragment>
+//       <MetaTags>
+//         <title>Agricoin | Wishlist</title>
+//         <meta
+//           name="description"
+//           content="Wishlist page of flone react minimalist eCommerce template."
+//         />
+//       </MetaTags>
 
-//                                 <td className="product-name text-center">
-//                                   <Link
+// //                                 <td className="product-name text-center">
+// //                                   <Link
 //                                     to={
 //                                       process.env.PUBLIC_URL +
 //                                       "/product-sticky/"

@@ -52,7 +52,7 @@ render() {
   return (
     <Fragment>
       <MetaTags>
-        <title>Buynaa | Login</title>
+        <title>Agricoin | Login</title>
         <meta
         //   name="description"
           content="Compare page of flone react minimalist eCommerce template."

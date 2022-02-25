@@ -78,6 +78,11 @@ const FooterOne = ({
                     </Link>
                   </li>
                   <li>
+                    <Link to={process.env.PUBLIC_URL + "/mobile"}>
+                      Mobile
+                    </Link>
+                  </li>
+                  <li>
                     <Link to={process.env.PUBLIC_URL + "#/"}>
                       Orders tracking
                     </Link>
